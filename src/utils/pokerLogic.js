@@ -1,5 +1,40 @@
 // Professional GTO-based poker logic with real ranges from Upswing Poker, PokerStars School, and professional training sites
 
+// Utility functions
+const parseCard = (cardStr) => {
+  const rank = cardStr.slice(0, -1);
+  const suit = cardStr.slice(-1);
+  return { rank, suit };
+};
+
+const getRankValue = (rank) => {
+  const values = { 'A': 12, 'K': 11, 'Q': 10, 'J': 9, '10': 8, '9': 7, '8': 6, '7': 5, '6': 4, '5': 3, '4': 2, '3': 1, '2': 0 };
+  return values[rank] || 0;
+};
+
+const getPositionMultiplier = (position) => {
+  const multipliers = {
+    'early': 0.75,     // UTG, UTG+1 - GTO: tight range, value-heavy
+    'middle': 0.95,    // MP, MP+1 - GTO: balanced range
+    'late': 1.15,      // CO, HJ - GTO: wider range, more bluffs
+    'button': 1.25,    // BTN - GTO: widest range, aggressive
+    'small_blind': 0.85, // SB - GTO: polarized range
+    'big_blind': 1.05  // BB - GTO: wider defending range
+  };
+  return multipliers[position] || 1.0;
+};
+
+const getPlayerCountAdjustment = (numPlayers) => {
+  if (numPlayers <= 3) return 1.2;  // Heads-up and 3-handed: wider ranges
+  if (numPlayers <= 6) return 1.0;  // 6-max: standard ranges
+  return 0.8;  // Full ring: tighter ranges
+};
+
+const getHandStrengthAdjustment = (holeCards, communityCards) => {
+  // Simplified hand strength adjustment
+  return 1.0;
+};
+
 // Professional GTO opening ranges by position (6-max)
 const GTO_RANGES = {
   'UTG': {
