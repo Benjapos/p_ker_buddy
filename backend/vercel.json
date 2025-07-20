@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "clean_app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "clean_app.py"
+    }
+  ],
+  "functions": {
+    "clean_app.py": {
+      "runtime": "python3.9"
+    }
+  }
+} 
