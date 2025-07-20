@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "AI-powered poker decision advisor",
   "main": "index.js",
+  "homepage": "https://benjapos.github.io/p_ker_buddy",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -12,14 +13,16 @@
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run start\" \"cd backend && python app.py\"",
     "test:backend": "cd backend && python -m pytest",
-    "test:all": "npm run test:backend && npm run test:ci"
+    "test:all": "npm run test:backend && npm run test:ci",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "axios": "^1.6.0",
     "react": "^18.2.0",
+    "react-card-flip": "^1.1.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "axios": "^1.6.0",
-    "react-card-flip": "^1.1.0",
     "styled-components": "^6.1.0"
   },
   "devDependencies": {
@@ -27,6 +30,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "concurrently": "^8.2.0",
+    "gh-pages": "^6.3.0",
     "jest": "^29.5.0"
   },
   "browserslist": {
@@ -56,4 +60,4 @@
       }
     }
   }
-} 
+}
