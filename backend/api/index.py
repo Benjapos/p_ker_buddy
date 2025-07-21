@@ -10,7 +10,7 @@ os.environ['FLASK_DOTENV_LOADING'] = 'false'
 os.environ['FLASK_ENV'] = 'production'
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['https://benjapos.github.io', 'http://localhost:3000', 'https://p-ker-buddy.vercel.app'])
 
 # Professional GTO-based poker logic with real ranges from Upswing Poker, PokerStars School, and professional training sites
 
@@ -410,9 +410,17 @@ def generate_ai_recommendation(data):
         'timestamp': datetime.now().isoformat()
     }
 
-@app.route('/api/analyze', methods=['POST'])
+@app.route('/api/analyze', methods=['POST', 'OPTIONS'])
 def analyze_hand():
     """Analyze poker hand and provide AI recommendation"""
+    if request.method == 'OPTIONS':
+        # Handle preflight request
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
+    
     try:
         data = request.get_json()
         
@@ -426,15 +434,26 @@ def analyze_hand():
         # Generate recommendation
         recommendation = generate_ai_recommendation(data)
         
-        return jsonify(recommendation)
+        response = jsonify(recommendation)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/health', methods=['GET'])
+@app.route('/api/health', methods=['GET', 'OPTIONS'])
 def health_check():
     """Health check endpoint"""
-    return jsonify({'status': 'healthy', 'timestamp': datetime.now().isoformat()})
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'GET')
+        return response
+    
+    response = jsonify({'status': 'healthy', 'timestamp': datetime.now().isoformat()})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # Vercel serverless function handler
 def handler(request, context):
