@@ -390,5 +390,7 @@ export {
   getPlayerCountAdjustment,
   getHandStrengthAdjustment,
   analyzeGTORange,
-  getGTOAdvice
+  getGTOAdvice,
+  getGTOAction,
+  calculateImpliedOdds
 }; 

@@ -1,64 +1,43 @@
 // Mock backend for local testing
+import { getGTOAction, calculatePotOdds, calculateImpliedOdds, evaluateHand } from './utils/pokerLogic.js';
+
 export const mockAnalyzeHand = async (data) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
   
-  const { holeCards, position, potSize, betSize, numPlayers } = data;
+  const { holeCards, position, potSize, betSize, numPlayers, bigBlind = 2, stackSize = 1000 } = data;
   
-  // Simple mock logic
-  const card1 = holeCards[0];
-  const card2 = holeCards[1];
-  const rank1 = card1.slice(0, -1);
-  const rank2 = card2.slice(0, -1);
+  // Use proper GTO logic from pokerLogic.js
+  const gtoResult = getGTOAction(holeCards, position, numPlayers, potSize, betSize, bigBlind);
   
-  // Mock equity calculation
-  let equity = 50;
-  if (rank1 === rank2) {
-    equity = 80; // Pairs are strong
-  } else if (rank1 === 'A' || rank2 === 'A') {
-    equity = 65; // Ace hands are strong
-  } else if (['K', 'Q', 'J'].includes(rank1) && ['K', 'Q', 'J'].includes(rank2)) {
-    equity = 55; // Broadway cards
-  }
+  // Calculate pot odds
+  const potOdds = calculatePotOdds(potSize, betSize);
   
-  // Mock action logic
-  let action = 'fold';
-  let confidence = 60;
-  let raiseAmount = null;
-  let reasoning = '';
+  // Calculate implied odds
+  const impliedOdds = calculateImpliedOdds(potSize, betSize, stackSize, 65); // Assume 65% equity for GTO hands
   
-  if (equity > 70) {
-    action = 'raise';
-    confidence = 85;
-    raiseAmount = 6;
-    reasoning = `Strong hand ${rank1}${rank2} with ${equity}% equity. Raise for value.`;
-  } else if (equity > 50) {
-    if (position === 'button' || position === 'late') {
-      action = 'raise';
-      confidence = 70;
-      raiseAmount = 4;
-      reasoning = `Decent hand ${rank1}${rank2} with ${equity}% equity. Raise from late position.`;
-    } else {
-      action = 'call';
-      confidence = 65;
-      reasoning = `Decent hand ${rank1}${rank2} with ${equity}% equity. Call from ${position} position.`;
-    }
-  } else {
-    action = 'fold';
-    confidence = 75;
-    reasoning = `Weak hand ${rank1}${rank2} with ${equity}% equity. Fold from ${position} position.`;
+  // Evaluate hand strength
+  const handEvaluation = evaluateHand(holeCards, []);
+  
+  // Calculate expected value
+  let ev = 0;
+  if (gtoResult.action === 'call') {
+    ev = Math.round((potSize + betSize) * 0.6 - betSize); // Assume 60% equity for calling hands
+  } else if (gtoResult.action === 'raise') {
+    ev = Math.round((potSize + gtoResult.raiseAmount) * 0.7 - gtoResult.raiseAmount); // Assume 70% equity for raising hands
   }
   
   return {
-    action,
-    confidence,
-    raiseAmount,
-    bigBlind: 2,
-    handStrength: 'Pre-flop',
-    equity: equity.toFixed(1),
-    potOdds: betSize > 0 ? Math.round((potSize / betSize) * 100) : 0,
-    ev: action === 'fold' ? 0 : Math.round((potSize + (raiseAmount || betSize)) * (equity / 100) - (raiseAmount || betSize)),
-    reasoning,
+    action: gtoResult.action,
+    confidence: gtoResult.confidence,
+    raiseAmount: gtoResult.raiseAmount,
+    bigBlind: bigBlind,
+    handStrength: handEvaluation.strength,
+    equity: 65, // Mock equity for GTO hands
+    potOdds: Math.round(potOdds),
+    impliedOdds: Math.round(impliedOdds),
+    ev: ev,
+    reasoning: gtoResult.reasoning,
     timestamp: new Date().toISOString()
   };
 }; 
