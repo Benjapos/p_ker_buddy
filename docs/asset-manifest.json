@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/p_ker_buddy/static/js/main.67fdd91c.js",
+    "main.js": "/p_ker_buddy/static/js/main.e655b1c4.js",
     "index.html": "/p_ker_buddy/index.html",
-    "main.67fdd91c.js.map": "/p_ker_buddy/static/js/main.67fdd91c.js.map"
+    "main.e655b1c4.js.map": "/p_ker_buddy/static/js/main.e655b1c4.js.map"
   },
   "entrypoints": [
-    "static/js/main.67fdd91c.js"
+    "static/js/main.e655b1c4.js"
   ]
 }
