@@ -245,15 +245,19 @@ const AIRecommendation = ({ recommendation, loading, onAnalyze, canAnalyze, isPr
           <EquityValue>{equity}%</EquityValue>
         </StatCard>
         
-        <StatCard>
-          <StatLabel>Pot Odds</StatLabel>
-          <StatValue>{potOdds}%</StatValue>
-        </StatCard>
+        {!isPreflop && potOdds !== null && (
+          <StatCard>
+            <StatLabel>Pot Odds</StatLabel>
+            <StatValue>{potOdds}%</StatValue>
+          </StatCard>
+        )}
         
-        <StatCard>
-          <StatLabel>Implied Odds</StatLabel>
-          <StatValue>{impliedOdds}%</StatValue>
-        </StatCard>
+        {!isPreflop && impliedOdds !== null && (
+          <StatCard>
+            <StatLabel>Implied Odds</StatLabel>
+            <StatValue>{impliedOdds}%</StatValue>
+          </StatCard>
+        )}
         
         <StatCard>
           <StatLabel>Expected Value</StatLabel>

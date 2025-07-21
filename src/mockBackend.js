@@ -5,19 +5,24 @@ export const mockAnalyzeHand = async (data) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
   
-  const { holeCards, position, potSize, betSize, numPlayers, bigBlind = 2, smallBlind = 1, stackSize = 1000 } = data;
+  const { holeCards, position, potSize, betSize, numPlayers, bigBlind = 2, smallBlind = 1, stackSize = 1000, flop = [] } = data;
   
   // Use proper GTO logic from pokerLogic.js
   const gtoResult = getGTOAction(holeCards, position, numPlayers, potSize, betSize, bigBlind, smallBlind);
   
-  // Calculate pot odds
-  const potOdds = calculatePotOdds(potSize, betSize);
+  // Determine if this is preflop or postflop
+  const isPreflop = flop.length === 0;
   
-  // Calculate implied odds
-  const impliedOdds = calculateImpliedOdds(potSize, betSize, stackSize, 65); // Assume 65% equity for GTO hands
+  // Calculate pot odds only for postflop situations
+  let potOdds = 0;
+  let impliedOdds = 0;
+  if (!isPreflop) {
+    potOdds = calculatePotOdds(potSize, betSize);
+    impliedOdds = calculateImpliedOdds(potSize, betSize, stackSize, 65); // Assume 65% equity for GTO hands
+  }
   
   // Evaluate hand strength
-  const handEvaluation = evaluateHand(holeCards, []);
+  const handEvaluation = evaluateHand(holeCards, flop);
   
   // Calculate expected value
   let ev = 0;
@@ -35,8 +40,8 @@ export const mockAnalyzeHand = async (data) => {
     bigBlind: bigBlind,
     handStrength: handEvaluation.strength,
     equity: 65, // Mock equity for GTO hands
-    potOdds: Math.round(potOdds),
-    impliedOdds: Math.round(impliedOdds),
+    potOdds: isPreflop ? null : Math.round(potOdds),
+    impliedOdds: isPreflop ? null : Math.round(impliedOdds),
     ev: ev,
     reasoning: gtoResult.reasoning,
     timestamp: new Date().toISOString()
