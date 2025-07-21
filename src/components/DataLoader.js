@@ -93,25 +93,40 @@ const DataLoader = ({ onDataLoaded }) => {
 
   const loadData = async () => {
     try {
+      console.log('Loading CSV data...');
+      
       // Load preflop data
       const preflopResponse = await fetch('/data/10_000_Preflop_Scenarios_with_Conditional_Actions.csv');
+      console.log('Preflop response status:', preflopResponse.status);
+      
       if (preflopResponse.ok) {
         const preflopContent = await preflopResponse.text();
+        console.log('Preflop content length:', preflopContent.length);
         loadPreflopData(preflopContent);
         setDataStatus(prev => ({ ...prev, preflop: true }));
+        console.log('✅ Preflop data loaded successfully');
+      } else {
+        console.error('❌ Failed to load preflop data:', preflopResponse.status, preflopResponse.statusText);
       }
 
       // Load postflop data
       const postflopResponse = await fetch('/data/10_000_Postflop_Scenarios_with_Recommended_Actions.csv');
+      console.log('Postflop response status:', postflopResponse.status);
+      
       if (postflopResponse.ok) {
         const postflopContent = await postflopResponse.text();
+        console.log('Postflop content length:', postflopContent.length);
         loadPostflopData(postflopContent);
         setDataStatus(prev => ({ ...prev, postflop: true }));
+        console.log('✅ Postflop data loaded successfully');
+      } else {
+        console.error('❌ Failed to load postflop data:', postflopResponse.status, postflopResponse.statusText);
       }
 
       // Update summary
       const dataSummary = getDataSummary();
       setSummary(dataSummary);
+      console.log('Data summary:', dataSummary);
 
       // Notify parent component
       if (onDataLoaded) {
@@ -119,7 +134,7 @@ const DataLoader = ({ onDataLoaded }) => {
       }
 
     } catch (error) {
-      console.error('Error loading CSV data:', error);
+      console.error('❌ Error loading CSV data:', error);
     }
   };
 
