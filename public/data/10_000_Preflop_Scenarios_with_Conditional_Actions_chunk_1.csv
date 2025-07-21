@@ -1,0 +1,1001 @@
+Position,Hand,Hand Type,Recommended Action
+BTN,83o,Trash,Fold (unplayable)
+UTG+1,JJ,Strong,"Call, fold to large 3-bet"
+HJ,T9s,Speculative,Fold (not profitable OOP)
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+BTN,QQ,Premium,Raise (almost always)
+SB,87s,Speculative,"Call if no raise, fold to raise"
+BB,98s,Speculative,"Call if no raise, fold to raise"
+BTN,JJ,Strong,"Raise, call 3-bet in position"
+BB,KTs,Speculative,"Call if no raise, fold to raise"
+UTG,95o,Trash,Fold (unplayable)
+MP,83o,Trash,Fold (unplayable)
+CO,T3o,Trash,Fold (unplayable)
+BB,TT,Strong,"Call, fold to large 3-bet"
+CO,AA,Premium,Raise (almost always)
+HJ,AKs,Premium,Raise (almost always)
+SB,A5s,Speculative,"Call if no raise, fold to raise"
+BB,TT,Strong,"Call, fold to large 3-bet"
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+MP,KJo,Marginal,Fold (too weak early)
+MP,AKs,Premium,Raise (almost always)
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG,J9s,Marginal,Fold (too weak early)
+MP,AA,Premium,Raise (almost always)
+SB,AKs,Premium,Raise (almost always)
+UTG,98s,Speculative,Fold (not profitable OOP)
+MP,98s,Speculative,Fold (not profitable OOP)
+BB,KTs,Speculative,"Call if no raise, fold to raise"
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+UTG+1,J4o,Trash,Fold (unplayable)
+BB,AJs,Strong,"Call, fold to large 3-bet"
+CO,95o,Trash,Fold (unplayable)
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+BB,T3o,Trash,Fold (unplayable)
+UTG+1,87s,Speculative,Fold (not profitable OOP)
+UTG,87s,Speculative,Fold (not profitable OOP)
+BTN,A9o,Marginal,"Call if folded to, fold to aggression"
+UTG,98s,Speculative,Fold (not profitable OOP)
+BB,AJs,Strong,"Call, fold to large 3-bet"
+UTG+1,AKs,Premium,Raise (almost always)
+SB,83o,Trash,Fold (unplayable)
+BTN,83o,Trash,Fold (unplayable)
+SB,AJs,Strong,"Raise, call 3-bet in position"
+HJ,T9s,Speculative,Fold (not profitable OOP)
+BTN,KJo,Marginal,"Call if folded to, fold to aggression"
+BTN,AKs,Premium,Raise (almost always)
+CO,AJs,Strong,"Raise, call 3-bet in position"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,98s,Speculative,Fold (not profitable OOP)
+BTN,72o,Trash,Fold (unplayable)
+SB,J9s,Marginal,"Call if folded to, fold to aggression"
+BTN,T3o,Trash,Fold (unplayable)
+UTG,T3o,Trash,Fold (unplayable)
+UTG+1,T3o,Trash,Fold (unplayable)
+UTG,95o,Trash,Fold (unplayable)
+UTG+1,J9s,Marginal,Fold (too weak early)
+CO,AA,Premium,Raise (almost always)
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+SB,JJ,Strong,"Raise, call 3-bet in position"
+BB,KTs,Speculative,"Call if no raise, fold to raise"
+HJ,TT,Strong,"Call, fold to large 3-bet"
+CO,87s,Speculative,Fold (not profitable OOP)
+SB,95o,Trash,Fold (unplayable)
+CO,AKs,Premium,Raise (almost always)
+BTN,KK,Premium,Raise (almost always)
+CO,AA,Premium,Raise (almost always)
+MP,72o,Trash,Fold (unplayable)
+SB,22,Marginal,"Call if folded to, fold to aggression"
+UTG,AA,Premium,Raise (almost always)
+BB,AA,Premium,Raise (almost always)
+BB,22,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,A5s,Speculative,Fold (not profitable OOP)
+HJ,QQ,Premium,Raise (almost always)
+UTG+1,QQ,Premium,Raise (almost always)
+BB,AJs,Strong,"Call, fold to large 3-bet"
+MP,AQs,Strong,"Call, fold to large 3-bet"
+HJ,J4o,Trash,Fold (unplayable)
+MP,AJs,Strong,"Call, fold to large 3-bet"
+BB,87s,Speculative,"Call if no raise, fold to raise"
+BTN,T3o,Trash,Fold (unplayable)
+UTG,JJ,Strong,"Call, fold to large 3-bet"
+MP,AJs,Strong,"Call, fold to large 3-bet"
+BB,JJ,Strong,"Call, fold to large 3-bet"
+BTN,AKs,Premium,Raise (almost always)
+UTG,A9o,Marginal,Fold (too weak early)
+UTG,QQ,Premium,Raise (almost always)
+BB,T9s,Speculative,"Call if no raise, fold to raise"
+BB,AJs,Strong,"Call, fold to large 3-bet"
+MP,KQs,Strong,"Call, fold to large 3-bet"
+UTG+1,83o,Trash,Fold (unplayable)
+SB,83o,Trash,Fold (unplayable)
+MP,83o,Trash,Fold (unplayable)
+CO,A5s,Speculative,Fold (not profitable OOP)
+HJ,A9o,Marginal,"Call if folded to, fold to aggression"
+UTG,KTs,Speculative,Fold (not profitable OOP)
+MP,98s,Speculative,Fold (not profitable OOP)
+BB,98s,Speculative,"Call if no raise, fold to raise"
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+BTN,83o,Trash,Fold (unplayable)
+CO,JJ,Strong,"Raise, call 3-bet in position"
+BTN,QQ,Premium,Raise (almost always)
+MP,87s,Speculative,Fold (not profitable OOP)
+UTG,KTs,Speculative,Fold (not profitable OOP)
+CO,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG+1,KQs,Strong,"Call, fold to large 3-bet"
+UTG+1,KQs,Strong,"Call, fold to large 3-bet"
+MP,KK,Premium,Raise (almost always)
+UTG+1,AA,Premium,Raise (almost always)
+BTN,J4o,Trash,Fold (unplayable)
+CO,AKs,Premium,Raise (almost always)
+UTG,87s,Speculative,Fold (not profitable OOP)
+HJ,KTs,Speculative,Fold (not profitable OOP)
+UTG+1,JJ,Strong,"Call, fold to large 3-bet"
+CO,AA,Premium,Raise (almost always)
+BTN,95o,Trash,Fold (unplayable)
+HJ,AKs,Premium,Raise (almost always)
+SB,QQ,Premium,Raise (almost always)
+UTG+1,95o,Trash,Fold (unplayable)
+HJ,AQs,Strong,"Call, fold to large 3-bet"
+CO,A5s,Speculative,Fold (not profitable OOP)
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+CO,22,Marginal,"Call if folded to, fold to aggression"
+BTN,QQ,Premium,Raise (almost always)
+UTG,A5s,Speculative,Fold (not profitable OOP)
+HJ,87s,Speculative,Fold (not profitable OOP)
+BB,83o,Trash,Fold (unplayable)
+CO,JJ,Strong,"Raise, call 3-bet in position"
+CO,JJ,Strong,"Raise, call 3-bet in position"
+CO,98s,Speculative,Fold (not profitable OOP)
+BB,22,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG,95o,Trash,Fold (unplayable)
+MP,QTo,Marginal,Fold (too weak early)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+BTN,AA,Premium,Raise (almost always)
+BTN,AJs,Strong,"Raise, call 3-bet in position"
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,A5s,Speculative,Fold (not profitable OOP)
+UTG,98s,Speculative,Fold (not profitable OOP)
+BB,AKs,Premium,Raise (almost always)
+BB,87s,Speculative,"Call if no raise, fold to raise"
+MP,KQs,Strong,"Call, fold to large 3-bet"
+CO,KTs,Speculative,Fold (not profitable OOP)
+MP,98s,Speculative,Fold (not profitable OOP)
+UTG,AJs,Strong,"Call, fold to large 3-bet"
+MP,95o,Trash,Fold (unplayable)
+UTG,AQs,Strong,"Call, fold to large 3-bet"
+MP,KJo,Marginal,Fold (too weak early)
+UTG,QTo,Marginal,Fold (too weak early)
+MP,TT,Strong,"Call, fold to large 3-bet"
+BB,T3o,Trash,Fold (unplayable)
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+BTN,KTs,Speculative,"Call if no raise, fold to raise"
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+UTG,T3o,Trash,Fold (unplayable)
+MP,T3o,Trash,Fold (unplayable)
+BB,A5s,Speculative,"Call if no raise, fold to raise"
+UTG+1,QTo,Marginal,Fold (too weak early)
+MP,T9s,Speculative,Fold (not profitable OOP)
+BB,T9s,Speculative,"Call if no raise, fold to raise"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+CO,TT,Strong,"Raise, call 3-bet in position"
+BB,83o,Trash,Fold (unplayable)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,98s,Speculative,Fold (not profitable OOP)
+SB,AJs,Strong,"Raise, call 3-bet in position"
+CO,72o,Trash,Fold (unplayable)
+UTG,T9s,Speculative,Fold (not profitable OOP)
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+CO,AQs,Strong,"Raise, call 3-bet in position"
+SB,KTs,Speculative,"Call if no raise, fold to raise"
+HJ,AA,Premium,Raise (almost always)
+BB,KQs,Strong,"Call, fold to large 3-bet"
+UTG+1,J9s,Marginal,Fold (too weak early)
+SB,J4o,Trash,Fold (unplayable)
+MP,72o,Trash,Fold (unplayable)
+MP,KTs,Speculative,Fold (not profitable OOP)
+UTG,22,Marginal,Fold (too weak early)
+HJ,KK,Premium,Raise (almost always)
+UTG+1,J9s,Marginal,Fold (too weak early)
+BTN,95o,Trash,Fold (unplayable)
+BTN,TT,Strong,"Raise, call 3-bet in position"
+BTN,AKs,Premium,Raise (almost always)
+SB,J4o,Trash,Fold (unplayable)
+HJ,KTs,Speculative,Fold (not profitable OOP)
+SB,QQ,Premium,Raise (almost always)
+UTG,KJo,Marginal,Fold (too weak early)
+MP,95o,Trash,Fold (unplayable)
+MP,95o,Trash,Fold (unplayable)
+BB,AKs,Premium,Raise (almost always)
+HJ,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG,98s,Speculative,Fold (not profitable OOP)
+MP,AJs,Strong,"Call, fold to large 3-bet"
+HJ,JJ,Strong,"Call, fold to large 3-bet"
+BB,72o,Trash,Fold (unplayable)
+MP,KK,Premium,Raise (almost always)
+MP,T9s,Speculative,Fold (not profitable OOP)
+UTG,A5s,Speculative,Fold (not profitable OOP)
+UTG+1,KK,Premium,Raise (almost always)
+HJ,A9o,Marginal,"Call if folded to, fold to aggression"
+HJ,95o,Trash,Fold (unplayable)
+BTN,AA,Premium,Raise (almost always)
+BTN,J4o,Trash,Fold (unplayable)
+CO,KJo,Marginal,"Call if folded to, fold to aggression"
+MP,A9o,Marginal,Fold (too weak early)
+SB,87s,Speculative,"Call if no raise, fold to raise"
+BTN,A5s,Speculative,"Call if no raise, fold to raise"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+UTG,A5s,Speculative,Fold (not profitable OOP)
+UTG,QTo,Marginal,Fold (too weak early)
+HJ,J4o,Trash,Fold (unplayable)
+BB,22,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG+1,QTo,Marginal,Fold (too weak early)
+BB,TT,Strong,"Call, fold to large 3-bet"
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+BTN,KJo,Marginal,"Call if folded to, fold to aggression"
+BB,22,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,JJ,Strong,"Raise, call 3-bet in position"
+HJ,95o,Trash,Fold (unplayable)
+UTG+1,KJo,Marginal,Fold (too weak early)
+BB,QQ,Premium,Raise (almost always)
+SB,KTs,Speculative,"Call if no raise, fold to raise"
+SB,QQ,Premium,Raise (almost always)
+UTG,95o,Trash,Fold (unplayable)
+HJ,J4o,Trash,Fold (unplayable)
+UTG,87s,Speculative,Fold (not profitable OOP)
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+BB,TT,Strong,"Call, fold to large 3-bet"
+BB,KQs,Strong,"Call, fold to large 3-bet"
+CO,T3o,Trash,Fold (unplayable)
+MP,95o,Trash,Fold (unplayable)
+HJ,TT,Strong,"Call, fold to large 3-bet"
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG+1,72o,Trash,Fold (unplayable)
+BB,TT,Strong,"Call, fold to large 3-bet"
+BTN,87s,Speculative,"Call if no raise, fold to raise"
+SB,A5s,Speculative,"Call if no raise, fold to raise"
+MP,98s,Speculative,Fold (not profitable OOP)
+HJ,J4o,Trash,Fold (unplayable)
+BB,A9o,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,QQ,Premium,Raise (almost always)
+BB,QQ,Premium,Raise (almost always)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,QQ,Premium,Raise (almost always)
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,AKs,Premium,Raise (almost always)
+CO,AA,Premium,Raise (almost always)
+HJ,J4o,Trash,Fold (unplayable)
+CO,98s,Speculative,Fold (not profitable OOP)
+BB,AQs,Strong,"Call, fold to large 3-bet"
+BTN,QQ,Premium,Raise (almost always)
+BTN,QQ,Premium,Raise (almost always)
+BTN,AJs,Strong,"Raise, call 3-bet in position"
+BB,98s,Speculative,"Call if no raise, fold to raise"
+BTN,83o,Trash,Fold (unplayable)
+BTN,AJs,Strong,"Raise, call 3-bet in position"
+CO,83o,Trash,Fold (unplayable)
+BB,JJ,Strong,"Call, fold to large 3-bet"
+MP,83o,Trash,Fold (unplayable)
+UTG+1,AA,Premium,Raise (almost always)
+CO,AA,Premium,Raise (almost always)
+BB,AA,Premium,Raise (almost always)
+CO,QQ,Premium,Raise (almost always)
+UTG,QQ,Premium,Raise (almost always)
+UTG,J9s,Marginal,Fold (too weak early)
+HJ,TT,Strong,"Call, fold to large 3-bet"
+UTG,KJo,Marginal,Fold (too weak early)
+MP,22,Marginal,Fold (too weak early)
+SB,AKs,Premium,Raise (almost always)
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+MP,83o,Trash,Fold (unplayable)
+CO,KK,Premium,Raise (almost always)
+MP,95o,Trash,Fold (unplayable)
+UTG+1,AA,Premium,Raise (almost always)
+UTG+1,22,Marginal,Fold (too weak early)
+BTN,AKs,Premium,Raise (almost always)
+MP,A9o,Marginal,Fold (too weak early)
+BB,JJ,Strong,"Call, fold to large 3-bet"
+UTG,98s,Speculative,Fold (not profitable OOP)
+SB,22,Marginal,"Call if folded to, fold to aggression"
+CO,J4o,Trash,Fold (unplayable)
+CO,T9s,Speculative,Fold (not profitable OOP)
+MP,A9o,Marginal,Fold (too weak early)
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG,T9s,Speculative,Fold (not profitable OOP)
+HJ,95o,Trash,Fold (unplayable)
+MP,JJ,Strong,"Call, fold to large 3-bet"
+UTG+1,22,Marginal,Fold (too weak early)
+BB,AQs,Strong,"Call, fold to large 3-bet"
+BTN,87s,Speculative,"Call if no raise, fold to raise"
+UTG,QQ,Premium,Raise (almost always)
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+CO,JJ,Strong,"Raise, call 3-bet in position"
+UTG+1,83o,Trash,Fold (unplayable)
+UTG+1,22,Marginal,Fold (too weak early)
+MP,22,Marginal,Fold (too weak early)
+SB,22,Marginal,"Call if folded to, fold to aggression"
+MP,KTs,Speculative,Fold (not profitable OOP)
+MP,QQ,Premium,Raise (almost always)
+UTG,22,Marginal,Fold (too weak early)
+BTN,AA,Premium,Raise (almost always)
+BTN,83o,Trash,Fold (unplayable)
+CO,AJs,Strong,"Raise, call 3-bet in position"
+HJ,A5s,Speculative,Fold (not profitable OOP)
+HJ,QTo,Marginal,"Call if folded to, fold to aggression"
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+BTN,KQs,Strong,"Raise, call 3-bet in position"
+MP,AJs,Strong,"Call, fold to large 3-bet"
+CO,T3o,Trash,Fold (unplayable)
+HJ,95o,Trash,Fold (unplayable)
+BB,JJ,Strong,"Call, fold to large 3-bet"
+BTN,AJs,Strong,"Raise, call 3-bet in position"
+CO,A5s,Speculative,Fold (not profitable OOP)
+MP,A9o,Marginal,Fold (too weak early)
+CO,KJo,Marginal,"Call if folded to, fold to aggression"
+UTG,AA,Premium,Raise (almost always)
+MP,KJo,Marginal,Fold (too weak early)
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+BB,83o,Trash,Fold (unplayable)
+UTG+1,87s,Speculative,Fold (not profitable OOP)
+CO,AQs,Strong,"Raise, call 3-bet in position"
+UTG,95o,Trash,Fold (unplayable)
+BB,T3o,Trash,Fold (unplayable)
+MP,A5s,Speculative,Fold (not profitable OOP)
+CO,83o,Trash,Fold (unplayable)
+BB,A9o,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,KK,Premium,Raise (almost always)
+BTN,87s,Speculative,"Call if no raise, fold to raise"
+UTG,T9s,Speculative,Fold (not profitable OOP)
+CO,T9s,Speculative,Fold (not profitable OOP)
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+BB,AJs,Strong,"Call, fold to large 3-bet"
+UTG+1,JJ,Strong,"Call, fold to large 3-bet"
+CO,T3o,Trash,Fold (unplayable)
+BTN,KTs,Speculative,"Call if no raise, fold to raise"
+CO,JJ,Strong,"Raise, call 3-bet in position"
+UTG,KTs,Speculative,Fold (not profitable OOP)
+HJ,J9s,Marginal,"Call if folded to, fold to aggression"
+BTN,T3o,Trash,Fold (unplayable)
+BTN,J9s,Marginal,"Call if folded to, fold to aggression"
+MP,98s,Speculative,Fold (not profitable OOP)
+MP,83o,Trash,Fold (unplayable)
+CO,95o,Trash,Fold (unplayable)
+SB,KK,Premium,Raise (almost always)
+HJ,TT,Strong,"Call, fold to large 3-bet"
+CO,95o,Trash,Fold (unplayable)
+BB,AKs,Premium,Raise (almost always)
+UTG+1,AKs,Premium,Raise (almost always)
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+UTG,J4o,Trash,Fold (unplayable)
+BTN,TT,Strong,"Raise, call 3-bet in position"
+CO,22,Marginal,"Call if folded to, fold to aggression"
+HJ,TT,Strong,"Call, fold to large 3-bet"
+BB,KK,Premium,Raise (almost always)
+SB,AKs,Premium,Raise (almost always)
+SB,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG+1,J4o,Trash,Fold (unplayable)
+UTG,AKs,Premium,Raise (almost always)
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+BTN,TT,Strong,"Raise, call 3-bet in position"
+BTN,QQ,Premium,Raise (almost always)
+SB,JJ,Strong,"Raise, call 3-bet in position"
+UTG,TT,Strong,"Call, fold to large 3-bet"
+HJ,A5s,Speculative,Fold (not profitable OOP)
+MP,T9s,Speculative,Fold (not profitable OOP)
+SB,AA,Premium,Raise (almost always)
+BB,A5s,Speculative,"Call if no raise, fold to raise"
+MP,A9o,Marginal,Fold (too weak early)
+HJ,T3o,Trash,Fold (unplayable)
+MP,KK,Premium,Raise (almost always)
+MP,A5s,Speculative,Fold (not profitable OOP)
+HJ,AKs,Premium,Raise (almost always)
+BB,AA,Premium,Raise (almost always)
+CO,A5s,Speculative,Fold (not profitable OOP)
+HJ,T3o,Trash,Fold (unplayable)
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+MP,AKs,Premium,Raise (almost always)
+MP,J9s,Marginal,Fold (too weak early)
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+UTG+1,KK,Premium,Raise (almost always)
+UTG,87s,Speculative,Fold (not profitable OOP)
+BB,J4o,Trash,Fold (unplayable)
+UTG,KQs,Strong,"Call, fold to large 3-bet"
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+SB,AKs,Premium,Raise (almost always)
+SB,KQs,Strong,"Raise, call 3-bet in position"
+MP,A9o,Marginal,Fold (too weak early)
+BTN,T3o,Trash,Fold (unplayable)
+MP,KTs,Speculative,Fold (not profitable OOP)
+HJ,T9s,Speculative,Fold (not profitable OOP)
+UTG,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,JJ,Strong,"Call, fold to large 3-bet"
+MP,KJo,Marginal,Fold (too weak early)
+UTG,AKs,Premium,Raise (almost always)
+MP,J4o,Trash,Fold (unplayable)
+SB,J4o,Trash,Fold (unplayable)
+HJ,J4o,Trash,Fold (unplayable)
+BB,AA,Premium,Raise (almost always)
+UTG+1,QQ,Premium,Raise (almost always)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+BB,A9o,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,KTs,Speculative,Fold (not profitable OOP)
+CO,QTo,Marginal,"Call if folded to, fold to aggression"
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+SB,JJ,Strong,"Raise, call 3-bet in position"
+MP,J4o,Trash,Fold (unplayable)
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+MP,KJo,Marginal,Fold (too weak early)
+CO,AKs,Premium,Raise (almost always)
+HJ,JJ,Strong,"Call, fold to large 3-bet"
+UTG,AJs,Strong,"Call, fold to large 3-bet"
+UTG+1,87s,Speculative,Fold (not profitable OOP)
+MP,QQ,Premium,Raise (almost always)
+HJ,QQ,Premium,Raise (almost always)
+HJ,KK,Premium,Raise (almost always)
+SB,KQs,Strong,"Raise, call 3-bet in position"
+BTN,J4o,Trash,Fold (unplayable)
+SB,A5s,Speculative,"Call if no raise, fold to raise"
+HJ,KTs,Speculative,Fold (not profitable OOP)
+BTN,95o,Trash,Fold (unplayable)
+UTG+1,72o,Trash,Fold (unplayable)
+BTN,22,Marginal,"Call if folded to, fold to aggression"
+SB,KK,Premium,Raise (almost always)
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,95o,Trash,Fold (unplayable)
+UTG,T3o,Trash,Fold (unplayable)
+BB,22,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,72o,Trash,Fold (unplayable)
+UTG+1,T9s,Speculative,Fold (not profitable OOP)
+BTN,KK,Premium,Raise (almost always)
+HJ,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG,KTs,Speculative,Fold (not profitable OOP)
+SB,AQs,Strong,"Raise, call 3-bet in position"
+CO,KTs,Speculative,Fold (not profitable OOP)
+SB,T9s,Speculative,"Call if no raise, fold to raise"
+UTG+1,KK,Premium,Raise (almost always)
+BTN,QTo,Marginal,"Call if folded to, fold to aggression"
+HJ,72o,Trash,Fold (unplayable)
+BTN,TT,Strong,"Raise, call 3-bet in position"
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+CO,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG+1,A9o,Marginal,Fold (too weak early)
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+UTG,KJo,Marginal,Fold (too weak early)
+UTG+1,83o,Trash,Fold (unplayable)
+BB,AA,Premium,Raise (almost always)
+SB,22,Marginal,"Call if folded to, fold to aggression"
+HJ,AKs,Premium,Raise (almost always)
+CO,A5s,Speculative,Fold (not profitable OOP)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+BTN,83o,Trash,Fold (unplayable)
+SB,95o,Trash,Fold (unplayable)
+MP,TT,Strong,"Call, fold to large 3-bet"
+MP,J9s,Marginal,Fold (too weak early)
+MP,98s,Speculative,Fold (not profitable OOP)
+UTG+1,J4o,Trash,Fold (unplayable)
+HJ,95o,Trash,Fold (unplayable)
+BB,JJ,Strong,"Call, fold to large 3-bet"
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+MP,TT,Strong,"Call, fold to large 3-bet"
+MP,KQs,Strong,"Call, fold to large 3-bet"
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+CO,AKs,Premium,Raise (almost always)
+BB,AKs,Premium,Raise (almost always)
+BB,A9o,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG,QTo,Marginal,Fold (too weak early)
+HJ,95o,Trash,Fold (unplayable)
+CO,95o,Trash,Fold (unplayable)
+BTN,22,Marginal,"Call if folded to, fold to aggression"
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+BB,T3o,Trash,Fold (unplayable)
+HJ,98s,Speculative,Fold (not profitable OOP)
+UTG,TT,Strong,"Call, fold to large 3-bet"
+BTN,AJs,Strong,"Raise, call 3-bet in position"
+HJ,AKs,Premium,Raise (almost always)
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+SB,AJs,Strong,"Raise, call 3-bet in position"
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+SB,JJ,Strong,"Raise, call 3-bet in position"
+UTG+1,KJo,Marginal,Fold (too weak early)
+UTG,QQ,Premium,Raise (almost always)
+MP,72o,Trash,Fold (unplayable)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+SB,T3o,Trash,Fold (unplayable)
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+MP,AJs,Strong,"Call, fold to large 3-bet"
+BB,AJs,Strong,"Call, fold to large 3-bet"
+MP,72o,Trash,Fold (unplayable)
+UTG+1,KJo,Marginal,Fold (too weak early)
+CO,KJo,Marginal,"Call if folded to, fold to aggression"
+HJ,AA,Premium,Raise (almost always)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+HJ,AJs,Strong,"Call, fold to large 3-bet"
+CO,AA,Premium,Raise (almost always)
+BB,98s,Speculative,"Call if no raise, fold to raise"
+UTG+1,95o,Trash,Fold (unplayable)
+UTG+1,KK,Premium,Raise (almost always)
+UTG+1,T3o,Trash,Fold (unplayable)
+UTG,72o,Trash,Fold (unplayable)
+UTG+1,KJo,Marginal,Fold (too weak early)
+HJ,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,72o,Trash,Fold (unplayable)
+SB,T3o,Trash,Fold (unplayable)
+MP,T3o,Trash,Fold (unplayable)
+BB,QTo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+HJ,A9o,Marginal,"Call if folded to, fold to aggression"
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+SB,JJ,Strong,"Raise, call 3-bet in position"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+SB,22,Marginal,"Call if folded to, fold to aggression"
+MP,AKs,Premium,Raise (almost always)
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+CO,AA,Premium,Raise (almost always)
+BB,T9s,Speculative,"Call if no raise, fold to raise"
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+MP,72o,Trash,Fold (unplayable)
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+BTN,TT,Strong,"Raise, call 3-bet in position"
+MP,T3o,Trash,Fold (unplayable)
+CO,TT,Strong,"Raise, call 3-bet in position"
+CO,KJo,Marginal,"Call if folded to, fold to aggression"
+BTN,TT,Strong,"Raise, call 3-bet in position"
+SB,87s,Speculative,"Call if no raise, fold to raise"
+MP,QTo,Marginal,Fold (too weak early)
+UTG,KQs,Strong,"Call, fold to large 3-bet"
+HJ,83o,Trash,Fold (unplayable)
+BTN,J4o,Trash,Fold (unplayable)
+BB,AQs,Strong,"Call, fold to large 3-bet"
+HJ,KK,Premium,Raise (almost always)
+BTN,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,KQs,Strong,"Call, fold to large 3-bet"
+SB,AJs,Strong,"Raise, call 3-bet in position"
+SB,TT,Strong,"Raise, call 3-bet in position"
+UTG,AQs,Strong,"Call, fold to large 3-bet"
+UTG,QQ,Premium,Raise (almost always)
+UTG+1,95o,Trash,Fold (unplayable)
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+BTN,J9s,Marginal,"Call if folded to, fold to aggression"
+SB,J4o,Trash,Fold (unplayable)
+MP,TT,Strong,"Call, fold to large 3-bet"
+UTG,95o,Trash,Fold (unplayable)
+BB,TT,Strong,"Call, fold to large 3-bet"
+BB,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,AA,Premium,Raise (almost always)
+BB,J4o,Trash,Fold (unplayable)
+UTG+1,QTo,Marginal,Fold (too weak early)
+BTN,83o,Trash,Fold (unplayable)
+SB,22,Marginal,"Call if folded to, fold to aggression"
+BTN,72o,Trash,Fold (unplayable)
+CO,QQ,Premium,Raise (almost always)
+UTG+1,KK,Premium,Raise (almost always)
+SB,AA,Premium,Raise (almost always)
+SB,JJ,Strong,"Raise, call 3-bet in position"
+MP,AJs,Strong,"Call, fold to large 3-bet"
+UTG,A9o,Marginal,Fold (too weak early)
+BTN,83o,Trash,Fold (unplayable)
+CO,KJo,Marginal,"Call if folded to, fold to aggression"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+MP,JJ,Strong,"Call, fold to large 3-bet"
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+UTG+1,KQs,Strong,"Call, fold to large 3-bet"
+BTN,QTo,Marginal,"Call if folded to, fold to aggression"
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+SB,T9s,Speculative,"Call if no raise, fold to raise"
+BTN,A9o,Marginal,"Call if folded to, fold to aggression"
+BTN,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG,83o,Trash,Fold (unplayable)
+MP,QTo,Marginal,Fold (too weak early)
+UTG+1,83o,Trash,Fold (unplayable)
+UTG,KTs,Speculative,Fold (not profitable OOP)
+UTG,22,Marginal,Fold (too weak early)
+CO,J9s,Marginal,"Call if folded to, fold to aggression"
+CO,JJ,Strong,"Raise, call 3-bet in position"
+SB,T9s,Speculative,"Call if no raise, fold to raise"
+BTN,A5s,Speculative,"Call if no raise, fold to raise"
+BB,TT,Strong,"Call, fold to large 3-bet"
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+BB,A5s,Speculative,"Call if no raise, fold to raise"
+CO,TT,Strong,"Raise, call 3-bet in position"
+HJ,95o,Trash,Fold (unplayable)
+UTG,72o,Trash,Fold (unplayable)
+UTG+1,QQ,Premium,Raise (almost always)
+SB,KK,Premium,Raise (almost always)
+SB,AA,Premium,Raise (almost always)
+UTG+1,95o,Trash,Fold (unplayable)
+BTN,72o,Trash,Fold (unplayable)
+UTG+1,AA,Premium,Raise (almost always)
+UTG+1,87s,Speculative,Fold (not profitable OOP)
+MP,AKs,Premium,Raise (almost always)
+BTN,KJo,Marginal,"Call if folded to, fold to aggression"
+CO,22,Marginal,"Call if folded to, fold to aggression"
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,T9s,Speculative,Fold (not profitable OOP)
+HJ,QQ,Premium,Raise (almost always)
+MP,87s,Speculative,Fold (not profitable OOP)
+UTG+1,AKs,Premium,Raise (almost always)
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+SB,T3o,Trash,Fold (unplayable)
+BTN,95o,Trash,Fold (unplayable)
+HJ,J4o,Trash,Fold (unplayable)
+HJ,QQ,Premium,Raise (almost always)
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+SB,22,Marginal,"Call if folded to, fold to aggression"
+UTG+1,22,Marginal,Fold (too weak early)
+UTG+1,A9o,Marginal,Fold (too weak early)
+BTN,AKs,Premium,Raise (almost always)
+UTG,JJ,Strong,"Call, fold to large 3-bet"
+SB,AKs,Premium,Raise (almost always)
+UTG,T9s,Speculative,Fold (not profitable OOP)
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+UTG,83o,Trash,Fold (unplayable)
+SB,KQs,Strong,"Raise, call 3-bet in position"
+MP,J9s,Marginal,Fold (too weak early)
+HJ,T9s,Speculative,Fold (not profitable OOP)
+UTG,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,JJ,Strong,"Call, fold to large 3-bet"
+BTN,A5s,Speculative,"Call if no raise, fold to raise"
+SB,QQ,Premium,Raise (almost always)
+UTG,95o,Trash,Fold (unplayable)
+BB,T3o,Trash,Fold (unplayable)
+MP,A9o,Marginal,Fold (too weak early)
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+BTN,T3o,Trash,Fold (unplayable)
+BTN,KK,Premium,Raise (almost always)
+BB,87s,Speculative,"Call if no raise, fold to raise"
+CO,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG+1,83o,Trash,Fold (unplayable)
+SB,T9s,Speculative,"Call if no raise, fold to raise"
+MP,95o,Trash,Fold (unplayable)
+MP,AJs,Strong,"Call, fold to large 3-bet"
+UTG,83o,Trash,Fold (unplayable)
+BB,83o,Trash,Fold (unplayable)
+CO,J4o,Trash,Fold (unplayable)
+SB,AJs,Strong,"Raise, call 3-bet in position"
+HJ,TT,Strong,"Call, fold to large 3-bet"
+CO,A5s,Speculative,Fold (not profitable OOP)
+MP,J4o,Trash,Fold (unplayable)
+HJ,KK,Premium,Raise (almost always)
+UTG,22,Marginal,Fold (too weak early)
+BB,A5s,Speculative,"Call if no raise, fold to raise"
+CO,AJs,Strong,"Raise, call 3-bet in position"
+CO,J4o,Trash,Fold (unplayable)
+HJ,T3o,Trash,Fold (unplayable)
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+CO,KQs,Strong,"Raise, call 3-bet in position"
+BB,AA,Premium,Raise (almost always)
+CO,TT,Strong,"Raise, call 3-bet in position"
+SB,T3o,Trash,Fold (unplayable)
+MP,QQ,Premium,Raise (almost always)
+UTG+1,J4o,Trash,Fold (unplayable)
+BTN,22,Marginal,"Call if folded to, fold to aggression"
+BB,AQs,Strong,"Call, fold to large 3-bet"
+UTG+1,QTo,Marginal,Fold (too weak early)
+MP,AQs,Strong,"Call, fold to large 3-bet"
+UTG+1,AKs,Premium,Raise (almost always)
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+HJ,AQs,Strong,"Call, fold to large 3-bet"
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+MP,A5s,Speculative,Fold (not profitable OOP)
+SB,J4o,Trash,Fold (unplayable)
+BB,KTs,Speculative,"Call if no raise, fold to raise"
+UTG+1,J9s,Marginal,Fold (too weak early)
+UTG+1,KTs,Speculative,Fold (not profitable OOP)
+UTG,J4o,Trash,Fold (unplayable)
+MP,AQs,Strong,"Call, fold to large 3-bet"
+BTN,TT,Strong,"Raise, call 3-bet in position"
+BB,KK,Premium,Raise (almost always)
+BTN,83o,Trash,Fold (unplayable)
+BTN,QQ,Premium,Raise (almost always)
+UTG+1,KK,Premium,Raise (almost always)
+MP,QTo,Marginal,Fold (too weak early)
+BB,AJs,Strong,"Call, fold to large 3-bet"
+BTN,KTs,Speculative,"Call if no raise, fold to raise"
+CO,AA,Premium,Raise (almost always)
+MP,AA,Premium,Raise (almost always)
+UTG+1,72o,Trash,Fold (unplayable)
+MP,J9s,Marginal,Fold (too weak early)
+MP,87s,Speculative,Fold (not profitable OOP)
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+CO,95o,Trash,Fold (unplayable)
+UTG,22,Marginal,Fold (too weak early)
+CO,AQs,Strong,"Raise, call 3-bet in position"
+MP,KQs,Strong,"Call, fold to large 3-bet"
+CO,KK,Premium,Raise (almost always)
+SB,AKs,Premium,Raise (almost always)
+UTG+1,QTo,Marginal,Fold (too weak early)
+UTG+1,83o,Trash,Fold (unplayable)
+BB,QTo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+SB,AA,Premium,Raise (almost always)
+SB,AA,Premium,Raise (almost always)
+SB,J4o,Trash,Fold (unplayable)
+SB,AKs,Premium,Raise (almost always)
+MP,AA,Premium,Raise (almost always)
+HJ,TT,Strong,"Call, fold to large 3-bet"
+SB,AKs,Premium,Raise (almost always)
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+BTN,KJo,Marginal,"Call if folded to, fold to aggression"
+UTG,A9o,Marginal,Fold (too weak early)
+BTN,TT,Strong,"Raise, call 3-bet in position"
+UTG+1,QTo,Marginal,Fold (too weak early)
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+BB,AKs,Premium,Raise (almost always)
+MP,KJo,Marginal,Fold (too weak early)
+BTN,87s,Speculative,"Call if no raise, fold to raise"
+UTG+1,KJo,Marginal,Fold (too weak early)
+SB,AKs,Premium,Raise (almost always)
+UTG,83o,Trash,Fold (unplayable)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+BTN,J9s,Marginal,"Call if folded to, fold to aggression"
+UTG+1,KQs,Strong,"Call, fold to large 3-bet"
+BB,22,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+CO,AKs,Premium,Raise (almost always)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+HJ,AQs,Strong,"Call, fold to large 3-bet"
+HJ,QQ,Premium,Raise (almost always)
+SB,AJs,Strong,"Raise, call 3-bet in position"
+SB,22,Marginal,"Call if folded to, fold to aggression"
+HJ,KQs,Strong,"Call, fold to large 3-bet"
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+HJ,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+CO,KQs,Strong,"Raise, call 3-bet in position"
+SB,T3o,Trash,Fold (unplayable)
+BTN,83o,Trash,Fold (unplayable)
+BB,83o,Trash,Fold (unplayable)
+MP,98s,Speculative,Fold (not profitable OOP)
+SB,QQ,Premium,Raise (almost always)
+MP,KTs,Speculative,Fold (not profitable OOP)
+MP,AA,Premium,Raise (almost always)
+MP,72o,Trash,Fold (unplayable)
+BTN,A9o,Marginal,"Call if folded to, fold to aggression"
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+CO,KK,Premium,Raise (almost always)
+SB,T3o,Trash,Fold (unplayable)
+UTG,72o,Trash,Fold (unplayable)
+BB,KK,Premium,Raise (almost always)
+MP,J9s,Marginal,Fold (too weak early)
+BTN,22,Marginal,"Call if folded to, fold to aggression"
+HJ,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,22,Marginal,Fold (too weak early)
+SB,83o,Trash,Fold (unplayable)
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+UTG+1,QTo,Marginal,Fold (too weak early)
+MP,J9s,Marginal,Fold (too weak early)
+SB,JJ,Strong,"Raise, call 3-bet in position"
+UTG,KJo,Marginal,Fold (too weak early)
+CO,AKs,Premium,Raise (almost always)
+BB,AKs,Premium,Raise (almost always)
+BB,T9s,Speculative,"Call if no raise, fold to raise"
+UTG,KJo,Marginal,Fold (too weak early)
+MP,J4o,Trash,Fold (unplayable)
+MP,A9o,Marginal,Fold (too weak early)
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+BTN,83o,Trash,Fold (unplayable)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+MP,83o,Trash,Fold (unplayable)
+CO,TT,Strong,"Raise, call 3-bet in position"
+CO,22,Marginal,"Call if folded to, fold to aggression"
+UTG+1,83o,Trash,Fold (unplayable)
+CO,JJ,Strong,"Raise, call 3-bet in position"
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+CO,KQs,Strong,"Raise, call 3-bet in position"
+SB,83o,Trash,Fold (unplayable)
+HJ,22,Marginal,"Call if folded to, fold to aggression"
+HJ,AQs,Strong,"Call, fold to large 3-bet"
+UTG+1,KTs,Speculative,Fold (not profitable OOP)
+CO,JJ,Strong,"Raise, call 3-bet in position"
+BTN,22,Marginal,"Call if folded to, fold to aggression"
+BTN,TT,Strong,"Raise, call 3-bet in position"
+SB,98s,Speculative,"Call if no raise, fold to raise"
+CO,AA,Premium,Raise (almost always)
+BTN,J4o,Trash,Fold (unplayable)
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+UTG,A9o,Marginal,Fold (too weak early)
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,95o,Trash,Fold (unplayable)
+BTN,AJs,Strong,"Raise, call 3-bet in position"
+BB,A5s,Speculative,"Call if no raise, fold to raise"
+UTG+1,J9s,Marginal,Fold (too weak early)
+UTG+1,QQ,Premium,Raise (almost always)
+CO,JJ,Strong,"Raise, call 3-bet in position"
+SB,J9s,Marginal,"Call if folded to, fold to aggression"
+CO,98s,Speculative,Fold (not profitable OOP)
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+BTN,AA,Premium,Raise (almost always)
+BB,T9s,Speculative,"Call if no raise, fold to raise"
+BB,T3o,Trash,Fold (unplayable)
+MP,AQs,Strong,"Call, fold to large 3-bet"
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+BTN,KJo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,T3o,Trash,Fold (unplayable)
+HJ,98s,Speculative,Fold (not profitable OOP)
+MP,KK,Premium,Raise (almost always)
+SB,T3o,Trash,Fold (unplayable)
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+SB,QQ,Premium,Raise (almost always)
+CO,AKs,Premium,Raise (almost always)
+HJ,98s,Speculative,Fold (not profitable OOP)
+MP,QTo,Marginal,Fold (too weak early)
+UTG,AJs,Strong,"Call, fold to large 3-bet"
+UTG+1,KK,Premium,Raise (almost always)
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+SB,AQs,Strong,"Raise, call 3-bet in position"
+CO,AA,Premium,Raise (almost always)
+UTG+1,AQs,Strong,"Call, fold to large 3-bet"
+BB,TT,Strong,"Call, fold to large 3-bet"
+CO,T3o,Trash,Fold (unplayable)
+CO,QQ,Premium,Raise (almost always)
+BTN,QQ,Premium,Raise (almost always)
+CO,AKs,Premium,Raise (almost always)
+UTG+1,QTo,Marginal,Fold (too weak early)
+UTG+1,QQ,Premium,Raise (almost always)
+UTG+1,QQ,Premium,Raise (almost always)
+UTG+1,QTo,Marginal,Fold (too weak early)
+MP,T9s,Speculative,Fold (not profitable OOP)
+SB,83o,Trash,Fold (unplayable)
+UTG,87s,Speculative,Fold (not profitable OOP)
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+HJ,JJ,Strong,"Call, fold to large 3-bet"
+SB,87s,Speculative,"Call if no raise, fold to raise"
+BTN,J4o,Trash,Fold (unplayable)
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+MP,A9o,Marginal,Fold (too weak early)
+SB,KJo,Marginal,"Call if folded to, fold to aggression"
+UTG,A9o,Marginal,Fold (too weak early)
+UTG,KQs,Strong,"Call, fold to large 3-bet"
+CO,98s,Speculative,Fold (not profitable OOP)
+CO,QQ,Premium,Raise (almost always)
+HJ,KK,Premium,Raise (almost always)
+BTN,98s,Speculative,"Call if no raise, fold to raise"
+UTG+1,72o,Trash,Fold (unplayable)
+BB,JJ,Strong,"Call, fold to large 3-bet"
+HJ,72o,Trash,Fold (unplayable)
+MP,KK,Premium,Raise (almost always)
+CO,T9s,Speculative,Fold (not profitable OOP)
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,AA,Premium,Raise (almost always)
+HJ,T9s,Speculative,Fold (not profitable OOP)
+UTG,A9o,Marginal,Fold (too weak early)
+UTG+1,KTs,Speculative,Fold (not profitable OOP)
+CO,KK,Premium,Raise (almost always)
+SB,A5s,Speculative,"Call if no raise, fold to raise"
+UTG+1,95o,Trash,Fold (unplayable)
+BB,KQs,Strong,"Call, fold to large 3-bet"
+UTG+1,AA,Premium,Raise (almost always)
+MP,T3o,Trash,Fold (unplayable)
+BTN,A5s,Speculative,"Call if no raise, fold to raise"
+HJ,KK,Premium,Raise (almost always)
+UTG+1,KJo,Marginal,Fold (too weak early)
+BB,AJs,Strong,"Call, fold to large 3-bet"
+BB,QTo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+HJ,72o,Trash,Fold (unplayable)
+BTN,AKs,Premium,Raise (almost always)
+HJ,22,Marginal,"Call if folded to, fold to aggression"
+BB,T3o,Trash,Fold (unplayable)
+SB,T3o,Trash,Fold (unplayable)
+MP,JJ,Strong,"Call, fold to large 3-bet"
+UTG+1,KQs,Strong,"Call, fold to large 3-bet"
+HJ,AKs,Premium,Raise (almost always)
+BB,AKs,Premium,Raise (almost always)
+UTG,KK,Premium,Raise (almost always)
+SB,TT,Strong,"Raise, call 3-bet in position"
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+BB,KK,Premium,Raise (almost always)
+UTG,A9o,Marginal,Fold (too weak early)
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG+1,22,Marginal,Fold (too weak early)
+SB,J9s,Marginal,"Call if folded to, fold to aggression"
+MP,AKs,Premium,Raise (almost always)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG,83o,Trash,Fold (unplayable)
+UTG,KQs,Strong,"Call, fold to large 3-bet"
+BB,AQs,Strong,"Call, fold to large 3-bet"
+UTG,KK,Premium,Raise (almost always)
+MP,22,Marginal,Fold (too weak early)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+SB,AA,Premium,Raise (almost always)
+BB,AA,Premium,Raise (almost always)
+BTN,AA,Premium,Raise (almost always)
+CO,95o,Trash,Fold (unplayable)
+UTG,QQ,Premium,Raise (almost always)
+BB,KK,Premium,Raise (almost always)
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+MP,83o,Trash,Fold (unplayable)
+SB,AA,Premium,Raise (almost always)
+UTG,A5s,Speculative,Fold (not profitable OOP)
+CO,JJ,Strong,"Raise, call 3-bet in position"
+MP,JJ,Strong,"Call, fold to large 3-bet"
+SB,A5s,Speculative,"Call if no raise, fold to raise"
+SB,98s,Speculative,"Call if no raise, fold to raise"
+BB,TT,Strong,"Call, fold to large 3-bet"
+BB,AA,Premium,Raise (almost always)
+MP,KTs,Speculative,Fold (not profitable OOP)
+SB,T3o,Trash,Fold (unplayable)
+UTG,QTo,Marginal,Fold (too weak early)
+CO,QTo,Marginal,"Call if folded to, fold to aggression"
+BTN,87s,Speculative,"Call if no raise, fold to raise"
+UTG,AKs,Premium,Raise (almost always)
+BTN,A9o,Marginal,"Call if folded to, fold to aggression"
+BB,KJo,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+UTG,22,Marginal,Fold (too weak early)
+BB,72o,Trash,Fold (unplayable)
+UTG+1,KTs,Speculative,Fold (not profitable OOP)
+CO,QTo,Marginal,"Call if folded to, fold to aggression"
+SB,AA,Premium,Raise (almost always)
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+SB,QQ,Premium,Raise (almost always)
+CO,72o,Trash,Fold (unplayable)
+BB,AQs,Strong,"Call, fold to large 3-bet"
+CO,A9o,Marginal,"Call if folded to, fold to aggression"
+SB,AA,Premium,Raise (almost always)
+BB,83o,Trash,Fold (unplayable)
+CO,72o,Trash,Fold (unplayable)
+UTG+1,A5s,Speculative,Fold (not profitable OOP)
+BB,A9o,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+CO,TT,Strong,"Raise, call 3-bet in position"
+CO,83o,Trash,Fold (unplayable)
+CO,AA,Premium,Raise (almost always)
+SB,JJ,Strong,"Raise, call 3-bet in position"
+UTG,QQ,Premium,Raise (almost always)
+MP,J4o,Trash,Fold (unplayable)
+MP,95o,Trash,Fold (unplayable)
+BTN,J4o,Trash,Fold (unplayable)
+BB,KK,Premium,Raise (almost always)
+UTG+1,KJo,Marginal,Fold (too weak early)
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+BB,KQs,Strong,"Call, fold to large 3-bet"
+UTG,QQ,Premium,Raise (almost always)
+UTG+1,98s,Speculative,Fold (not profitable OOP)
+HJ,22,Marginal,"Call if folded to, fold to aggression"
+BB,KTs,Speculative,"Call if no raise, fold to raise"
+BB,KQs,Strong,"Call, fold to large 3-bet"
+MP,JJ,Strong,"Call, fold to large 3-bet"
+BB,QQ,Premium,Raise (almost always)
+SB,TT,Strong,"Raise, call 3-bet in position"
+SB,KQs,Strong,"Raise, call 3-bet in position"
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+HJ,KTs,Speculative,Fold (not profitable OOP)
+HJ,87s,Speculative,Fold (not profitable OOP)
+BB,83o,Trash,Fold (unplayable)
+UTG+1,72o,Trash,Fold (unplayable)
+UTG+1,22,Marginal,Fold (too weak early)
+BTN,KQs,Strong,"Raise, call 3-bet in position"
+BTN,AQs,Strong,"Raise, call 3-bet in position"
+HJ,AA,Premium,Raise (almost always)
+BB,AKs,Premium,Raise (almost always)
+CO,A5s,Speculative,Fold (not profitable OOP)
+HJ,98s,Speculative,Fold (not profitable OOP)
+UTG+1,TT,Strong,"Call, fold to large 3-bet"
+SB,83o,Trash,Fold (unplayable)
+SB,83o,Trash,Fold (unplayable)
+BB,AQs,Strong,"Call, fold to large 3-bet"
+UTG+1,KJo,Marginal,Fold (too weak early)
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+CO,AQs,Strong,"Raise, call 3-bet in position"
+SB,KTs,Speculative,"Call if no raise, fold to raise"
+CO,87s,Speculative,Fold (not profitable OOP)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+CO,TT,Strong,"Raise, call 3-bet in position"
+MP,83o,Trash,Fold (unplayable)
+HJ,KJo,Marginal,"Call if folded to, fold to aggression"
+CO,QTo,Marginal,"Call if folded to, fold to aggression"
+UTG,98s,Speculative,Fold (not profitable OOP)
+SB,72o,Trash,Fold (unplayable)
+BTN,KQs,Strong,"Raise, call 3-bet in position"
+UTG+1,AA,Premium,Raise (almost always)
+HJ,T3o,Trash,Fold (unplayable)
+SB,TT,Strong,"Raise, call 3-bet in position"
+MP,A5s,Speculative,Fold (not profitable OOP)
+SB,J9s,Marginal,"Call if folded to, fold to aggression"
+MP,KK,Premium,Raise (almost always)
+HJ,A5s,Speculative,Fold (not profitable OOP)
+BB,J9s,Marginal,"Call if limped, fold to raise unless deep vs weak opponent"
+SB,A9o,Marginal,"Call if folded to, fold to aggression"
+UTG+1,AJs,Strong,"Call, fold to large 3-bet"
+BB,83o,Trash,Fold (unplayable)
+UTG,TT,Strong,"Call, fold to large 3-bet"
+UTG+1,98s,Speculative,Fold (not profitable OOP)
+SB,QTo,Marginal,"Call if folded to, fold to aggression"
+CO,22,Marginal,"Call if folded to, fold to aggression"
+UTG+1,72o,Trash,Fold (unplayable)
+UTG+1,T9s,Speculative,Fold (not profitable OOP)
+MP,J4o,Trash,Fold (unplayable)
+UTG,QTo,Marginal,Fold (too weak early)
+BTN,T9s,Speculative,"Call if no raise, fold to raise"
+UTG+1,72o,Trash,Fold (unplayable)
+BTN,AA,Premium,Raise (almost always)

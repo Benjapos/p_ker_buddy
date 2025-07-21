@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { loadPreflopData, loadPostflopData, getDataSummary } from '../utils/csvParser';
+import { loadPreflopData, loadPostflopData, getDataSummary, parseCSV } from '../utils/csvParser';
 
 const DataLoaderContainer = styled.div`
   background: #2a2a2a;
@@ -93,67 +93,76 @@ const DataLoader = ({ onDataLoaded }) => {
 
   const loadData = async () => {
     try {
-      console.log('Loading CSV data...');
+      console.log('Loading CSV data chunks...');
       
-      // Load preflop data - try sample file first
-      let preflopResponse = await fetch('/data/sample_preflop.csv');
-      console.log('Sample preflop response status:', preflopResponse.status);
+      // Load preflop data chunks
+      let preflopData = [];
+      let preflopLoaded = false;
       
-      if (preflopResponse.ok) {
-        const preflopContent = await preflopResponse.text();
-        console.log('Sample preflop content length:', preflopContent.length);
-        loadPreflopData(preflopContent);
-        setDataStatus(prev => ({ ...prev, preflop: true }));
-        console.log('✅ Sample preflop data loaded successfully');
-      } else {
-        console.log('Sample preflop failed, trying full dataset...');
-        // Try full dataset
-        preflopResponse = await fetch('/data/10_000_Preflop_Scenarios_with_Conditional_Actions.csv');
-        console.log('Full preflop response status:', preflopResponse.status);
-        
-        if (preflopResponse.ok) {
-          const preflopContent = await preflopResponse.text();
-          console.log('Full preflop content length:', preflopContent.length);
-          loadPreflopData(preflopContent);
-          setDataStatus(prev => ({ ...prev, preflop: true }));
-          console.log('✅ Full preflop data loaded successfully');
-        } else {
-          console.error('❌ Failed to load preflop data:', preflopResponse.status, preflopResponse.statusText);
-          // Try alternative path
-          const altPreflopResponse = await fetch('./data/sample_preflop.csv');
-          if (altPreflopResponse.ok) {
-            const preflopContent = await altPreflopResponse.text();
-            loadPreflopData(preflopContent);
-            setDataStatus(prev => ({ ...prev, preflop: true }));
-            console.log('✅ Sample preflop data loaded from alternative path');
+      // Try to load all preflop chunks (1-10)
+      for (let i = 1; i <= 10; i++) {
+        try {
+          const response = await fetch(`/data/10_000_Preflop_Scenarios_with_Conditional_Actions_chunk_${i}.csv`);
+          if (response.ok) {
+            const content = await response.text();
+            const chunkData = parseCSV(content);
+            preflopData = preflopData.concat(chunkData);
+            console.log(`✅ Loaded preflop chunk ${i} (${chunkData.length} hands)`);
+            preflopLoaded = true;
           } else {
-            console.error('❌ Failed to load preflop data from alternative path');
+            console.log(`⚠️ Preflop chunk ${i} not found, stopping at chunk ${i-1}`);
+            break;
           }
+        } catch (error) {
+          console.log(`⚠️ Error loading preflop chunk ${i}:`, error.message);
+          break;
+        }
+      }
+      
+      if (preflopLoaded && preflopData.length > 0) {
+        loadPreflopData(preflopData.map(row => Object.values(row).join(',')).join('\n'));
+        setDataStatus(prev => ({ ...prev, preflop: true }));
+        console.log(`✅ Loaded ${preflopData.length} preflop hands from chunks`);
+      } else {
+        // Fallback to sample data
+        console.log('Falling back to sample preflop data...');
+        const sampleResponse = await fetch('/data/sample_preflop.csv');
+        if (sampleResponse.ok) {
+          const sampleContent = await sampleResponse.text();
+          loadPreflopData(sampleContent);
+          setDataStatus(prev => ({ ...prev, preflop: true }));
+          console.log('✅ Sample preflop data loaded as fallback');
         }
       }
 
-      // Load postflop data
-      const postflopResponse = await fetch('/data/10_000_Postflop_Scenarios_with_Recommended_Actions.csv');
-      console.log('Postflop response status:', postflopResponse.status);
+      // Load postflop data chunks
+      let postflopData = [];
+      let postflopLoaded = false;
       
-      if (postflopResponse.ok) {
-        const postflopContent = await postflopResponse.text();
-        console.log('Postflop content length:', postflopContent.length);
-        loadPostflopData(postflopContent);
-        setDataStatus(prev => ({ ...prev, postflop: true }));
-        console.log('✅ Postflop data loaded successfully');
-      } else {
-        console.error('❌ Failed to load postflop data:', postflopResponse.status, postflopResponse.statusText);
-        // Try alternative path
-        const altPostflopResponse = await fetch('./data/10_000_Postflop_Scenarios_with_Recommended_Actions.csv');
-        if (altPostflopResponse.ok) {
-          const postflopContent = await altPostflopResponse.text();
-          loadPostflopData(postflopContent);
-          setDataStatus(prev => ({ ...prev, postflop: true }));
-          console.log('✅ Postflop data loaded from alternative path');
-        } else {
-          console.error('❌ Failed to load postflop data from alternative path');
+      // Try to load all postflop chunks (1-11)
+      for (let i = 1; i <= 11; i++) {
+        try {
+          const response = await fetch(`/data/10_000_Postflop_Scenarios_with_Recommended_Actions_chunk_${i}.csv`);
+          if (response.ok) {
+            const content = await response.text();
+            const chunkData = parseCSV(content);
+            postflopData = postflopData.concat(chunkData);
+            console.log(`✅ Loaded postflop chunk ${i} (${chunkData.length} hands)`);
+            postflopLoaded = true;
+          } else {
+            console.log(`⚠️ Postflop chunk ${i} not found, stopping at chunk ${i-1}`);
+            break;
+          }
+        } catch (error) {
+          console.log(`⚠️ Error loading postflop chunk ${i}:`, error.message);
+          break;
         }
+      }
+      
+      if (postflopLoaded && postflopData.length > 0) {
+        loadPostflopData(postflopData.map(row => Object.values(row).join(',')).join('\n'));
+        setDataStatus(prev => ({ ...prev, postflop: true }));
+        console.log(`✅ Loaded ${postflopData.length} postflop hands from chunks`);
       }
 
       // Update summary
