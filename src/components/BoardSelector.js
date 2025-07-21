@@ -78,6 +78,9 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
     onFlopChange(flop.filter(c => c !== card));
   };
 
+  // Create unified community cards display
+  const allCommunityCards = [...flop, turn, river].filter(Boolean);
+
   return (
     <div style={{ opacity: disabled ? 0.5 : 1, pointerEvents: disabled ? 'none' : 'auto' }}>
       {disabled && (
@@ -95,36 +98,49 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
           </p>
         </div>
       )}
+
+      {/* Unified Community Cards Display */}
+      {allCommunityCards.length > 0 && (
+        <BoardSection>
+          <BoardTitle>Community Cards</BoardTitle>
+          <BoardCards>
+            {flop.map((card, index) => (
+              <BoardCard key={`flop-${index}`} style={{ borderColor: '#4CAF50' }}>
+                {card}
+                <RemoveButton onClick={() => removeFlopCard(card)}>×</RemoveButton>
+              </BoardCard>
+            ))}
+            {turn && (
+              <BoardCard style={{ borderColor: '#FF9800' }}>
+                {turn}
+                <RemoveButton onClick={clearTurn}>×</RemoveButton>
+              </BoardCard>
+            )}
+            {river && (
+              <BoardCard style={{ borderColor: '#2196F3' }}>
+                {river}
+                <RemoveButton onClick={clearRiver}>×</RemoveButton>
+              </BoardCard>
+            )}
+          </BoardCards>
+        </BoardSection>
+      )}
       
       <BoardSection>
         <BoardTitle>Flop (3 cards)</BoardTitle>
-        <BoardCards>
-          {flop.map((card, index) => (
-            <BoardCard key={index}>
-              {card}
-              <RemoveButton onClick={() => removeFlopCard(card)}>×</RemoveButton>
-            </BoardCard>
-          ))}
-        </BoardCards>
-        <CardSelector
-          selectedCards={flop}
-          onCardsChange={onFlopChange}
-          maxCards={3}
-          title=""
-        />
+        {flop.length < 3 && (
+          <CardSelector
+            selectedCards={[]}
+            onCardsChange={onFlopChange}
+            maxCards={3}
+            title=""
+          />
+        )}
         {flop.length > 0 && <ClearButton onClick={clearFlop}>Clear Flop</ClearButton>}
       </BoardSection>
 
       <BoardSection>
         <BoardTitle>Turn (1 card)</BoardTitle>
-        <BoardCards>
-          {turn && (
-            <BoardCard>
-              {turn}
-              <RemoveButton onClick={clearTurn}>×</RemoveButton>
-            </BoardCard>
-          )}
-        </BoardCards>
         {!turn && (
           <CardSelector
             selectedCards={[]}
@@ -138,14 +154,6 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
 
       <BoardSection>
         <BoardTitle>River (1 card)</BoardTitle>
-        <BoardCards>
-          {river && (
-            <BoardCard>
-              {river}
-              <RemoveButton onClick={clearRiver}>×</RemoveButton>
-            </BoardCard>
-          )}
-        </BoardCards>
         {!river && (
           <CardSelector
             selectedCards={[]}

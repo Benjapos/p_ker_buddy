@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const FormGroup = styled.div`
   margin-bottom: 15px;
+  width: 100%;
 `;
 
 const Label = styled.label`
@@ -58,13 +59,9 @@ const RoundTitle = styled.h4`
 `;
 
 const GameInfoContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 const GameInfo = ({ 
@@ -85,7 +82,6 @@ const GameInfo = ({
 }) => {
   return (
     <GameInfoContainer>
-      <div>
       <FormGroup>
         <Label>Number of Players</Label>
         <Select
@@ -178,8 +174,6 @@ const GameInfo = ({
           placeholder="Enter stack size"
         />
       </FormGroup>
-
-      </div>
       
       <div>
         <BettingRound>
