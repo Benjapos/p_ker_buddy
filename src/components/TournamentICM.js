@@ -211,6 +211,9 @@ const TournamentICM = () => {
   return (
     <ICMContainer>
       <ICMTitle>🏆 Tournament ICM Calculator</ICMTitle>
+      <div style={{ color: '#ccc', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
+        ICM (Independent Chip Model) converts tournament chips into real money value. In tournaments, chips aren't worth their face value - this calculator shows what your stack is actually worth in dollars. Essential for final table decisions when you need to balance chip accumulation with prize money preservation.
+      </div>
       
       <ICMGrid>
         {playerStacks.map((stack, index) => (

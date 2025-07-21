@@ -183,6 +183,9 @@ const EquityCalculator = () => {
   return (
     <CalculatorContainer>
       <CalculatorTitle>🎯 Equity Calculator</CalculatorTitle>
+      <div style={{ color: '#ccc', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
+        Calculate your hand's equity (winning percentage) against an opponent's range. This helps you make better decisions by knowing how often your hand will win against different opponent types. Enter your hand in poker notation (e.g., 'AKs' for Ace-King suited) and select or define your opponent's range.
+      </div>
       
       <CalculatorGrid>
         <Section>

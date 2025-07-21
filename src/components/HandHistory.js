@@ -181,7 +181,10 @@ const HandHistory = ({ currentHand, onLoadHand }) => {
   };
 
   const formatHandCards = (holeCards) => {
-    if (!holeCards || holeCards.length !== 2) return 'Invalid hand';
+    if (!holeCards || holeCards.length !== 2) {
+      console.log('Invalid holeCards:', holeCards);
+      return 'Invalid hand';
+    }
     return `${holeCards[0]} ${holeCards[1]}`;
   };
 
@@ -190,7 +193,7 @@ const HandHistory = ({ currentHand, onLoadHand }) => {
     return cards.length > 0 ? cards.join(' ') : 'Pre-flop';
   };
 
-  return (
+    return (
     <HistoryContainer>
       <HistoryHeader>
         <HistoryTitle>📚 Hand History ({handHistory.length})</HistoryTitle>
@@ -199,7 +202,10 @@ const HandHistory = ({ currentHand, onLoadHand }) => {
             Clear All
           </ClearButton>
         )}
-      </HistoryHeader>
+              </HistoryHeader>
+      <div style={{ color: '#ccc', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
+        Track your poker decisions and learn from your history. Each analyzed hand is automatically saved here, showing your cards, the action taken, and the reasoning behind it. Click on any hand to reload it for further analysis or review.
+      </div>
 
       <HistoryList>
         {handHistory.length === 0 ? (
