@@ -5,10 +5,10 @@ export const mockAnalyzeHand = async (data) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
   
-  const { holeCards, position, potSize, betSize, numPlayers, bigBlind = 2, stackSize = 1000 } = data;
+  const { holeCards, position, potSize, betSize, numPlayers, bigBlind = 2, smallBlind = 1, stackSize = 1000 } = data;
   
   // Use proper GTO logic from pokerLogic.js
-  const gtoResult = getGTOAction(holeCards, position, numPlayers, potSize, betSize, bigBlind);
+  const gtoResult = getGTOAction(holeCards, position, numPlayers, potSize, betSize, bigBlind, smallBlind);
   
   // Calculate pot odds
   const potOdds = calculatePotOdds(potSize, betSize);

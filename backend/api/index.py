@@ -128,8 +128,8 @@ def hand_to_notation(hole_cards):
     
     return ranks[0] + ranks[1] + ('s' if is_suited else 'o')
 
-def get_gto_action(hole_cards, position, num_players, pot_size, bet_size, big_blind):
-    """Get GTO action for a hand and position"""
+def get_gto_action(hole_cards, position, num_players, pot_size, bet_size, big_blind, small_blind=1):
+    """Get GTO action for a hand and position with action context"""
     hand_notation = hand_to_notation(hole_cards)
     if not hand_notation:
         return {'action': 'fold', 'confidence': 50, 'reasoning': 'Invalid hand'}
@@ -137,37 +137,98 @@ def get_gto_action(hole_cards, position, num_players, pot_size, bet_size, big_bl
     gto_position = POSITION_MAP.get(position, 'MP')
     ranges = GTO_RANGES.get(gto_position, GTO_RANGES['MP'])
     
-    # Check if hand is in raise range
-    if hand_notation in ranges['raise']:
-        return {
-            'action': 'raise',
-            'confidence': 90,
-            'raise_amount': round(big_blind * 3),
-            'reasoning': f"GTO: {hand_notation} is in the raising range from {gto_position} position."
-        }
+    # Determine the action context based on pot size and blinds
+    blinds_only = small_blind + big_blind
+    limp_pot = blinds_only + big_blind  # SB + BB + BB (someone called)
     
-    # Check if hand is in call range
-    if hand_notation in ranges['call']:
-        # Consider pot odds for calling
-        pot_odds = calculate_pot_odds(pot_size, bet_size)
-        if pot_odds > 15 or bet_size == 0:
+    is_opening = pot_size <= blinds_only  # No action, just blinds
+    is_facing_limp = pot_size == limp_pot  # Someone limped
+    is_facing_raise = pot_size > limp_pot  # Someone raised
+    
+    # Opening scenario (no action before you)
+    if is_opening:
+        if hand_notation in ranges['raise']:
+            return {
+                'action': 'raise',
+                'confidence': 90,
+                'raise_amount': round(big_blind * 3),
+                'reasoning': f"GTO: {hand_notation} is in the opening raising range from {gto_position} position."
+            }
+        
+        if hand_notation in ranges['call']:
             return {
                 'action': 'call',
                 'confidence': 75,
-                'reasoning': f"GTO: {hand_notation} is in the calling range from {gto_position} position. Good pot odds ({pot_odds:.1f}%)."
+                'reasoning': f"GTO: {hand_notation} is in the opening calling range from {gto_position} position."
             }
-        else:
-            return {
-                'action': 'fold',
-                'confidence': 70,
-                'reasoning': f"GTO: {hand_notation} is in the calling range but poor pot odds ({pot_odds:.1f}%). Folding."
-            }
+        
+        return {
+            'action': 'fold',
+            'confidence': 85,
+            'reasoning': f"GTO: {hand_notation} is not in the opening range from {gto_position} position."
+        }
     
-    # Hand is in fold range
+    # Facing a limp (someone just called the big blind)
+    if is_facing_limp:
+        if hand_notation in ranges['raise']:
+            return {
+                'action': 'raise',
+                'confidence': 85,
+                'raise_amount': round(big_blind * 3),
+                'reasoning': f"GTO: {hand_notation} is strong enough to isolate the limper from {gto_position} position."
+            }
+        
+        if hand_notation in ranges['call']:
+            return {
+                'action': 'raise',
+                'confidence': 70,
+                'raise_amount': round(big_blind * 2.5),
+                'reasoning': f"GTO: {hand_notation} can isolate the limper from {gto_position} position."
+            }
+        
+        return {
+            'action': 'fold',
+            'confidence': 80,
+            'reasoning': f"GTO: {hand_notation} is too weak to isolate the limper from {gto_position} position."
+        }
+    
+    # Facing a raise (someone raised before you)
+    if is_facing_raise:
+        # Much tighter ranges when facing a raise
+        if hand_notation in ranges['raise']:
+            pot_odds = calculate_pot_odds(pot_size, bet_size)
+            if pot_odds > 20:
+                return {
+                    'action': 'call',
+                    'confidence': 75,
+                    'reasoning': f"GTO: {hand_notation} is strong enough to call the raise with good pot odds ({pot_odds:.1f}%)."
+                }
+            else:
+                return {
+                    'action': 'fold',
+                    'confidence': 70,
+                    'reasoning': f"GTO: {hand_notation} is strong but poor pot odds ({pot_odds:.1f}%) make it a fold."
+                }
+        
+        return {
+            'action': 'fold',
+            'confidence': 90,
+            'reasoning': f"GTO: {hand_notation} is not strong enough to call a raise from {gto_position} position."
+        }
+    
+    # Default fallback
+    pot_odds = calculate_pot_odds(pot_size, bet_size)
+    if hand_notation in ranges['raise'] and (pot_odds > 15 or bet_size == 0):
+        return {
+            'action': 'call',
+            'confidence': 75,
+            'reasoning': f"GTO: {hand_notation} is in the calling range with good pot odds ({pot_odds:.1f}%)."
+        }
+    
     return {
         'action': 'fold',
         'confidence': 85,
-        'reasoning': f"GTO: {hand_notation} is not in the opening range from {gto_position} position."
+        'reasoning': f"GTO: {hand_notation} is not strong enough for this action from {gto_position} position."
     }
 
 def get_rank_value(rank):
@@ -297,10 +358,11 @@ def generate_ai_recommendation(data):
     pot_size = data.get('potSize', 0)
     bet_size = data.get('betSize', 0)
     big_blind = data.get('bigBlind', 1)
+    small_blind = data.get('smallBlind', 1)
     community_cards = data.get('communityCards', [])
     
     # Get GTO action
-    gto_result = get_gto_action(hole_cards, position, num_players, pot_size, bet_size, big_blind)
+    gto_result = get_gto_action(hole_cards, position, num_players, pot_size, bet_size, big_blind, small_blind)
     
     # Calculate equity using Monte Carlo simulation
     equity = monte_carlo_equity(hole_cards, community_cards, num_simulations=5000)

@@ -106,15 +106,18 @@ const handToNotation = (holeCards) => {
 };
 
 // Get GTO action for a hand and position
-const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlind) => {
+const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlind, smallBlind = 1) => {
   const handNotation = handToNotation(holeCards);
   const gtoPosition = POSITION_MAP[position] || 'MP';
   const ranges = GTO_RANGES[gtoPosition];
   
-  // Determine the action context
-  const isOpening = betSize === 0 || betSize === bigBlind; // No raise before you
-  const isFacingRaise = betSize > bigBlind * 2; // Significant raise before you
-  const isFacingLimp = betSize === bigBlind; // Just a limp/call before you
+  // Determine the action context based on pot size and blinds
+  const blindsOnly = smallBlind + bigBlind;
+  const limpPot = blindsOnly + bigBlind; // SB + BB + BB (someone called)
+  
+  const isOpening = potSize <= blindsOnly; // No action, just blinds
+  const isFacingLimp = potSize === limpPot; // Someone limped
+  const isFacingRaise = potSize > limpPot; // Someone raised
   
   // Debug logging
   console.log('DEBUG GTO:', {
@@ -122,11 +125,15 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
     position,
     handNotation,
     gtoPosition,
+    potSize,
+    blindsOnly,
+    limpPot,
     isOpening,
     isFacingRaise,
     isFacingLimp,
     betSize,
     bigBlind,
+    smallBlind,
     inRaiseRange: ranges.raise.includes(handNotation),
     inCallRange: ranges.call.includes(handNotation),
     raiseRange: ranges.raise.slice(0, 10) + '...' // Show first 10 hands
