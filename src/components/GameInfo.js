@@ -2,20 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FormGroup = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   width: 100%;
 `;
 
 const Label = styled.label`
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   font-weight: 500;
   color: #333;
+  font-size: 13px;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 8px;
+  padding: 6px;
   border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
@@ -29,7 +30,7 @@ const Input = styled.input`
 
 const Select = styled.select`
   width: 100%;
-  padding: 8px;
+  padding: 6px;
   border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
@@ -42,21 +43,7 @@ const Select = styled.select`
   }
 `;
 
-const BettingRound = styled.div`
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 12px;
-`;
 
-const RoundTitle = styled.h4`
-  margin: 0 0 10px 0;
-  color: #1e3c72;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`;
 
 const GameInfoContainer = styled.div`
   display: flex;
@@ -174,61 +161,6 @@ const GameInfo = ({
           placeholder="Enter stack size"
         />
       </FormGroup>
-      
-      <div>
-        <BettingRound>
-          <RoundTitle>Betting Round</RoundTitle>
-          <div style={{ fontSize: '14px', color: '#666' }}>
-            <p style={{ margin: '5px 0' }}>
-              <strong>Pre-flop:</strong> Before community cards
-            </p>
-            <p style={{ margin: '5px 0' }}>
-              <strong>Flop:</strong> First 3 community cards
-            </p>
-            <p style={{ margin: '5px 0' }}>
-              <strong>Turn:</strong> 4th community card
-            </p>
-            <p style={{ margin: '5px 0' }}>
-              <strong>River:</strong> 5th community card
-            </p>
-          </div>
-        </BettingRound>
-
-        <div style={{ 
-          background: '#f5f5f5', 
-          padding: '15px', 
-          borderRadius: '8px', 
-          marginTop: '20px' 
-        }}>
-          <h4 style={{ margin: '0 0 10px 0', color: '#1e3c72' }}>Texas Hold'em Summary</h4>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}>
-            <strong>Players:</strong> {numPlayers}
-          </p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}>
-            <strong>Position:</strong> {position.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-          </p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}>
-            <strong>Pot:</strong> ${potSize}
-          </p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}>
-            <strong>Small Blind:</strong> ${smallBlind}
-          </p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}>
-            <strong>Big Blind:</strong> ${bigBlind}
-          </p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}>
-            <strong>Bet:</strong> ${betSize}
-          </p>
-          {betSize > 0 && (
-            <p style={{ margin: '5px 0', fontSize: '14px' }}>
-              <strong>Pot Odds:</strong> {((potSize / betSize) * 100).toFixed(1)}%
-            </p>
-          )}
-          <p style={{ margin: '5px 0', fontSize: '14px', color: '#666' }}>
-            <strong>Game:</strong> No-Limit Texas Hold'em
-          </p>
-        </div>
-      </div>
     </GameInfoContainer>
   );
 };

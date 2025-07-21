@@ -13,9 +13,10 @@ const BoardTitle = styled.h4`
 
 const BoardCards = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin-top: 10px;
   flex-wrap: wrap;
+  align-items: center;
 `;
 
 const BoardCard = styled.div`
@@ -31,6 +32,7 @@ const BoardCard = styled.div`
   background: white;
   color: #333;
   position: relative;
+  flex-shrink: 0;
   
   &:hover {
     border-color: #007bff;
@@ -80,6 +82,9 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
 
   // Create unified community cards display
   const allCommunityCards = [...flop, turn, river].filter(Boolean);
+  
+  // Debug logging
+  console.log('BoardSelector - flop:', flop, 'turn:', turn, 'river:', river);
 
   return (
     <div style={{ opacity: disabled ? 0.5 : 1, pointerEvents: disabled ? 'none' : 'auto' }}>
@@ -105,19 +110,19 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
           <BoardTitle>Community Cards</BoardTitle>
           <BoardCards>
             {flop.map((card, index) => (
-              <BoardCard key={`flop-${index}`} style={{ borderColor: '#4CAF50' }}>
+              <BoardCard key={`flop-${card}-${index}`} style={{ borderColor: '#4CAF50' }}>
                 {card}
                 <RemoveButton onClick={() => removeFlopCard(card)}>×</RemoveButton>
               </BoardCard>
             ))}
             {turn && (
-              <BoardCard style={{ borderColor: '#FF9800' }}>
+              <BoardCard key="turn" style={{ borderColor: '#FF9800' }}>
                 {turn}
                 <RemoveButton onClick={clearTurn}>×</RemoveButton>
               </BoardCard>
             )}
             {river && (
-              <BoardCard style={{ borderColor: '#2196F3' }}>
+              <BoardCard key="river" style={{ borderColor: '#2196F3' }}>
                 {river}
                 <RemoveButton onClick={clearRiver}>×</RemoveButton>
               </BoardCard>
