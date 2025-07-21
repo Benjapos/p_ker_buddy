@@ -184,7 +184,7 @@ function App() {
     setLoading(true);
     try {
       // Try to call the real backend first
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const apiUrl = process.env.REACT_APP_API_URL || 'https://p-ker-buddy.vercel.app';
       
       try {
         const response = await fetch(`${apiUrl}/api/analyze`, {

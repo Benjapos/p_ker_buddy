@@ -106,6 +106,17 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
   const gtoPosition = POSITION_MAP[position] || 'MP';
   const ranges = GTO_RANGES[gtoPosition];
   
+  // Debug logging
+  console.log('DEBUG GTO:', {
+    holeCards,
+    position,
+    handNotation,
+    gtoPosition,
+    inRaiseRange: ranges.raise.includes(handNotation),
+    inCallRange: ranges.call.includes(handNotation),
+    raiseRange: ranges.raise.slice(0, 10) + '...' // Show first 10 hands
+  });
+  
   // Check if hand is in raise range
   if (ranges.raise.includes(handNotation)) {
     return {
@@ -161,13 +172,13 @@ const calculateImpliedOdds = (potSize, betSize, stackSize, equity) => {
 // Professional hand evaluation
 const evaluateHand = (holeCards, communityCards) => {
   // This is a simplified version - in production you'd use a proper hand evaluator
-  const card1 = parseCard(holeCards[0]);
-  const card2 = parseCard(holeCards[1]);
-  const rank1 = getRankValue(card1.rank);
-  const rank2 = getRankValue(card2.rank);
-  const isSuited = card1.suit === card2.suit;
-  const isConnected = Math.abs(rank1 - rank2) <= 2;
-  
+    const card1 = parseCard(holeCards[0]);
+    const card2 = parseCard(holeCards[1]);
+    const rank1 = getRankValue(card1.rank);
+    const rank2 = getRankValue(card2.rank);
+    const isSuited = card1.suit === card2.suit;
+    const isConnected = Math.abs(rank1 - rank2) <= 2;
+    
   // Pre-flop evaluation
   if (communityCards.length === 0) {
     if (rank1 === rank2) {
@@ -217,7 +228,7 @@ const generateRecommendation = (handData) => {
     }
     
     // Adjust for pot odds
-    const potOdds = calculatePotOdds(potSize, betSize);
+  const potOdds = calculatePotOdds(potSize, betSize);
     if (potOdds > 25 && betSize > 0) {
       if (gtoResult.action === 'fold') {
         gtoResult.action = 'call';
@@ -259,27 +270,27 @@ const generateRecommendation = (handData) => {
   let reasoning = '';
   
   if (equity > 80) {
-    action = 'raise';
+      action = 'raise';
     confidence = 90;
-    raiseAmount = Math.round(bigBlind * 3);
+      raiseAmount = Math.round(bigBlind * 3);
     reasoning = `Very strong hand with ${equity}% equity. Value betting.`;
   } else if (equity > 65) {
-    action = 'raise';
-    confidence = 80;
-    raiseAmount = Math.round(bigBlind * 2.5);
+        action = 'raise';
+        confidence = 80;
+        raiseAmount = Math.round(bigBlind * 2.5);
     reasoning = `Strong hand with ${equity}% equity. Value betting.`;
   } else if (equity > 50) {
     if (potOdds > 15) {
-      action = 'call';
-      confidence = 70;
+        action = 'call';
+        confidence = 70;
       reasoning = `Decent hand with ${equity}% equity and good pot odds (${potOdds.toFixed(1)}%).`;
-    } else {
+      } else {
       action = 'fold';
-      confidence = 65;
+          confidence = 65;
       reasoning = `Decent hand with ${equity}% equity but poor pot odds.`;
     }
-  } else {
-    action = 'fold';
+      } else {
+        action = 'fold';
     confidence = 80;
     reasoning = `Weak hand with ${equity}% equity.`;
   }

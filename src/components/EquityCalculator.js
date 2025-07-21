@@ -145,7 +145,7 @@ const EquityCalculator = () => {
     
     try {
       // Simulate equity calculation (in real implementation, this would call the backend)
-      const response = await fetch('http://localhost:5000/api/equity', {
+              const response = await fetch('https://p-ker-buddy.vercel.app/api/equity', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

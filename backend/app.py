@@ -117,6 +117,10 @@ def hand_to_notation(hole_cards):
     rank1_str = 'T' if rank1 == '10' else rank1
     rank2_str = 'T' if rank2 == '10' else rank2
     
+    # For pairs, just return the rank twice (no suited/offsuit suffix)
+    if rank1_str == rank2_str:
+        return rank1_str + rank2_str
+    
     # Sort by rank (higher first)
     rank_values = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2}
     ranks = [rank1_str, rank2_str]
