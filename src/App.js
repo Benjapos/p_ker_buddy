@@ -156,7 +156,7 @@ function App() {
   const [river, setRiver] = useState(null);
   const [numPlayers, setNumPlayers] = useState(6);
   const [position, setPosition] = useState('middle');
-  const [potSize, setPotSize] = useState(100);
+  const [potSize, setPotSize] = useState(3);
   const [betSize, setBetSize] = useState(0);
   const [smallBlind, setSmallBlind] = useState(1);
   const [bigBlind, setBigBlind] = useState(2);
