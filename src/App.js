@@ -8,11 +8,9 @@ import TestInterface from './components/TestInterface';
 import HandHistory from './components/HandHistory';
 import EquityCalculator from './components/EquityCalculator';
 import TournamentICM from './components/TournamentICM';
-import DataLoader from './components/DataLoader';
-import HandStatistics from './components/HandStatistics';
+
 import { analyzeGTORange, getGTOAdvice } from './utils/pokerLogic';
 import { mockAnalyzeHand } from './mockBackend';
-import { findPreflopHands, findPostflopHands } from './utils/csvParser';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -166,8 +164,7 @@ function App() {
   const [showTestInterface, setShowTestInterface] = useState(false);
   const [isPreflop, setIsPreflop] = useState(true);
   const [activeTab, setActiveTab] = useState('main');
-  const [dataLoaded, setDataLoaded] = useState(false);
-  const [handStats, setHandStats] = useState(null);
+
 
   const handlePreflopToggle = (preflop) => {
     setIsPreflop(preflop);
@@ -178,35 +175,10 @@ function App() {
       setRiver(null);
       setRecommendation(null);
     }
-    // Update hand statistics when switching
-    updateHandStatistics();
+
   };
 
-  const handleDataLoaded = (summary) => {
-    setDataLoaded(true);
-    console.log('Data loaded:', summary);
-  };
 
-  const updateHandStatistics = () => {
-    if (!dataLoaded || holeCards.length !== 2) {
-      setHandStats(null);
-      return;
-    }
-
-    try {
-      if (isPreflop) {
-        const stats = findPreflopHands(holeCards, position, numPlayers);
-        setHandStats(stats);
-      } else {
-        const communityCards = [...flop, turn, river].filter(Boolean);
-        const stats = findPostflopHands(holeCards, communityCards, position, potSize);
-        setHandStats(stats);
-      }
-    } catch (error) {
-      console.error('Error updating hand statistics:', error);
-      setHandStats(null);
-    }
-  };
 
   const handleAnalyze = async () => {
     if (holeCards.length !== 2) {
@@ -241,8 +213,7 @@ function App() {
       
       setRecommendation(result);
       
-      // Update hand statistics
-      updateHandStatistics();
+      
     } catch (error) {
       console.error('Error analyzing hand:', error);
       alert('Error analyzing hand. Please try again.');
@@ -265,8 +236,6 @@ function App() {
           <GameTypeBadge>Texas No-Limit Hold'em</GameTypeBadge>
         </Header>
         <SubHeader>Professional AI-powered decision making for the world's most popular poker game</SubHeader>
-        
-        <DataLoader onDataLoaded={handleDataLoaded} />
         
         <PreflopToggle>
           <ToggleButton 
@@ -344,9 +313,7 @@ function App() {
                   canAnalyze={holeCards.length === 2}
                   isPreflop={isPreflop}
                 />
-                {dataLoaded && handStats && (
-                  <HandStatistics handStats={handStats} isPreflop={isPreflop} />
-                )}
+
               </Section>
             </Grid>
 
