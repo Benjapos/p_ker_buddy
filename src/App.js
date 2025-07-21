@@ -210,7 +210,8 @@ function App() {
         if (response.ok) {
           const result = await response.json();
           
-          // Add GTO range analysis from frontend
+          // Add holeCards and GTO range analysis from frontend
+          result.holeCards = holeCards;
           const gtoRange = analyzeGTORange(holeCards, position);
           result.gtoRange = gtoRange;
           result.gtoAdvice = getGTOAdvice(gtoRange, position, isPreflop);

@@ -334,6 +334,7 @@ def generate_ai_recommendation(data):
         ev = round((pot_size + raise_amount) * (equity / 100) - raise_amount)
     
     return {
+        'holeCards': hole_cards,  # Add holeCards to the response
         'action': action,
         'confidence': round(confidence),
         'raiseAmount': raise_amount,

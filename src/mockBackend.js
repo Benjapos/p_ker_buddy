@@ -28,6 +28,7 @@ export const mockAnalyzeHand = async (data) => {
   }
   
   return {
+    holeCards: holeCards, // Add holeCards to the result
     action: gtoResult.action,
     confidence: gtoResult.confidence,
     raiseAmount: gtoResult.raiseAmount,
