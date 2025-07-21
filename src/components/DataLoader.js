@@ -95,18 +95,41 @@ const DataLoader = ({ onDataLoaded }) => {
     try {
       console.log('Loading CSV data...');
       
-      // Load preflop data
-      const preflopResponse = await fetch('/data/10_000_Preflop_Scenarios_with_Conditional_Actions.csv');
-      console.log('Preflop response status:', preflopResponse.status);
+      // Load preflop data - try sample file first
+      let preflopResponse = await fetch('/data/sample_preflop.csv');
+      console.log('Sample preflop response status:', preflopResponse.status);
       
       if (preflopResponse.ok) {
         const preflopContent = await preflopResponse.text();
-        console.log('Preflop content length:', preflopContent.length);
+        console.log('Sample preflop content length:', preflopContent.length);
         loadPreflopData(preflopContent);
         setDataStatus(prev => ({ ...prev, preflop: true }));
-        console.log('✅ Preflop data loaded successfully');
+        console.log('✅ Sample preflop data loaded successfully');
       } else {
-        console.error('❌ Failed to load preflop data:', preflopResponse.status, preflopResponse.statusText);
+        console.log('Sample preflop failed, trying full dataset...');
+        // Try full dataset
+        preflopResponse = await fetch('/data/10_000_Preflop_Scenarios_with_Conditional_Actions.csv');
+        console.log('Full preflop response status:', preflopResponse.status);
+        
+        if (preflopResponse.ok) {
+          const preflopContent = await preflopResponse.text();
+          console.log('Full preflop content length:', preflopContent.length);
+          loadPreflopData(preflopContent);
+          setDataStatus(prev => ({ ...prev, preflop: true }));
+          console.log('✅ Full preflop data loaded successfully');
+        } else {
+          console.error('❌ Failed to load preflop data:', preflopResponse.status, preflopResponse.statusText);
+          // Try alternative path
+          const altPreflopResponse = await fetch('./data/sample_preflop.csv');
+          if (altPreflopResponse.ok) {
+            const preflopContent = await altPreflopResponse.text();
+            loadPreflopData(preflopContent);
+            setDataStatus(prev => ({ ...prev, preflop: true }));
+            console.log('✅ Sample preflop data loaded from alternative path');
+          } else {
+            console.error('❌ Failed to load preflop data from alternative path');
+          }
+        }
       }
 
       // Load postflop data
@@ -121,6 +144,16 @@ const DataLoader = ({ onDataLoaded }) => {
         console.log('✅ Postflop data loaded successfully');
       } else {
         console.error('❌ Failed to load postflop data:', postflopResponse.status, postflopResponse.statusText);
+        // Try alternative path
+        const altPostflopResponse = await fetch('./data/10_000_Postflop_Scenarios_with_Recommended_Actions.csv');
+        if (altPostflopResponse.ok) {
+          const postflopContent = await altPostflopResponse.text();
+          loadPostflopData(postflopContent);
+          setDataStatus(prev => ({ ...prev, postflop: true }));
+          console.log('✅ Postflop data loaded from alternative path');
+        } else {
+          console.error('❌ Failed to load postflop data from alternative path');
+        }
       }
 
       // Update summary
