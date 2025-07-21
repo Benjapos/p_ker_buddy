@@ -111,51 +111,121 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
   const gtoPosition = POSITION_MAP[position] || 'MP';
   const ranges = GTO_RANGES[gtoPosition];
   
+  // Determine the action context
+  const isOpening = betSize === 0 || betSize === bigBlind; // No raise before you
+  const isFacingRaise = betSize > bigBlind * 2; // Significant raise before you
+  const isFacingLimp = betSize === bigBlind; // Just a limp/call before you
+  
   // Debug logging
   console.log('DEBUG GTO:', {
     holeCards,
     position,
     handNotation,
     gtoPosition,
+    isOpening,
+    isFacingRaise,
+    isFacingLimp,
+    betSize,
+    bigBlind,
     inRaiseRange: ranges.raise.includes(handNotation),
     inCallRange: ranges.call.includes(handNotation),
     raiseRange: ranges.raise.slice(0, 10) + '...' // Show first 10 hands
   });
   
-  // Check if hand is in raise range
-  if (ranges.raise.includes(handNotation)) {
-    return {
-      action: 'raise',
-      confidence: 90,
-      raiseAmount: Math.round(bigBlind * 3),
-      reasoning: `GTO: ${handNotation} is in the raising range from ${gtoPosition} position.`
-    };
-  }
-  
-  // Check if hand is in call range
-  if (ranges.call.includes(handNotation)) {
-    // Consider pot odds for calling
-    const potOdds = calculatePotOdds(potSize, betSize);
-    if (potOdds > 15 || betSize === 0) {
+  // Opening scenario (no action before you)
+  if (isOpening) {
+    if (ranges.raise.includes(handNotation)) {
+      return {
+        action: 'raise',
+        confidence: 90,
+        raiseAmount: Math.round(bigBlind * 3),
+        reasoning: `GTO: ${handNotation} is in the opening raising range from ${gtoPosition} position.`
+      };
+    }
+    
+    if (ranges.call.includes(handNotation)) {
       return {
         action: 'call',
         confidence: 75,
-        reasoning: `GTO: ${handNotation} is in the calling range from ${gtoPosition} position. Good pot odds (${potOdds.toFixed(1)}%).`
-      };
-    } else {
-      return {
-        action: 'fold',
-        confidence: 70,
-        reasoning: `GTO: ${handNotation} is in the calling range but poor pot odds (${potOdds.toFixed(1)}%). Folding.`
+        reasoning: `GTO: ${handNotation} is in the opening calling range from ${gtoPosition} position.`
       };
     }
+    
+    return {
+      action: 'fold',
+      confidence: 85,
+      reasoning: `GTO: ${handNotation} is not in the opening range from ${gtoPosition} position.`
+    };
   }
   
-  // Hand is in fold range
+  // Facing a limp (someone just called the big blind)
+  if (isFacingLimp) {
+    if (ranges.raise.includes(handNotation)) {
+      return {
+        action: 'raise',
+        confidence: 85,
+        raiseAmount: Math.round(bigBlind * 3),
+        reasoning: `GTO: ${handNotation} is strong enough to isolate the limper from ${gtoPosition} position.`
+      };
+    }
+    
+    if (ranges.call.includes(handNotation)) {
+      return {
+        action: 'raise',
+        confidence: 70,
+        raiseAmount: Math.round(bigBlind * 2.5),
+        reasoning: `GTO: ${handNotation} can isolate the limper from ${gtoPosition} position.`
+      };
+    }
+    
+    return {
+      action: 'fold',
+      confidence: 80,
+      reasoning: `GTO: ${handNotation} is too weak to isolate the limper from ${gtoPosition} position.`
+    };
+  }
+  
+  // Facing a raise (someone raised before you)
+  if (isFacingRaise) {
+    // Much tighter ranges when facing a raise
+    if (ranges.raise.includes(handNotation)) {
+      const potOdds = calculatePotOdds(potSize, betSize);
+      if (potOdds > 20) {
+        return {
+          action: 'call',
+          confidence: 75,
+          reasoning: `GTO: ${handNotation} is strong enough to call the raise with good pot odds (${potOdds.toFixed(1)}%).`
+        };
+      } else {
+        return {
+          action: 'fold',
+          confidence: 70,
+          reasoning: `GTO: ${handNotation} is strong but poor pot odds (${potOdds.toFixed(1)}%) make it a fold.`
+        };
+      }
+    }
+    
+    return {
+      action: 'fold',
+      confidence: 90,
+      reasoning: `GTO: ${handNotation} is not strong enough to call a raise from ${gtoPosition} position.`
+    };
+  }
+  
+  // Default fallback
+  const potOdds = calculatePotOdds(potSize, betSize);
+  if (ranges.raise.includes(handNotation) && (potOdds > 15 || betSize === 0)) {
+    return {
+      action: 'call',
+      confidence: 75,
+      reasoning: `GTO: ${handNotation} is in the calling range with good pot odds (${potOdds.toFixed(1)}%).`
+    };
+  }
+  
   return {
     action: 'fold',
     confidence: 85,
-    reasoning: `GTO: ${handNotation} is not in the opening range from ${gtoPosition} position.`
+    reasoning: `GTO: ${handNotation} is not strong enough for this action from ${gtoPosition} position.`
   };
 };
 
