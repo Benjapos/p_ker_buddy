@@ -93,19 +93,11 @@ const DataLoader = ({ onDataLoaded }) => {
 
   const loadData = async () => {
     try {
-      console.log('Loading sample CSV data...');
+      console.log('CSV data loading disabled - using GTO logic only');
       
-      // Load sample preflop data
-      const preflopResponse = await fetch('/data/sample_preflop.csv');
-      if (preflopResponse.ok) {
-        const preflopContent = await preflopResponse.text();
-        loadPreflopData(preflopContent);
-        setDataStatus(prev => ({ ...prev, preflop: true }));
-        console.log('✅ Sample preflop data loaded');
-      } else {
-        console.error('❌ Failed to load sample preflop data');
-      }
-
+      // Set data as loaded with empty data (GTO logic will handle recommendations)
+      setDataStatus(prev => ({ ...prev, preflop: true, postflop: true }));
+      
       // Update summary
       const dataSummary = getDataSummary();
       setSummary(dataSummary);
@@ -117,7 +109,7 @@ const DataLoader = ({ onDataLoaded }) => {
       }
 
     } catch (error) {
-      console.error('❌ Error loading CSV data:', error);
+      console.error('❌ Error in data loader:', error);
     }
   };
 
