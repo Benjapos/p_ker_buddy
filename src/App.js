@@ -216,45 +216,8 @@ function App() {
 
     setLoading(true);
     try {
-      // Try to call the real backend first
-      const apiUrl = process.env.REACT_APP_API_URL || 'https://p-ker-buddy-backend.vercel.app';
-      
-      try {
-        const response = await fetch(`${apiUrl}/api/analyze`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            holeCards,
-            flop: isPreflop ? [] : flop,
-            turn: isPreflop ? null : turn,
-            river: isPreflop ? null : river,
-            numPlayers,
-            position,
-            potSize,
-            betSize,
-            smallBlind,
-            bigBlind,
-            stackSize
-          })
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          
-          // Add holeCards and GTO range analysis from frontend
-          result.holeCards = holeCards;
-          const gtoRange = analyzeGTORange(holeCards, position);
-          result.gtoRange = gtoRange;
-          result.gtoAdvice = getGTOAdvice(gtoRange, position, isPreflop);
-          
-          setRecommendation(result);
-          return;
-        }
-      } catch (backendError) {
-        console.log('Backend not available, using mock backend');
-      }
+      // Use mock backend only (offline mode)
+      console.log('Using mock backend (offline mode)');
       
       // Fallback to mock backend
       const result = await mockAnalyzeHand({
