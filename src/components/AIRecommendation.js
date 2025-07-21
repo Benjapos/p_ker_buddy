@@ -7,8 +7,8 @@ const RecommendationContainer = styled.div`
   padding: 15px;
   border: 1px solid #333;
   min-height: 180px;
-  max-height: 400px;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
 `;
 
 const LoadingSpinner = styled.div`

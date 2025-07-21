@@ -253,9 +253,11 @@ function App() {
 
   return (
     <AppContainer>
-      <DevToggle onClick={() => setShowTestInterface(!showTestInterface)}>
-        {showTestInterface ? '🔒 Hide Tests' : '🧪 Show Tests'}
-      </DevToggle>
+      {process.env.NODE_ENV === 'development' && (
+        <DevToggle onClick={() => setShowTestInterface(!showTestInterface)}>
+          {showTestInterface ? '🔒 Hide Tests' : '🧪 Show Tests'}
+        </DevToggle>
+      )}
       
       <MainContent>
         <Header>
