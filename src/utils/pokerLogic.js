@@ -91,6 +91,11 @@ const handToNotation = (holeCards) => {
   const rank1Str = rank1 === '10' ? 'T' : rank1;
   const rank2Str = rank2 === '10' ? 'T' : rank2;
   
+  // For pairs, return just the rank twice (no suited/offsuit suffix)
+  if (rank1Str === rank2Str) {
+    return rank1Str + rank2Str;
+  }
+  
   // Sort by rank (higher first)
   const ranks = [rank1Str, rank2Str].sort((a, b) => {
     const values = { 'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2 };
