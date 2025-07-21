@@ -115,9 +115,10 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
   const blindsOnly = smallBlind + bigBlind;
   const limpPot = blindsOnly + bigBlind; // SB + BB + BB (someone called)
   
-  const isOpening = potSize <= blindsOnly; // No action, just blinds
-  const isFacingLimp = potSize === limpPot; // Someone limped
-  const isFacingRaise = potSize > limpPot; // Someone raised
+  // More flexible opening detection - allow for small variations in pot size
+  const isOpening = potSize <= (blindsOnly + 1); // No action, just blinds (with small tolerance)
+  const isFacingLimp = potSize > (blindsOnly + 1) && potSize <= (limpPot + 2); // Someone limped
+  const isFacingRaise = potSize > (limpPot + 2); // Someone raised
   
   // Debug logging
   console.log('DEBUG GTO:', {
@@ -136,7 +137,8 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
     smallBlind,
     inRaiseRange: ranges.raise.includes(handNotation),
     inCallRange: ranges.call.includes(handNotation),
-    raiseRange: ranges.raise.slice(0, 10) + '...' // Show first 10 hands
+    raiseRange: ranges.raise.slice(0, 10) + '...', // Show first 10 hands
+    actionContext: isOpening ? 'OPENING' : isFacingLimp ? 'FACING_LIMP' : isFacingRaise ? 'FACING_RAISE' : 'UNKNOWN'
   });
   
   // Opening scenario (no action before you)

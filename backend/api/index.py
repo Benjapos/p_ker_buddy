@@ -141,9 +141,10 @@ def get_gto_action(hole_cards, position, num_players, pot_size, bet_size, big_bl
     blinds_only = small_blind + big_blind
     limp_pot = blinds_only + big_blind  # SB + BB + BB (someone called)
     
-    is_opening = pot_size <= blinds_only  # No action, just blinds
-    is_facing_limp = pot_size == limp_pot  # Someone limped
-    is_facing_raise = pot_size > limp_pot  # Someone raised
+    # More flexible opening detection - allow for small variations in pot size
+    is_opening = pot_size <= (blinds_only + 1)  # No action, just blinds (with small tolerance)
+    is_facing_limp = pot_size > (blinds_only + 1) and pot_size <= (limp_pot + 2)  # Someone limped
+    is_facing_raise = pot_size > (limp_pot + 2)  # Someone raised
     
     # Opening scenario (no action before you)
     if is_opening:
