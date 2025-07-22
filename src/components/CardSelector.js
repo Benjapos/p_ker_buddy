@@ -6,6 +6,16 @@ const CardGrid = styled.div`
   grid-template-columns: repeat(13, 1fr);
   gap: 5px;
   margin-top: 15px;
+  
+  @media (max-width: 768px) {
+    gap: 4px;
+    margin-top: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 3px;
+    margin-top: 10px;
+  }
 `;
 
 const Card = styled.div`
@@ -27,6 +37,20 @@ const Card = styled.div`
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
+  
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 50px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 32px;
+    height: 45px;
+    font-size: 11px;
+    border-radius: 5px;
+  }
 `;
 
 const SuitGrid = styled.div`
@@ -34,6 +58,16 @@ const SuitGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   margin-top: 15px;
+  
+  @media (max-width: 768px) {
+    gap: 4px;
+    margin-top: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 3px;
+    margin-top: 10px;
+  }
 `;
 
 const SuitCard = styled.div`
@@ -54,6 +88,20 @@ const SuitCard = styled.div`
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
+  
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 32px;
+    height: 45px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
 `;
 
 const SelectedCards = styled.div`
@@ -61,6 +109,17 @@ const SelectedCards = styled.div`
   gap: 10px;
   margin-top: 15px;
   flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 6px;
+    margin-top: 10px;
+  }
 `;
 
 const SelectedCard = styled.div`
@@ -76,6 +135,20 @@ const SelectedCard = styled.div`
   background: #4CAF50;
   color: white;
   position: relative;
+  
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 63px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 56px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
 `;
 
 const RemoveButton = styled.button`
@@ -93,6 +166,22 @@ const RemoveButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (max-width: 768px) {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: -6px;
+    right: -6px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    top: -5px;
+    right: -5px;
+  }
 `;
 
 const CardSelector = ({ selectedCards, onCardsChange, maxCards, title }) => {

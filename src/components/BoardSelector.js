@@ -9,6 +9,16 @@ const BoardSection = styled.div`
 const BoardTitle = styled.h4`
   color: #1e3c72;
   margin-bottom: 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
 `;
 
 const BoardCards = styled.div`
@@ -17,6 +27,15 @@ const BoardCards = styled.div`
   margin-top: 10px;
   flex-wrap: wrap;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    gap: 6px;
+    justify-content: center;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 4px;
+  }
 `;
 
 const BoardCard = styled.div`
@@ -37,6 +56,20 @@ const BoardCard = styled.div`
   &:hover {
     border-color: #007bff;
   }
+  
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 63px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 56px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
 `;
 
 const RemoveButton = styled.button`
@@ -54,6 +87,22 @@ const RemoveButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (max-width: 768px) {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: -6px;
+    right: -6px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    top: -5px;
+    right: -5px;
+  }
 `;
 
 const ClearButton = styled.button`
@@ -69,6 +118,64 @@ const ClearButton = styled.button`
   &:hover {
     background: #f57c00;
   }
+  
+  @media (max-width: 768px) {
+    padding: 6px 12px;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-top: 6px;
+  }
+`;
+
+const PreflopMessage = styled.div`
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 2px dashed #dee2e6;
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  h4 {
+    color: #6c757d;
+    margin: 0 0 10px 0;
+    
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
+  
+  p {
+    color: #6c757d;
+    margin: 0;
+    font-size: 14px;
+    
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 12px;
+    }
+  }
 `;
 
 const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverChange, disabled = false }) => {
@@ -80,41 +187,25 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
     onFlopChange(flop.filter(c => c !== card));
   };
 
-  // Create unified community cards display
-  const allCommunityCards = [...flop, turn, river].filter(Boolean);
-  
   // Debug logging
   console.log('BoardSelector - flop:', flop, 'turn:', turn, 'river:', river);
 
   return (
     <div style={{ opacity: disabled ? 0.5 : 1, pointerEvents: disabled ? 'none' : 'auto' }}>
       {disabled && (
-        <div style={{ 
-          textAlign: 'center', 
-          padding: '20px', 
-          backgroundColor: '#f8f9fa', 
-          borderRadius: '10px', 
-          marginBottom: '20px',
-          border: '2px dashed #dee2e6'
-        }}>
-          <h4 style={{ color: '#6c757d', margin: '0 0 10px 0' }}>🃏 Preflop Mode</h4>
-          <p style={{ color: '#6c757d', margin: 0, fontSize: '14px' }}>
+        <PreflopMessage>
+          <h4>🃏 Preflop Mode</h4>
+          <p>
             Community cards are not available in preflop mode. Switch to Postflop to analyze with community cards.
           </p>
-        </div>
+        </PreflopMessage>
       )}
 
-      {/* Unified Community Cards Display */}
-      {allCommunityCards.length > 0 && (
+      {/* Unified Community Cards Display - Only Turn and River */}
+      {(turn || river) && (
         <BoardSection>
           <BoardTitle>Community Cards</BoardTitle>
           <BoardCards>
-            {flop.map((card, index) => (
-              <BoardCard key={`flop-${card}-${index}`} style={{ borderColor: '#4CAF50' }}>
-                {card}
-                <RemoveButton onClick={() => removeFlopCard(card)}>×</RemoveButton>
-              </BoardCard>
-            ))}
             {turn && (
               <BoardCard key="turn" style={{ borderColor: '#FF9800' }}>
                 {turn}
@@ -135,7 +226,7 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
         <BoardTitle>Flop (3 cards)</BoardTitle>
         {flop.length < 3 && (
           <CardSelector
-            selectedCards={[]}
+            selectedCards={flop}
             onCardsChange={onFlopChange}
             maxCards={3}
             title=""
