@@ -17,11 +17,14 @@ const AppContainer = styled.div`
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   padding: 20px;
   font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 const MainContent = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 30px;
@@ -29,6 +32,15 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  @media (max-width: 1240px) {
+    margin: 0 20px;
+  }
+  
+  @media (max-width: 768px) {
+    margin: 0 10px;
+    padding: 20px;
+  }
 `;
 
 const Header = styled.h1`
