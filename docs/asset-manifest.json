@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/p_ker_buddy/static/js/main.dfdb440b.js",
+    "main.js": "/p_ker_buddy/static/js/main.cb538e19.js",
     "index.html": "/p_ker_buddy/index.html",
-    "main.dfdb440b.js.map": "/p_ker_buddy/static/js/main.dfdb440b.js.map"
+    "main.cb538e19.js.map": "/p_ker_buddy/static/js/main.cb538e19.js.map"
   },
   "entrypoints": [
-    "static/js/main.dfdb440b.js"
+    "static/js/main.cb538e19.js"
   ]
 }

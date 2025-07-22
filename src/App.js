@@ -458,7 +458,7 @@ function App() {
             
             {activeTab === 'main' && (
               <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px' }} maxWidth="100%">
+                <Grid style={{ gridTemplateColumns: '0.8fr 1.2fr', gap: '25px' }} maxWidth="100%">
                   <Section minHeight="400px">
                     <h2>Game Information</h2>
                     <GameInfo
@@ -491,7 +491,7 @@ function App() {
                   </Section>
                 </Grid>
 
-                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px', marginTop: '25px' }} maxWidth="100%">
+                <Grid style={{ gridTemplateColumns: '0.8fr 1.2fr', gap: '25px', marginTop: '25px' }} maxWidth="100%">
                   <Section minHeight="350px">
                     <h2>Your Hole Cards</h2>
                     <p style={{ color: theme.textSecondary, fontSize: '0.9rem', marginBottom: '15px', fontStyle: 'italic', textAlign: 'center' }}>
