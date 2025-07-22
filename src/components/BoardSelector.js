@@ -232,6 +232,19 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
             title=""
           />
         )}
+        
+        {/* Show flop cards when CardSelector is hidden */}
+        {flop.length === 3 && (
+          <BoardCards>
+            {flop.map((card, index) => (
+              <BoardCard key={`flop-${card}-${index}`} style={{ borderColor: '#4CAF50' }}>
+                {card}
+                <RemoveButton onClick={() => removeFlopCard(card)}>×</RemoveButton>
+              </BoardCard>
+            ))}
+          </BoardCards>
+        )}
+        
         {flop.length > 0 && <ClearButton onClick={clearFlop}>Clear Flop</ClearButton>}
       </BoardSection>
 
