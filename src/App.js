@@ -32,12 +32,15 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
   
   @media (max-width: 1240px) {
+    max-width: calc(100% - 40px);
     margin: 0 20px;
   }
   
   @media (max-width: 768px) {
+    max-width: calc(100% - 20px);
     margin: 0 10px;
     padding: 20px;
   }
