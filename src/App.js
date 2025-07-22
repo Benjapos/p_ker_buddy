@@ -7,6 +7,7 @@ import AIRecommendation from './components/AIRecommendation';
 import TestInterface from './components/TestInterface';
 import HandHistory from './components/HandHistory';
 import EquityCalculator from './components/EquityCalculator';
+import LiveTracking from './components/LiveTracking';
 // import TournamentICM from './components/TournamentICM';
 
 import { analyzeGTORange, getGTOAdvice } from './utils/pokerLogic';
@@ -99,71 +100,76 @@ const ToggleButton = styled.button`
   }
 `;
 
+const TabContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const TabButton = styled.button`
+  background: ${props => props.active ? 'linear-gradient(45deg, #1e3c72, #2a5298)' : '#f0f0f0'};
+  color: ${props => props.active ? 'white' : '#666'};
+  border: 2px solid ${props => props.active ? '#1e3c72' : '#ddd'};
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: ${props => props.active ? 'linear-gradient(45deg, #2a5298, #1e3c72)' : '#e0e0e0'};
+    transform: translateY(-1px);
+  }
+`;
+
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  grid-template-columns: ${props => props.gridTemplateColumns || '1fr 1fr'};
+  gap: ${props => props.gap || '20px'};
   width: 100%;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 `;
 
 const Section = styled.div`
   background: white;
   border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  h2 {
+    color: #1e3c72;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
 `;
 
 const DevToggle = styled.button`
   position: fixed;
   top: 20px;
   right: 20px;
-  background: #ffc107;
-  color: #000;
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 25px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 12px;
   z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   
   &:hover {
-    background: #e0a800;
-  }
-`;
-
-const TabContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  gap: 10px;
-  width: 100%;
-  
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
-  }
-`;
-
-const TabButton = styled.button`
-  background: ${props => props.active ? '#4CAF50' : '#333'};
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background: ${props => props.active ? '#45a049' : '#444'};
-  }
-  
-  @media (max-width: 768px) {
-    padding: 10px 15px;
-    font-size: 0.9em;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -285,6 +291,12 @@ function App() {
           >
             🎯 Equity Calculator
           </TabButton>
+          <TabButton 
+            active={activeTab === 'live'} 
+            onClick={() => setActiveTab('live')}
+          >
+            📡 Live Tracking
+          </TabButton>
           {/* <TabButton 
             active={activeTab === 'icm'} 
             onClick={() => setActiveTab('icm')}
@@ -363,6 +375,23 @@ function App() {
         
         {activeTab === 'equity' && (
           <EquityCalculator />
+        )}
+        
+        {activeTab === 'live' && (
+          <LiveTracking 
+            onHandDataReceived={(handData) => {
+              // Auto-populate the main analysis with live hand data
+              setHoleCards(handData.holeCards || []);
+              setFlop(handData.communityCards?.slice(0, 3) || []);
+              setTurn(handData.communityCards?.[3] || null);
+              setRiver(handData.communityCards?.[4] || null);
+              setNumPlayers(handData.numPlayers || 6);
+              setPosition(handData.position || 'middle');
+              setPotSize(handData.potSize || 100);
+              setBetSize(handData.betSize || 0);
+              setActiveTab('main');
+            }}
+          />
         )}
         
         {/* {activeTab === 'icm' && (
