@@ -26,6 +26,9 @@ const MainContent = styled.div`
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Header = styled.h1`
@@ -85,6 +88,7 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  width: 100%;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -121,6 +125,7 @@ const TabContainer = styled.div`
   justify-content: center;
   margin: 20px 0;
   gap: 10px;
+  width: 100%;
   
   @media (max-width: 768px) {
     flex-wrap: wrap;
