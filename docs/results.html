@@ -449,12 +449,13 @@
             </div>
             <table class="leaderboard-table">
                 <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Player</th>
-                        <th>Wins</th>
-                        <th>Win Rate</th>
-                    </tr>
+                                    <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Wins</th>
+                    <th>Games</th>
+                    <th>Win Rate</th>
+                </tr>
                 </thead>
                 <tbody id="leaderboardBody">
                 </tbody>
@@ -677,6 +678,7 @@
                     <td>${rankBadge}${index + 1}</td>
                     <td>${rank.player}</td>
                     <td class="wins-count">${rank.wins}</td>
+                    <td>${rank.games}</td>
                     <td>${rank.winRate}%</td>
                 `;
                 leaderboardBody.appendChild(row);
@@ -698,6 +700,10 @@
                         otherPlayers.push(result[playerKey].trim());
                     }
                 }
+                
+                // Debug logging for this row
+                console.log('Row data:', result);
+                console.log('Other players for this row:', otherPlayers);
                 
                 row.innerHTML = `
                     <td class="date">${result.date || ''}</td>
