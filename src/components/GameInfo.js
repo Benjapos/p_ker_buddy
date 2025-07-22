@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../App';
 
 const FormGroup = styled.div`
   margin-bottom: 10px;
@@ -10,36 +11,41 @@ const Label = styled.label`
   display: block;
   margin-bottom: 3px;
   font-weight: 500;
-  color: #333;
+  color: ${props => props.theme.text};
   font-size: 13px;
+  transition: color 0.3s ease;
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 6px;
-  border: 2px solid #ddd;
+  border: 2px solid ${props => props.theme.inputBorder};
   border-radius: 6px;
   font-size: 14px;
-  transition: border-color 0.2s;
+  background: ${props => props.theme.inputBackground};
+  color: ${props => props.theme.text};
+  transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #2196F3;
+    border-color: ${props => props.theme.primary};
   }
 `;
 
 const Select = styled.select`
   width: 100%;
   padding: 6px;
-  border: 2px solid #ddd;
+  border: 2px solid ${props => props.theme.inputBorder};
   border-radius: 6px;
   font-size: 14px;
-  background: white;
+  background: ${props => props.theme.inputBackground};
+  color: ${props => props.theme.text};
   cursor: pointer;
+  transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #2196F3;
+    border-color: ${props => props.theme.primary};
   }
 `;
 

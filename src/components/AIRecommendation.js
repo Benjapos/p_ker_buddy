@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../App';
 
 const RecommendationContainer = styled.div`
-  background: #1a1a1a;
+  background: ${props => props.theme.cardBackground};
   border-radius: 12px;
   padding: 15px;
-  border: 1px solid #333;
+  border: 1px solid ${props => props.theme.cardBorder};
   min-height: 180px;
   max-height: none;
   overflow-y: visible;
+  transition: all 0.3s ease;
 `;
 
 const LoadingSpinner = styled.div`
@@ -16,7 +18,7 @@ const LoadingSpinner = styled.div`
   justify-content: center;
   align-items: center;
   height: 200px;
-  color: #4CAF50;
+  color: ${props => props.theme.success};
   font-size: 1.2em;
 `;
 
@@ -81,55 +83,61 @@ const StatsGrid = styled.div`
 `;
 
 const StatCard = styled.div`
-  background: #2a2a2a;
+  background: ${props => props.theme.inputBackground};
   border-radius: 6px;
   padding: 10px;
   text-align: center;
-  border-left: 3px solid #4CAF50;
+  border-left: 3px solid ${props => props.theme.success};
+  transition: all 0.3s ease;
 `;
 
 const StatLabel = styled.div`
-  color: #ccc;
+  color: ${props => props.theme.textSecondary};
   font-size: 0.9em;
   margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 `;
 
 const StatValue = styled.div`
-  color: #fff;
-  font-size: 1.2em;
+  color: ${props => props.theme.text};
   font-weight: bold;
+  font-size: 1.1em;
+  transition: color 0.3s ease;
 `;
 
 const EquityValue = styled(StatValue)`
-  color: #4CAF50;
+  color: ${props => props.theme.success};
 `;
 
 const ReasoningBox = styled.div`
-  background: #2a2a2a;
+  background: ${props => props.theme.inputBackground};
   border-radius: 6px;
   padding: 12px;
   margin-top: 15px;
-  border-left: 3px solid #2196F3;
+  border-left: 3px solid ${props => props.theme.primary};
+  transition: all 0.3s ease;
 `;
 
 const ReasoningTitle = styled.div`
-  color: #2196F3;
+  color: ${props => props.theme.primary};
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 1.1em;
+  transition: color 0.3s ease;
 `;
 
 const ReasoningText = styled.div`
-  color: #ccc;
+  color: ${props => props.theme.textSecondary};
   line-height: 1.6;
   font-size: 0.95em;
+  transition: color 0.3s ease;
 `;
 
 const AnalyzeButton = styled.button`
-  background: #4CAF50;
-  color: white;
+  background: ${props => props.theme.buttonPrimary};
+  color: ${props => props.theme.buttonText};
   border: none;
   padding: 12px 20px;
   border-radius: 6px;
@@ -138,15 +146,18 @@ const AnalyzeButton = styled.button`
   font-weight: bold;
   width: 100%;
   margin-top: 12px;
-  transition: background 0.2s ease;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px ${props => props.theme.shadow};
   }
   
   &:disabled {
-    background: #666;
+    background: ${props => props.theme.border};
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
   
   @media (max-width: 768px) {
@@ -157,28 +168,31 @@ const AnalyzeButton = styled.button`
 
 const EmptyState = styled.div`
   text-align: center;
-  color: #666;
+  color: ${props => props.theme.textSecondary};
   padding: 40px 20px;
   font-style: italic;
+  transition: color 0.3s ease;
 `;
 
 const RaiseAmount = styled.div`
-  color: #4CAF50;
+  color: ${props => props.theme.success};
   font-weight: bold;
   margin-top: 15px;
   font-size: 1.3em;
-  background: #2a2a2a;
+  background: ${props => props.theme.inputBackground};
   padding: 12px;
   border-radius: 8px;
-  border: 2px solid #4CAF50;
+  border: 2px solid ${props => props.theme.success};
   text-align: center;
+  transition: all 0.3s ease;
 `;
 
 const RaiseSizing = styled.div`
-  color: #fff;
+  color: ${props => props.theme.text};
   font-size: 0.9em;
   margin-top: 8px;
   opacity: 0.8;
+  transition: color 0.3s ease;
 `;
 
 const AIRecommendation = ({ recommendation, loading, onAnalyze, canAnalyze, isPreflop }) => {

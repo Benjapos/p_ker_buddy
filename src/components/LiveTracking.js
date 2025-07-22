@@ -195,18 +195,18 @@ const API_ENDPOINTS = {
   mockAPI: 'https://jsonplaceholder.typicode.com/posts' // For demo purposes
 };
 
-const LiveTracking = ({ onHandDataReceived }) => {
+const LiveTracking = ({ 
+  isTracking, 
+  currentHand, 
+  stats, 
+  onStartTracking, 
+  onStopTracking, 
+  onHandDataReceived, 
+  onLoadToAnalysis 
+}) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [currentHand, setCurrentHand] = useState(null);
   const [connectionLog, setConnectionLog] = useState([]);
-  const [stats, setStats] = useState({
-    handsProcessed: 0,
-    totalWinnings: 0,
-    winRate: 0,
-    avgPotSize: 0
-  });
   const [selectedAPI, setSelectedAPI] = useState('mock');
-  const [isTracking, setIsTracking] = useState(false);
   const trackingRef = useRef(null);
 
   // Add log entry
@@ -232,6 +232,9 @@ const LiveTracking = ({ onHandDataReceived }) => {
       // Start receiving live data
       startLiveDataStream();
       
+      // Notify parent that tracking has started
+      onStartTracking(selectedAPI);
+      
     } catch (error) {
       addLog(`Failed to connect to ${selectedAPI}: ${error.message}`, 'error');
       setIsConnected(false);
@@ -248,28 +251,17 @@ const LiveTracking = ({ onHandDataReceived }) => {
     const result = liveTrackingAPI.disconnect();
     
     setIsConnected(false);
-    setIsTracking(false);
+    onStopTracking();
     addLog(result.message, 'info');
   };
 
   // Start live data stream
   const startLiveDataStream = () => {
-    setIsTracking(true);
     addLog('Starting live hand tracking...', 'info');
     
     try {
       trackingRef.current = liveTrackingAPI.startTracking(
         (handData) => {
-          setCurrentHand(handData);
-          
-          // Update stats
-          setStats(prev => ({
-            handsProcessed: prev.handsProcessed + 1,
-            totalWinnings: prev.totalWinnings + (handData.result === 'win' ? handData.potSize : 0),
-            winRate: ((prev.handsProcessed + 1) / (prev.handsProcessed + 1)) * 100,
-            avgPotSize: Math.round((prev.avgPotSize * prev.handsProcessed + handData.potSize) / (prev.handsProcessed + 1))
-          }));
-          
           // Notify parent component
           if (onHandDataReceived) {
             onHandDataReceived(handData);
@@ -283,7 +275,7 @@ const LiveTracking = ({ onHandDataReceived }) => {
       );
     } catch (error) {
       addLog(`Failed to start tracking: ${error.message}`, 'error');
-      setIsTracking(false);
+      onStopTracking();
     }
   };
 
@@ -346,9 +338,19 @@ const LiveTracking = ({ onHandDataReceived }) => {
             🔌 Connect to API
           </ActionButton>
         ) : (
-          <ActionButton onClick={disconnectFromAPI} style={{ background: 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)' }}>
-            🔌 Disconnect
-          </ActionButton>
+          <>
+            <ActionButton onClick={disconnectFromAPI} style={{ background: 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)' }}>
+              🔌 Disconnect
+            </ActionButton>
+            {currentHand && (
+              <ActionButton 
+                onClick={() => onLoadToAnalysis(currentHand)}
+                style={{ background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)' }}
+              >
+                📊 Load to Analysis
+              </ActionButton>
+            )}
+          </>
         )}
       </div>
 

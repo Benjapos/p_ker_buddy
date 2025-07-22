@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../App';
 
 const CardGrid = styled.div`
   display: grid;
@@ -21,7 +22,7 @@ const CardGrid = styled.div`
 const Card = styled.div`
   width: 40px;
   height: 56px;
-  border: 2px solid ${props => props.selected ? '#4CAF50' : '#ddd'};
+  border: 2px solid ${props => props.selected ? props.theme.success : props.theme.border};
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -29,13 +30,13 @@ const Card = styled.div`
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
-  background: ${props => props.selected ? '#4CAF50' : 'white'};
-  color: ${props => props.selected ? 'white' : props.suit === '♥' || props.suit === '♦' ? 'red' : 'black'};
+  background: ${props => props.selected ? props.theme.success : props.theme.cardBackground};
+  color: ${props => props.selected ? 'white' : props.suit === '♥' || props.suit === '♦' ? 'red' : props.theme.text};
   transition: all 0.2s ease;
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px ${props => props.theme.shadow};
   }
   
   @media (max-width: 768px) {
@@ -73,20 +74,20 @@ const SuitGrid = styled.div`
 const SuitCard = styled.div`
   width: 40px;
   height: 56px;
-  border: 2px solid ${props => props.selected ? '#4CAF50' : '#ddd'};
+  border: 2px solid ${props => props.selected ? props.theme.success : props.theme.border};
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   cursor: pointer;
-  background: ${props => props.selected ? '#4CAF50' : 'white'};
-  color: ${props => props.selected ? 'white' : props.suit === '♥' || props.suit === '♦' ? 'red' : 'black'};
+  background: ${props => props.selected ? props.theme.success : props.theme.cardBackground};
+  color: ${props => props.selected ? 'white' : props.suit === '♥' || props.suit === '♦' ? 'red' : props.theme.text};
   transition: all 0.2s ease;
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px ${props => props.theme.shadow};
   }
   
   @media (max-width: 768px) {
