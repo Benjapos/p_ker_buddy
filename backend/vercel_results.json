@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "results_app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/winner",
+      "dest": "results_app.py"
+    },
+    {
+      "src": "/api/results",
+      "dest": "results_app.py"
+    },
+    {
+      "src": "/reveal",
+      "dest": "results_app.py"
+    }
+  ],
+  "env": {
+    "POKER_SECRET": "@poker_secret"
+  }
+} 
