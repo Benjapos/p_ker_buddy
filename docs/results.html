@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Results Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            color: #1e3c72;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .add-form {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .split-yes {
+            background-color: #fff6cc;
+            border-left: 4px solid #ffaa00;
+        }
+
+        .split-yes:hover {
+            background-color: #fff2b3;
+        }
+
+        .winners {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .notes {
+            font-style: italic;
+            color: #888;
+        }
+
+        .other-players {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            background: #6c757d;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .file-label:hover {
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Poker Game Results</h1>
+        
+        <div class="info-box">
+            <h3>📊 Git-Based CSV Storage</h3>
+            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository.</p>
+            <p>Edit the CSV file locally in Excel, then push updates to Git to see changes here.</p>
+            <p><strong>CSV Format:</strong> date,winners,split,notes,other_players</p>
+        </div>
+
+        <!-- Loading and Error Messages -->
+        <div id="loading" class="loading">
+            <h3>📊 Loading results from CSV...</h3>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p id="errorMessage"></p>
+            <p><strong>Solution:</strong> Create the CSV file at <code>docs/data/poker_results.csv</code> with headers: date,winners,split,notes,other_players</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn btn-success" onclick="downloadCSV()">📥 Download CSV</button>
+            <button class="btn btn-secondary" onclick="refreshData()">🔄 Refresh Data</button>
+        </div>
+
+        <!-- Statistics -->
+        <div id="stats" class="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-number" id="totalGames">0</div>
+                <div class="stat-label">Total Games</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="splitPots">0</div>
+                <div class="stat-label">Split Pots</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="splitRate">0%</div>
+                <div class="stat-label">Split Rate</div>
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <div id="resultsTable" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Winners</th>
+                        <th>Split</th>
+                        <th>Notes</th>
+                        <th>Other Players</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <h3>📊 No results found</h3>
+            <p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>
+            <p><strong>CSV Format:</strong></p>
+            <pre>date,winners,split,notes,other_players
+2025-01-22,"Alex, Maya",true,"50/50 split","John, Sarah, Mike"
+2025-01-21,"John",false,"Big pot","Alex, Maya, Lisa"</pre>
+        </div>
+    </div>
+
+    <script>
+        // CSV file location
+        const CSV_URL = './data/poker_results.csv';
+        
+        // Load results from CSV file
+        async function loadResults() {
+            try {
+                const response = await fetch(CSV_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const csvText = await response.text();
+                return parseCSV(csvText);
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                throw error;
+            }
+        }
+        
+        // Parse CSV text into array of objects
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            if (lines.length < 2) return [];
+            
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            const results = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                // Parse CSV line (handles quoted values)
+                const values = parseCSVLine(line);
+                
+                if (values.length >= headers.length) {
+                    const result = {};
+                    headers.forEach((header, index) => {
+                        result[header] = values[index] || '';
+                    });
+                    results.push(result);
+                }
+            }
+            
+            return results;
+        }
+        
+        // Parse a single CSV line (handles quoted values)
+        function parseCSVLine(line) {
+            const values = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    values.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            values.push(current.trim());
+            
+            return values;
+        }
+        
+        // Display results
+        function displayResults(results) {
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const statsDiv = document.getElementById('stats');
+            const tableDiv = document.getElementById('resultsTable');
+            const noResultsDiv = document.getElementById('noResults');
+            const tbody = document.getElementById('resultsBody');
+            
+            // Hide loading
+            loadingDiv.style.display = 'none';
+            
+            if (results.length === 0) {
+                errorDiv.style.display = 'none';
+                statsDiv.style.display = 'none';
+                tableDiv.style.display = 'none';
+                noResultsDiv.style.display = 'block';
+                return;
+            }
+            
+            // Show stats
+            const splitCount = results.filter(r => r.split && r.split.toLowerCase() === 'true').length;
+            const splitRate = results.length > 0 ? ((splitCount / results.length) * 100).toFixed(1) : 0;
+            
+            document.getElementById('totalGames').textContent = results.length;
+            document.getElementById('splitPots').textContent = splitCount;
+            document.getElementById('splitRate').textContent = splitRate + '%';
+            
+            errorDiv.style.display = 'none';
+            statsDiv.style.display = 'flex';
+            tableDiv.style.display = 'block';
+            noResultsDiv.style.display = 'none';
+            
+            // Build table
+            tbody.innerHTML = '';
+            results.forEach(result => {
+                const row = document.createElement('tr');
+                if (result.split && result.split.toLowerCase() === 'true') {
+                    row.className = 'split-yes';
+                }
+                
+                row.innerHTML = `
+                    <td class="date">${result.date || ''}</td>
+                    <td class="winners">${result.winners || ''}</td>
+                    <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
+                    <td class="notes">${result.notes || ''}</td>
+                    <td class="other-players">${result.other_players || ''}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Show error
+        function showError(message) {
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            loadingDiv.style.display = 'none';
+            errorDiv.style.display = 'block';
+            errorMessage.textContent = message;
+        }
+        
+        // Download CSV
+        function downloadCSV() {
+            window.open(CSV_URL, '_blank');
+        }
+        
+        // Refresh data
+        async function refreshData() {
+            const loadingDiv = document.getElementById('loading');
+            loadingDiv.style.display = 'block';
+            
+            try {
+                const results = await loadResults();
+                displayResults(results);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+        
+        // Initialize
+        async function init() {
+            try {
+                const results = await loadResults();
+                displayResults(results);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+        
+        // Start loading
+        init();
+    </script>
+</body>
+</html> 
