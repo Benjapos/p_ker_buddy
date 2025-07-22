@@ -283,7 +283,7 @@ function App() {
         
                 {activeTab === 'main' && (
           <>
-            <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+            <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               <Section>
                 <h2>Game Information</h2>
                 <GameInfo
@@ -313,11 +313,8 @@ function App() {
                   canAnalyze={holeCards.length === 2}
                   isPreflop={isPreflop}
                 />
-
               </Section>
-            </Grid>
 
-            <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               <Section>
                 <h2>Your Hole Cards</h2>
                 <CardSelector
