@@ -12,6 +12,72 @@ const LiveTrackingContainer = styled.div`
   box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
 `;
 
+const ExplanationSection = styled.div`
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #00d4ff;
+`;
+
+const ExplanationTitle = styled.h3`
+  color: #00d4ff;
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const ExplanationText = styled.p`
+  color: #ccc;
+  line-height: 1.6;
+  margin: 10px 0;
+  font-size: 0.95rem;
+`;
+
+const FeatureList = styled.ul`
+  color: #ccc;
+  margin: 15px 0;
+  padding-left: 20px;
+  
+  li {
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+`;
+
+const UseCaseGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const UseCaseCard = styled.div`
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #333;
+  
+  h4 {
+    color: #00d4ff;
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+  }
+  
+  p {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 8px 0;
+  }
+`;
+
 const LiveHeader = styled.div`
   display: flex;
   align-items: center;
@@ -279,8 +345,6 @@ const LiveTracking = ({
     }
   };
 
-
-
   // Parse card for display
   const parseCard = (card) => {
     const rank = card.slice(0, -1);
@@ -298,6 +362,47 @@ const LiveTracking = ({
 
   return (
     <LiveTrackingContainer>
+      {/* Explanation Section */}
+      <ExplanationSection>
+        <ExplanationTitle>📡 How Live Tracking Works</ExplanationTitle>
+        
+        <ExplanationText>
+          <strong>Live tracking connects to online poker platforms</strong> to provide real-time analysis and advice while you play. It's like having a professional poker coach watching your games and giving instant recommendations.
+        </ExplanationText>
+
+        <UseCaseGrid>
+          <UseCaseCard>
+            <h4>🎮 Online Poker Integration</h4>
+            <p><strong>Connect to your online poker sessions:</strong></p>
+            <FeatureList>
+              <li>Links to PokerStars, 888 Poker, PartyPoker</li>
+              <li>Streams your hands in real-time</li>
+              <li>Provides instant AI recommendations</li>
+              <li>Tracks your performance automatically</li>
+              <li>Monitors multiple online tables</li>
+            </FeatureList>
+            <p><em>Perfect for online cash games, tournaments, and sit & go's</em></p>
+          </UseCaseCard>
+
+          <UseCaseCard>
+            <h4>📊 Manual Hand Analysis</h4>
+            <p><strong>Use the tool for any poker situation:</strong></p>
+            <FeatureList>
+              <li>Input any hand manually</li>
+              <li>Get AI analysis instantly</li>
+              <li>Learn proper strategy</li>
+              <li>Practice decision making</li>
+              <li>Review past hands</li>
+            </FeatureList>
+            <p><em>Great for learning, practice, and live poker review</em></p>
+          </UseCaseCard>
+        </UseCaseGrid>
+
+        <ExplanationText>
+          <strong>💡 Pro Tip:</strong> Even if you're not playing online, you can use the main analysis tab to get professional advice on any hand. Just select your cards, position, and game situation for instant AI recommendations!
+        </ExplanationText>
+      </ExplanationSection>
+
       <LiveHeader>
         <LiveTitle>
           <LiveIndicator isLive={isTracking} />

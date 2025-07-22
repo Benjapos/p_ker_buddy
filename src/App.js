@@ -485,15 +485,18 @@ function App() {
                     />
                   </Section>
 
-                  <Section>
-                    <h2>Your Hole Cards</h2>
-                    <CardSelector
-                      selectedCards={holeCards}
-                      onCardsChange={setHoleCards}
-                      maxCards={2}
-                      title="Hole Cards"
-                    />
-                  </Section>
+                                <Section>
+                <h2>Your Hole Cards</h2>
+                <p style={{ color: theme.textSecondary, fontSize: '0.9rem', marginBottom: '15px', fontStyle: 'italic' }}>
+                  💡 <strong>Works for any poker situation:</strong> Online games, live poker, home games, or practice. Just select your cards and get instant AI advice!
+                </p>
+                <CardSelector
+                  selectedCards={holeCards}
+                  onCardsChange={setHoleCards}
+                  maxCards={2}
+                  title="Hole Cards"
+                />
+              </Section>
 
                   <Section>
                     <h2>Community Cards {isPreflop && <span style={{color: theme.textSecondary, fontSize: '0.8em'}}>(Disabled in Preflop)</span>}</h2>
