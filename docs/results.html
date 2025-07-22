@@ -411,7 +411,7 @@
         <h1>Leaderboard</h1>
         
         <div class="info-box">
-            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository. Edit the CSV file locally in Excel, then push updates to Git to see changes here. CSV Format: date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8</p>
+            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository. Edit the CSV file locally in Excel, then push updates to Git to see changes here.</p>
         </div>
 
         <!-- Loading and Error Messages -->
@@ -565,6 +565,7 @@
             
             // Count wins and total games for each player
             results.forEach(result => {
+                // Count wins from winners column
                 if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
                     const winners = result.winners.split(',').map(w => w.trim());
                     winners.forEach(winner => {
@@ -576,6 +577,8 @@
                 
                 // Count total games (from individual player columns + winners)
                 const allPlayers = new Set();
+                
+                // Add winners to the player list
                 if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
                     result.winners.split(',').map(w => w.trim()).forEach(p => {
                         if (p && p !== '?') allPlayers.add(p);
@@ -590,20 +593,26 @@
                     }
                 }
                 
+                // Count each player as participating in this game
                 allPlayers.forEach(player => {
                     playerGames[player] = (playerGames[player] || 0) + 1;
                 });
             });
             
-            // Create ranking array - only include players who have won at least once
-            const rankings = Object.keys(playerWins)
-                .filter(player => playerWins[player] > 0) // Only players with wins
-                .map(player => ({
-                    player: player,
-                    wins: playerWins[player],
-                    games: playerGames[player] || playerWins[player],
-                    winRate: playerGames[player] ? ((playerWins[player] / playerGames[player]) * 100).toFixed(1) : '100.0'
-                }));
+            // Create ranking array - include all players who have participated
+            const allPlayers = new Set([...Object.keys(playerWins), ...Object.keys(playerGames)]);
+            const rankings = Array.from(allPlayers).map(player => ({
+                player: player,
+                wins: playerWins[player] || 0,
+                games: playerGames[player] || 0,
+                winRate: playerGames[player] ? ((playerWins[player] || 0) / playerGames[player] * 100).toFixed(1) : '0.0'
+            }));
+            
+            // Debug logging
+            console.log('Player Wins:', playerWins);
+            console.log('Player Games:', playerGames);
+            console.log('All Players:', Array.from(allPlayers));
+            console.log('Rankings:', rankings);
             
             // Sort by wins (descending), then by win rate (descending)
             rankings.sort((a, b) => {
