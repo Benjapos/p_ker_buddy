@@ -201,26 +201,7 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
         </PreflopMessage>
       )}
 
-      {/* Unified Community Cards Display - Only Turn and River */}
-      {(turn || river) && (
-        <BoardSection>
-          <BoardTitle>Community Cards</BoardTitle>
-          <BoardCards>
-            {turn && (
-              <BoardCard key="turn" style={{ borderColor: '#FF9800' }}>
-                {turn}
-                <RemoveButton onClick={clearTurn}>×</RemoveButton>
-              </BoardCard>
-            )}
-            {river && (
-              <BoardCard key="river" style={{ borderColor: '#2196F3' }}>
-                {river}
-                <RemoveButton onClick={clearRiver}>×</RemoveButton>
-              </BoardCard>
-            )}
-          </BoardCards>
-        </BoardSection>
-      )}
+
       
       <BoardSection>
         <BoardTitle>Flop (3 cards)</BoardTitle>
@@ -258,6 +239,17 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
             title=""
           />
         )}
+        
+        {/* Show turn card when selected */}
+        {turn && (
+          <BoardCards>
+            <BoardCard key="turn" style={{ borderColor: '#FF9800' }}>
+              {turn}
+              <RemoveButton onClick={clearTurn}>×</RemoveButton>
+            </BoardCard>
+          </BoardCards>
+        )}
+        
         {turn && <ClearButton onClick={clearTurn}>Clear Turn</ClearButton>}
       </BoardSection>
 
@@ -271,6 +263,17 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
             title=""
           />
         )}
+        
+        {/* Show river card when selected */}
+        {river && (
+          <BoardCards>
+            <BoardCard key="river" style={{ borderColor: '#2196F3' }}>
+              {river}
+              <RemoveButton onClick={clearRiver}>×</RemoveButton>
+            </BoardCard>
+          </BoardCards>
+        )}
+        
         {river && <ClearButton onClick={clearRiver}>Clear River</ClearButton>}
       </BoardSection>
     </div>
