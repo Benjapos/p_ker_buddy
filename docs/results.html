@@ -502,7 +502,10 @@
                 }
                 
                 const csvText = await response.text();
-                return parseCSV(csvText);
+                console.log('Raw CSV text:', csvText);
+                const results = parseCSV(csvText);
+                console.log('Parsed results:', results);
+                return results;
             } catch (error) {
                 console.error('Error loading CSV:', error);
                 throw error;
