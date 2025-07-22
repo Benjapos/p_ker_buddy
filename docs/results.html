@@ -411,7 +411,7 @@
         <h1>Leaderboard</h1>
         
         <div class="info-box">
-            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository. Edit the CSV file locally in Excel, then push updates to Git to see changes here. CSV Format: date,winners,split,notes,other_players</p>
+            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository. Edit the CSV file locally in Excel, then push updates to Git to see changes here. CSV Format: date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8</p>
         </div>
 
         <!-- Loading and Error Messages -->
@@ -439,10 +439,6 @@
             <div class="stat-card">
                 <div class="stat-number" id="splitPots">0</div>
                 <div class="stat-label">Split Pots</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="splitRate">0%</div>
-                <div class="stat-label">Split Rate</div>
             </div>
         </div>
 
@@ -487,9 +483,9 @@
             <h3>📊 No results found</h3>
             <p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>
             <p><strong>CSV Format:</strong></p>
-            <pre>date,winners,split,notes,other_players
-2025-01-22,"Alex, Maya",true,"50/50 split","John, Sarah, Mike"
-2025-01-21,"John",false,"Big pot","Alex, Maya, Lisa"</pre>
+            <pre>date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8
+2025-01-22,"Alex, Maya",true,"50/50 split",John,Sarah,Mike,,,,
+2025-01-21,"John",false,"Big pot",Alex,Maya,Lisa,,,</pre>
         </div>
     </div>
 
@@ -578,17 +574,20 @@
                     });
                 }
                 
-                // Count total games (from other_players + winners)
+                // Count total games (from individual player columns + winners)
                 const allPlayers = new Set();
                 if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
                     result.winners.split(',').map(w => w.trim()).forEach(p => {
                         if (p && p !== '?') allPlayers.add(p);
                     });
                 }
-                if (result.other_players && result.other_players.trim() !== '') {
-                    result.other_players.split(',').map(p => p.trim()).forEach(p => {
-                        if (p && p !== '?') allPlayers.add(p);
-                    });
+                
+                // Add players from individual columns (player1, player2, etc.)
+                for (let i = 1; i <= 8; i++) {
+                    const playerKey = `player${i}`;
+                    if (result[playerKey] && result[playerKey].trim() !== '' && result[playerKey] !== '?') {
+                        allPlayers.add(result[playerKey].trim());
+                    }
                 }
                 
                 allPlayers.forEach(player => {
@@ -640,11 +639,9 @@
             
             // Show stats
             const splitCount = results.filter(r => r.split && r.split.toLowerCase() === 'true').length;
-            const splitRate = results.length > 0 ? ((splitCount / results.length) * 100).toFixed(1) : 0;
             
             document.getElementById('totalGames').textContent = results.length;
             document.getElementById('splitPots').textContent = splitCount;
-            document.getElementById('splitRate').textContent = splitRate + '%';
             
             // Calculate and display leaderboard
             const rankings = calculateRankings(results);
@@ -681,12 +678,21 @@
                     row.className = 'split-yes';
                 }
                 
+                // Build other players list from individual columns
+                const otherPlayers = [];
+                for (let i = 1; i <= 8; i++) {
+                    const playerKey = `player${i}`;
+                    if (result[playerKey] && result[playerKey].trim() !== '' && result[playerKey] !== '?') {
+                        otherPlayers.push(result[playerKey].trim());
+                    }
+                }
+                
                 row.innerHTML = `
                     <td class="date">${result.date || ''}</td>
                     <td class="winners">${result.winners || ''}</td>
                     <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
                     <td class="notes">${result.notes || ''}</td>
-                    <td class="other-players">${result.other_players || ''}</td>
+                    <td class="other-players">${otherPlayers.join(', ')}</td>
                 `;
                 tbody.appendChild(row);
             });

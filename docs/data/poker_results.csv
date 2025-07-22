@@ -1,4 +1,6 @@
-date,winners,split,notes,other_players
-08/07/2025,Mark,FALSE,Mark was running hot,"Jonah, Jona, Rafi, Rob, Yossi"
-22/07/2025,?,FALSE,,"Ben, Mark, Jonah, Jona, Rafi, Adrian"
-,,,,
+date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8
+06/05/2025,Rob,FALSE,Adrian's coitus phone call,Yossi,Mark,Jona,Adrian,Jonah,Rafi,,
+20/05/2025,Jonah,FALSE,,Jona,Rob,Yossi,Ben,Adrian,Mark,,
+28/05/2025,Rafi,FALSE,Jonah ran the table then didn't,Jonah,Jona,Ben,Rob,Yossi,Mark,,
+08/07/2025,Mark,FALSE,Mark was running hot,Jonah,Jona,Rafi,Rob,Yossi,,,
+22/07/2025,?,FALSE,,Ben,Mark,Jonah,Jona,Rafi,Adrian,,
