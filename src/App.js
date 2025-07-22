@@ -296,10 +296,10 @@ function App() {
   const [river, setRiver] = useState(null);
   const [numPlayers, setNumPlayers] = useState(6);
   const [position, setPosition] = useState('middle');
-  const [potSize, setPotSize] = useState(3);
+  const [potSize, setPotSize] = useState(30);
   const [betSize, setBetSize] = useState(0);
-  const [smallBlind, setSmallBlind] = useState(1);
-  const [bigBlind, setBigBlind] = useState(2);
+  const [smallBlind, setSmallBlind] = useState(10);
+  const [bigBlind, setBigBlind] = useState(20);
   const [stackSize, setStackSize] = useState(1000);
   const [recommendation, setRecommendation] = useState(null);
   const [loading, setLoading] = useState(false);
