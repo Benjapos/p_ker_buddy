@@ -82,11 +82,11 @@ const AppContainer = styled.div`
 `;
 
 const MainContent = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   background: ${props => props.theme.surface};
   border-radius: 20px;
-  padding: 30px;
+  padding: 40px;
   box-shadow: 0 20px 40px ${props => props.theme.shadow};
   display: flex;
   flex-direction: column;
@@ -94,7 +94,7 @@ const MainContent = styled.div`
   margin: 0 auto;
   transition: all 0.3s ease;
   
-  @media (max-width: 1240px) {
+  @media (max-width: 1440px) {
     max-width: calc(100% - 40px);
     margin: 0 20px;
   }
@@ -109,14 +109,14 @@ const MainContent = styled.div`
 const Header = styled.h1`
   text-align: center;
   color: ${props => props.theme.text};
-  margin-bottom: 10px;
-  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-size: 2.8rem;
   font-weight: 700;
   transition: color 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
   flex-wrap: wrap;
 `;
 
@@ -143,8 +143,8 @@ const LiveIndicator = styled.div`
 const SubHeader = styled.h2`
   text-align: center;
   color: ${props => props.theme.textSecondary};
-  margin-bottom: 30px;
-  font-size: 1.2rem;
+  margin-bottom: 35px;
+  font-size: 1.3rem;
   font-weight: 400;
   transition: color 0.3s ease;
 `;
@@ -187,8 +187,8 @@ const PreflopToggle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  gap: 15px;
+  margin-bottom: 25px;
+  gap: 20px;
 `;
 
 const ToggleButton = styled.button`
@@ -210,8 +210,8 @@ const ToggleButton = styled.button`
 
 const TabContainer = styled.div`
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
   justify-content: center;
 `;
@@ -236,30 +236,36 @@ const TabButton = styled.button`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: ${props => props.gridTemplateColumns || '1fr 1fr'};
-  gap: ${props => props.gap || '20px'};
+  gap: ${props => props.gap || '25px'};
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 20px;
   }
 `;
 
 const Section = styled.div`
   background: ${props => props.theme.cardBackground};
   border-radius: 15px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: 0 4px 15px ${props => props.theme.shadow};
   border: 1px solid ${props => props.theme.cardBorder};
   transition: all 0.3s ease;
+  min-height: ${props => props.minHeight || 'auto'};
+  display: flex;
+  flex-direction: column;
   
   h2 {
     color: ${props => props.theme.text};
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
     font-weight: 600;
     transition: color 0.3s ease;
+    text-align: center;
   }
 `;
 
@@ -453,8 +459,8 @@ function App() {
             
             {activeTab === 'main' && (
               <>
-                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                  <Section>
+                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px' }}>
+                  <Section minHeight="400px">
                     <h2>Game Information</h2>
                     <GameInfo
                       numPlayers={numPlayers}
@@ -474,8 +480,8 @@ function App() {
                     />
                   </Section>
 
-                  <Section>
-                    <h2>Recommendation {isPreflop && <span style={{color: theme.success, fontSize: '0.8em'}}>(Preflop)</span>}</h2>
+                  <Section minHeight="400px">
+                    <h2>AI Recommendation {isPreflop && <span style={{color: theme.success, fontSize: '0.8em'}}>(Preflop)</span>}</h2>
                     <AIRecommendation
                       recommendation={recommendation}
                       loading={loading}
@@ -484,21 +490,23 @@ function App() {
                       isPreflop={isPreflop}
                     />
                   </Section>
+                </Grid>
 
-                                <Section>
-                <h2>Your Hole Cards</h2>
-                <p style={{ color: theme.textSecondary, fontSize: '0.9rem', marginBottom: '15px', fontStyle: 'italic' }}>
-                  💡 <strong>Works for any poker situation:</strong> Online games, live poker, home games, or practice. Just select your cards and get instant AI advice!
-                </p>
-                <CardSelector
-                  selectedCards={holeCards}
-                  onCardsChange={setHoleCards}
-                  maxCards={2}
-                  title="Hole Cards"
-                />
-              </Section>
+                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px', marginTop: '25px' }}>
+                  <Section minHeight="350px">
+                    <h2>Your Hole Cards</h2>
+                    <p style={{ color: theme.textSecondary, fontSize: '0.9rem', marginBottom: '15px', fontStyle: 'italic', textAlign: 'center' }}>
+                      💡 <strong>Works for any poker situation:</strong> Online games, live poker, home games, or practice. Just select your cards and get instant AI advice!
+                    </p>
+                    <CardSelector
+                      selectedCards={holeCards}
+                      onCardsChange={setHoleCards}
+                      maxCards={2}
+                      title="Hole Cards"
+                    />
+                  </Section>
 
-                  <Section>
+                  <Section minHeight="350px">
                     <h2>Community Cards {isPreflop && <span style={{color: theme.textSecondary, fontSize: '0.8em'}}>(Disabled in Preflop)</span>}</h2>
                     <BoardSelector
                       flop={flop}
