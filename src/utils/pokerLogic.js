@@ -344,9 +344,40 @@ const generateRecommendation = (handData) => {
     };
   }
   
-  // Post-flop logic (simplified for now)
+  // Post-flop logic with proper hand evaluation
   const potOdds = calculatePotOdds(potSize, betSize);
-  const equity = 50; // Mock equity
+  
+  // Evaluate actual hand strength
+  const handStrength = handEvaluation.strength;
+  const handValue = handEvaluation.value;
+  
+  // Calculate equity based on hand strength
+  let equity = 50; // Default equity
+  
+  if (handStrength.includes('Royal Flush') || handStrength.includes('Straight Flush')) {
+    equity = 95;
+  } else if (handStrength.includes('Four of a Kind')) {
+    equity = 90;
+  } else if (handStrength.includes('Full House')) {
+    equity = 85;
+  } else if (handStrength.includes('Flush')) {
+    equity = 80;
+  } else if (handStrength.includes('Straight')) {
+    equity = 75;
+  } else if (handStrength.includes('Three of a Kind')) {
+    equity = 70;
+  } else if (handStrength.includes('Two Pair')) {
+    equity = 65;
+  } else if (handStrength.includes('Pair')) {
+    equity = 60;
+  } else {
+    // High card - adjust based on kicker strength
+    equity = Math.max(30, handValue / 10);
+  }
+  
+  // Adjust equity based on position
+  const positionMultiplier = getPositionMultiplier(position);
+  equity = Math.min(95, equity * positionMultiplier);
   
   let action = 'fold';
   let confidence = 70;
@@ -354,29 +385,29 @@ const generateRecommendation = (handData) => {
   let reasoning = '';
   
   if (equity > 80) {
-      action = 'raise';
+    action = 'raise';
     confidence = 90;
-      raiseAmount = Math.round(bigBlind * 3);
-    reasoning = `Very strong hand with ${equity}% equity. Value betting.`;
+    raiseAmount = Math.round(bigBlind * 3);
+    reasoning = `Very strong ${handStrength} with ${equity.toFixed(1)}% equity. Value betting for maximum profit.`;
   } else if (equity > 65) {
-        action = 'raise';
-        confidence = 80;
-        raiseAmount = Math.round(bigBlind * 2.5);
-    reasoning = `Strong hand with ${equity}% equity. Value betting.`;
+    action = 'raise';
+    confidence = 80;
+    raiseAmount = Math.round(bigBlind * 2.5);
+    reasoning = `Strong ${handStrength} with ${equity.toFixed(1)}% equity. Value betting.`;
   } else if (equity > 50) {
     if (potOdds > 15) {
-        action = 'call';
-        confidence = 70;
-      reasoning = `Decent hand with ${equity}% equity and good pot odds (${potOdds.toFixed(1)}%).`;
-      } else {
+      action = 'call';
+      confidence = 70;
+      reasoning = `Decent ${handStrength} with ${equity.toFixed(1)}% equity and good pot odds (${potOdds.toFixed(1)}%).`;
+    } else {
       action = 'fold';
-          confidence = 65;
-      reasoning = `Decent hand with ${equity}% equity but poor pot odds.`;
+      confidence = 65;
+      reasoning = `Decent ${handStrength} with ${equity.toFixed(1)}% equity but poor pot odds.`;
     }
-      } else {
-        action = 'fold';
+  } else {
+    action = 'fold';
     confidence = 80;
-    reasoning = `Weak hand with ${equity}% equity.`;
+    reasoning = `Weak ${handStrength} with ${equity.toFixed(1)}% equity. Not worth continuing.`;
   }
   
   const ev = action === 'fold' ? 0 : 
@@ -415,7 +446,11 @@ const analyzeGTORange = (holeCards, position) => {
 
 // GTO advice
 const getGTOAdvice = (range, position, isPreflop) => {
-  if (!isPreflop) return '';
+  if (!isPreflop) {
+    // Postflop GTO advice based on hand strength and position
+    const gtoPosition = POSITION_MAP[position] || 'MP';
+    return `GTO: Postflop play depends on hand strength, board texture, and position. Consider pot odds, implied odds, and your opponent's range.`;
+  }
   
   const advice = {
     'premium': {
