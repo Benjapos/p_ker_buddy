@@ -238,7 +238,7 @@ const Grid = styled.div`
   grid-template-columns: ${props => props.gridTemplateColumns || '1fr 1fr'};
   gap: ${props => props.gap || '25px'};
   width: 100%;
-  max-width: 1200px;
+  max-width: ${props => props.maxWidth || '1200px'};
   margin: 0 auto;
   
   @media (max-width: 768px) {
@@ -459,7 +459,7 @@ function App() {
             
             {activeTab === 'main' && (
               <>
-                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px' }}>
+                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px' }} maxWidth="1400px">
                   <Section minHeight="400px">
                     <h2>Game Information</h2>
                     <GameInfo
@@ -492,7 +492,7 @@ function App() {
                   </Section>
                 </Grid>
 
-                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px', marginTop: '25px' }}>
+                <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px', marginTop: '25px' }} maxWidth="1400px">
                   <Section minHeight="350px">
                     <h2>Your Hole Cards</h2>
                     <p style={{ color: theme.textSecondary, fontSize: '0.9rem', marginBottom: '15px', fontStyle: 'italic', textAlign: 'center' }}>
