@@ -90,7 +90,7 @@ const MainContent = styled.div`
   box-shadow: 0 20px 40px ${props => props.theme.shadow};
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   margin: 0 auto;
   transition: all 0.3s ease;
   
@@ -457,7 +457,7 @@ function App() {
             {showTestInterface && <TestInterface />}
             
             {activeTab === 'main' && (
-              <>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Grid style={{ gridTemplateColumns: '1fr 1fr', gap: '25px' }} maxWidth="100%">
                   <Section minHeight="400px">
                     <h2>Game Information</h2>
@@ -518,7 +518,7 @@ function App() {
                     />
                   </Section>
                 </Grid>
-              </>
+              </div>
             )}
             
             {activeTab === 'equity' && (
