@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poker Results Tracker</title>
+    <title>Poker Leaderboard</title>
     <style>
         * {
             margin: 0;
@@ -40,15 +40,11 @@
             background: #f8f9fa;
             border: 1px solid #dee2e6;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 30px;
             text-align: center;
-        }
-
-        .info-box h3 {
-            color: #1e3c72;
-            margin-top: 0;
-            margin-bottom: 15px;
+            font-size: 0.85em;
+            color: #666;
         }
 
         .add-form {
@@ -166,6 +162,112 @@
             font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .leaderboard {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .leaderboard-header {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .leaderboard-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .leaderboard-table th {
+            background: #f8f9fa;
+            color: #1e3c72;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .rank-1 {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            font-weight: 700;
+        }
+
+        .rank-1:hover {
+            background: linear-gradient(45deg, #ffed4e, #fff6b3);
+        }
+
+        .rank-2 {
+            background: linear-gradient(45deg, #c0c0c0, #e8e8e8);
+            color: #333;
+            font-weight: 600;
+        }
+
+        .rank-2:hover {
+            background: linear-gradient(45deg, #e8e8e8, #f0f0f0);
+        }
+
+        .rank-3 {
+            background: linear-gradient(45deg, #cd7f32, #daa520);
+            color: white;
+            font-weight: 600;
+        }
+
+        .rank-3:hover {
+            background: linear-gradient(45deg, #daa520, #e6c200);
+        }
+
+        .rank-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .rank-1 .rank-badge {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .rank-2 .rank-badge {
+            background: #c0c0c0;
+            color: #333;
+        }
+
+        .rank-3 .rank-badge {
+            background: #cd7f32;
+            color: white;
+        }
+
+        .wins-count {
+            font-weight: 700;
+            color: #1e3c72;
         }
 
         table {
@@ -306,18 +408,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>🏆 Poker Game Results</h1>
+        <h1>🏆 Poker Leaderboard</h1>
         
         <div class="info-box">
-            <h3>📊 Git-Based CSV Storage</h3>
-            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository.</p>
-            <p>Edit the CSV file locally in Excel, then push updates to Git to see changes here.</p>
-            <p><strong>CSV Format:</strong> date,winners,split,notes,other_players</p>
+            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository. Edit the CSV file locally in Excel, then push updates to Git to see changes here. CSV Format: date,winners,split,notes,other_players</p>
         </div>
 
         <!-- Loading and Error Messages -->
         <div id="loading" class="loading">
-            <h3>📊 Loading results from CSV...</h3>
+            <h3>📊 Loading leaderboard from CSV...</h3>
         </div>
         
         <div id="error" class="error" style="display: none;">
@@ -329,7 +428,6 @@
         <!-- Actions -->
         <div class="actions">
             <button class="btn btn-success" onclick="downloadCSV()">📥 Download CSV</button>
-            <button class="btn btn-secondary" onclick="refreshData()">🔄 Refresh Data</button>
         </div>
 
         <!-- Statistics -->
@@ -348,8 +446,28 @@
             </div>
         </div>
 
+        <!-- Leaderboard -->
+        <div id="leaderboard" class="leaderboard" style="display: none;">
+            <div class="leaderboard-header">
+                <h2>🏅 Player Rankings</h2>
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Wins</th>
+                        <th>Win Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                </tbody>
+            </table>
+        </div>
+
         <!-- Results Table -->
         <div id="resultsTable" style="display: none;">
+            <h3 style="color: #1e3c72; margin-bottom: 20px;">📊 Game History</h3>
             <table>
                 <thead>
                     <tr>
@@ -444,14 +562,69 @@
             return values;
         }
         
-        // Display results
+        // Calculate player rankings
+        function calculateRankings(results) {
+            const playerWins = {};
+            const playerGames = {};
+            
+            // Count wins and total games for each player
+            results.forEach(result => {
+                if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
+                    const winners = result.winners.split(',').map(w => w.trim());
+                    winners.forEach(winner => {
+                        if (winner && winner !== '?') {
+                            playerWins[winner] = (playerWins[winner] || 0) + 1;
+                        }
+                    });
+                }
+                
+                // Count total games (from other_players + winners)
+                const allPlayers = new Set();
+                if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
+                    result.winners.split(',').map(w => w.trim()).forEach(p => {
+                        if (p && p !== '?') allPlayers.add(p);
+                    });
+                }
+                if (result.other_players && result.other_players.trim() !== '') {
+                    result.other_players.split(',').map(p => p.trim()).forEach(p => {
+                        if (p && p !== '?') allPlayers.add(p);
+                    });
+                }
+                
+                allPlayers.forEach(player => {
+                    playerGames[player] = (playerGames[player] || 0) + 1;
+                });
+            });
+            
+            // Create ranking array - only include players who have won at least once
+            const rankings = Object.keys(playerWins)
+                .filter(player => playerWins[player] > 0) // Only players with wins
+                .map(player => ({
+                    player: player,
+                    wins: playerWins[player],
+                    games: playerGames[player] || playerWins[player],
+                    winRate: playerGames[player] ? ((playerWins[player] / playerGames[player]) * 100).toFixed(1) : '100.0'
+                }));
+            
+            // Sort by wins (descending), then by win rate (descending)
+            rankings.sort((a, b) => {
+                if (b.wins !== a.wins) return b.wins - a.wins;
+                return parseFloat(b.winRate) - parseFloat(a.winRate);
+            });
+            
+            return rankings;
+        }
+        
+        // Display results and leaderboard
         function displayResults(results) {
             const loadingDiv = document.getElementById('loading');
             const errorDiv = document.getElementById('error');
             const statsDiv = document.getElementById('stats');
+            const leaderboardDiv = document.getElementById('leaderboard');
             const tableDiv = document.getElementById('resultsTable');
             const noResultsDiv = document.getElementById('noResults');
             const tbody = document.getElementById('resultsBody');
+            const leaderboardBody = document.getElementById('leaderboardBody');
             
             // Hide loading
             loadingDiv.style.display = 'none';
@@ -459,6 +632,7 @@
             if (results.length === 0) {
                 errorDiv.style.display = 'none';
                 statsDiv.style.display = 'none';
+                leaderboardDiv.style.display = 'none';
                 tableDiv.style.display = 'none';
                 noResultsDiv.style.display = 'block';
                 return;
@@ -472,12 +646,34 @@
             document.getElementById('splitPots').textContent = splitCount;
             document.getElementById('splitRate').textContent = splitRate + '%';
             
+            // Calculate and display leaderboard
+            const rankings = calculateRankings(results);
+            
             errorDiv.style.display = 'none';
             statsDiv.style.display = 'flex';
+            leaderboardDiv.style.display = 'block';
             tableDiv.style.display = 'block';
             noResultsDiv.style.display = 'none';
             
-            // Build table
+            // Build leaderboard
+            leaderboardBody.innerHTML = '';
+            rankings.forEach((rank, index) => {
+                const row = document.createElement('tr');
+                const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                if (rankClass) row.className = rankClass;
+                
+                const rankBadge = index < 3 ? `<span class="rank-badge">${index + 1}</span>` : '';
+                
+                row.innerHTML = `
+                    <td>${rankBadge}${index + 1}</td>
+                    <td>${rank.player}</td>
+                    <td class="wins-count">${rank.wins}</td>
+                    <td>${rank.winRate}%</td>
+                `;
+                leaderboardBody.appendChild(row);
+            });
+            
+            // Build results table
             tbody.innerHTML = '';
             results.forEach(result => {
                 const row = document.createElement('tr');
@@ -510,19 +706,6 @@
         // Download CSV
         function downloadCSV() {
             window.open(CSV_URL, '_blank');
-        }
-        
-        // Refresh data
-        async function refreshData() {
-            const loadingDiv = document.getElementById('loading');
-            loadingDiv.style.display = 'block';
-            
-            try {
-                const results = await loadResults();
-                displayResults(results);
-            } catch (error) {
-                showError(error.message);
-            }
         }
         
         // Initialize
