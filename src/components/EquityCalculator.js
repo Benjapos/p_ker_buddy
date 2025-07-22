@@ -128,6 +128,19 @@ const RangePresets = {
   'BB': ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', 'AKs', 'AKo', 'AQs', 'AQo', 'AJs', 'ATs', 'A9s', 'A8s', 'A7s', 'A6s', 'A5s', 'KQs', 'KQo', 'KJs', 'KTs', 'K9s', 'K8s', 'K7s', 'QJs', 'QTs', 'Q9s', 'Q8s', 'JTs', 'J9s', 'T9s']
 };
 
+const RangeDisplay = styled.div`
+  background: #333;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+  font-family: monospace;
+  font-size: 0.85em;
+  color: #ccc;
+  max-height: 100px;
+  overflow-y: auto;
+  border: 1px solid #555;
+`;
+
 const EquityCalculator = () => {
   const [playerHand, setPlayerHand] = useState('');
   const [opponentRange, setOpponentRange] = useState('UTG');
@@ -214,7 +227,19 @@ const EquityCalculator = () => {
             ))}
           </RangeSelector>
           
-          <div style={{ marginBottom: '10px' }}>
+          {/* Show selected range */}
+          {!customRange && opponentRange && (
+            <div style={{ marginTop: '10px' }}>
+              <div style={{ color: '#fff', fontSize: '0.9em', marginBottom: '5px' }}>
+                <strong>Selected Range ({opponentRange}):</strong>
+              </div>
+              <RangeDisplay>
+                {RangePresets[opponentRange].join(', ')}
+              </RangeDisplay>
+            </div>
+          )}
+          
+          <div style={{ marginBottom: '10px', marginTop: '15px' }}>
             <strong style={{ color: '#fff' }}>Or Custom Range:</strong>
           </div>
           <CustomRangeInput

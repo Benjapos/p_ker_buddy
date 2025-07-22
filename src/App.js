@@ -7,7 +7,7 @@ import AIRecommendation from './components/AIRecommendation';
 import TestInterface from './components/TestInterface';
 import HandHistory from './components/HandHistory';
 import EquityCalculator from './components/EquityCalculator';
-import TournamentICM from './components/TournamentICM';
+// import TournamentICM from './components/TournamentICM';
 
 import { analyzeGTORange, getGTOAdvice } from './utils/pokerLogic';
 import { mockAnalyzeHand } from './mockBackend';
@@ -265,12 +265,12 @@ function App() {
           >
             🎯 Equity Calculator
           </TabButton>
-          <TabButton 
+          {/* <TabButton 
             active={activeTab === 'icm'} 
             onClick={() => setActiveTab('icm')}
           >
             🏆 Tournament ICM
-          </TabButton>
+          </TabButton> */}
           <TabButton 
             active={activeTab === 'history'} 
             onClick={() => setActiveTab('history')}
@@ -348,9 +348,9 @@ function App() {
           <EquityCalculator />
         )}
         
-        {activeTab === 'icm' && (
+        {/* {activeTab === 'icm' && (
           <TournamentICM />
-        )}
+        )} */}
         
         {activeTab === 'history' && (
           <HandHistory 
