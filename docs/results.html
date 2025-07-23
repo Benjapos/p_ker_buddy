@@ -28,12 +28,35 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
         h1 {
             color: #1e3c72;
-            text-align: center;
-            margin-bottom: 30px;
+            margin: 0;
             font-size: 2.5em;
             font-weight: 700;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
         }
 
         .info-box {
@@ -386,9 +409,21 @@
                 border-radius: 10px;
             }
             
+            .header-section {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
             h1 {
                 font-size: 1.8em;
-                margin-bottom: 20px;
+                margin: 0;
+                text-align: center;
+            }
+            
+            .download-btn {
+                font-size: 12px;
+                padding: 10px 16px;
             }
             
             .info-box {
@@ -542,7 +577,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Leaderboard</h1>
+        <div class="header-section">
+            <h1>Leaderboard</h1>
+            <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
+        </div>
         
         <div class="info-box">
             <p><strong>Split Pots:</strong> When a pot is split, each winner gets 0.5 wins (shown as decimal wins in the leaderboard)</p>
@@ -558,11 +596,6 @@
             <h3>❌ Error Loading Data</h3>
             <p id="errorMessage"></p>
             <p><strong>Solution:</strong> Create the CSV file at <code>docs/data/poker_results.csv</code> with headers: date,winners,split,notes,other_players</p>
-        </div>
-
-        <!-- Actions -->
-        <div class="actions">
-            <button class="btn btn-success" onclick="downloadCSV()">📥 Download CSV</button>
         </div>
 
         <!-- Statistics -->
