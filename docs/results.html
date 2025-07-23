@@ -376,13 +376,28 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
             .container {
                 padding: 15px;
                 margin: 10px;
+                border-radius: 10px;
             }
             
             h1 {
-                font-size: 2em;
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            
+            .info-box {
+                padding: 10px;
+                font-size: 0.8em;
+            }
+            
+            .info-box p {
+                margin-bottom: 8px;
             }
             
             .form-row {
@@ -395,6 +410,87 @@
                 align-items: center;
             }
             
+            .stat-card {
+                min-width: 120px;
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5em;
+            }
+            
+            .leaderboard-header h2 {
+                font-size: 1.4em;
+                padding: 15px;
+            }
+            
+            .leaderboard-table th, 
+            .leaderboard-table td {
+                padding: 8px 4px;
+                font-size: 0.85em;
+            }
+            
+            .leaderboard-table th {
+                font-size: 0.8em;
+                padding: 10px 4px;
+            }
+            
+            /* Hide less important columns on mobile */
+            .leaderboard-table th:nth-child(4),
+            .leaderboard-table td:nth-child(4) {
+                display: none;
+            }
+            
+            /* Make rank column narrower */
+            .leaderboard-table th:first-child,
+            .leaderboard-table td:first-child {
+                width: 40px;
+                text-align: center;
+            }
+            
+            /* Make player name column wider */
+            .leaderboard-table th:nth-child(2),
+            .leaderboard-table td:nth-child(2) {
+                min-width: 80px;
+            }
+            
+            /* Results table mobile styles */
+            table th, table td {
+                padding: 8px 4px;
+                font-size: 0.85em;
+            }
+            
+            table th {
+                font-size: 0.8em;
+                padding: 10px 4px;
+            }
+            
+            /* Hide notes column on mobile for results table */
+            table th:nth-child(4),
+            table td:nth-child(4) {
+                display: none;
+            }
+            
+            /* Make date column narrower */
+            table th:first-child,
+            table td:first-child {
+                width: 70px;
+            }
+            
+            /* Make winners column wider */
+            table th:nth-child(2),
+            table td:nth-child(2) {
+                min-width: 80px;
+            }
+            
+            .rank-badge {
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                font-size: 0.9em;
+                margin-right: 5px;
+            }
+            
             .actions {
                 flex-direction: column;
             }
@@ -404,6 +500,44 @@
                 font-size: 0.9em;
             }
         }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .leaderboard-table th, 
+            .leaderboard-table td {
+                padding: 6px 2px;
+                font-size: 0.8em;
+            }
+            
+            .leaderboard-table th {
+                font-size: 0.75em;
+                padding: 8px 2px;
+            }
+            
+            table th, table td {
+                padding: 6px 2px;
+                font-size: 0.8em;
+            }
+            
+            table th {
+                font-size: 0.75em;
+                padding: 8px 2px;
+            }
+            
+            .rank-badge {
+                width: 22px;
+                height: 22px;
+                line-height: 22px;
+                font-size: 0.8em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -411,7 +545,9 @@
         <h1>Leaderboard</h1>
         
         <div class="info-box">
-            <p>Results are loaded from <code>docs/data/poker_results.csv</code> in your Git repository. Edit the CSV file locally in Excel, then push updates to Git to see changes here.</p>
+            <p><strong>Secret Token:</strong> <code id="secretToken">poker2024</code> <button onclick="copyToken()">Copy</button></p>
+            <p><strong>API URL:</strong> <code id="apiUrl">https://your-backend-url.com/api/log-winner</code></p>
+            <p><strong>Split Pots:</strong> When a pot is split, each winner gets 0.5 wins (shown as decimal wins in the leaderboard)</p>
         </div>
 
         <!-- Loading and Error Messages -->
@@ -569,12 +705,15 @@
             
             // Count wins and total games for each player
             results.forEach(result => {
-                // Count wins from winners column
+                // Count wins from winners column with split pot handling
                 if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
                     const winners = result.winners.split(',').map(w => w.trim());
+                    const isSplit = result.split && result.split.toLowerCase() === 'true';
+                    const winValue = isSplit ? 0.5 : 1; // Half win for split pots
+                    
                     winners.forEach(winner => {
                         if (winner && winner !== '?') {
-                            playerWins[winner] = (playerWins[winner] || 0) + 1;
+                            playerWins[winner] = (playerWins[winner] || 0) + winValue;
                         }
                     });
                 }
@@ -675,18 +814,25 @@
                 const rankBadge = index < 3 ? `<span class="rank-badge">${index + 1}</span>` : '';
                 
                 row.innerHTML = `
-                    <td>${rankBadge}${index + 1}</td>
+                    <td>${rankBadge}${index < 3 ? '' : index + 1}</td>
                     <td>${rank.player}</td>
-                    <td class="wins-count">${rank.wins}</td>
+                    <td class="wins-count">${rank.wins.toFixed(1)}</td>
                     <td>${rank.games}</td>
                     <td>${rank.winRate}%</td>
                 `;
                 leaderboardBody.appendChild(row);
             });
             
-            // Build results table
+            // Build results table (latest first)
             tbody.innerHTML = '';
-            results.forEach(result => {
+            const sortedResults = [...results].sort((a, b) => {
+                // Sort by date in descending order (latest first)
+                const dateA = new Date(a.date || '1900-01-01');
+                const dateB = new Date(b.date || '1900-01-01');
+                return dateB - dateA;
+            });
+            
+            sortedResults.forEach(result => {
                 const row = document.createElement('tr');
                 if (result.split && result.split.toLowerCase() === 'true') {
                     row.className = 'split-yes';
