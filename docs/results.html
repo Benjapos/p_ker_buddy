@@ -545,9 +545,8 @@
         <h1>Leaderboard</h1>
         
         <div class="info-box">
-            <p><strong>Secret Token:</strong> <code id="secretToken">poker2024</code> <button onclick="copyToken()">Copy</button></p>
-            <p><strong>API URL:</strong> <code id="apiUrl">https://your-backend-url.com/api/log-winner</code></p>
             <p><strong>Split Pots:</strong> When a pot is split, each winner gets 0.5 wins (shown as decimal wins in the leaderboard)</p>
+            <p><strong>Technical Winner:</strong> The person with more chips is shown with ⭐ (split) indicator</p>
         </div>
 
         <!-- Loading and Error Messages -->
@@ -716,6 +715,16 @@
                             playerWins[winner] = (playerWins[winner] || 0) + winValue;
                         }
                     });
+                    
+                    // For split pots, also give 0.5 wins to the other participant mentioned in notes
+                    if (isSplit && result.notes) {
+                        // Look for "split with [Name]" pattern in notes
+                        const splitMatch = result.notes.match(/split with (\w+)/i);
+                        if (splitMatch) {
+                            const otherParticipant = splitMatch[1];
+                            playerWins[otherParticipant] = (playerWins[otherParticipant] || 0) + 0.5;
+                        }
+                    }
                 }
                 
                 // Count total games (from individual player columns + winners)
@@ -827,8 +836,19 @@
             tbody.innerHTML = '';
             const sortedResults = [...results].sort((a, b) => {
                 // Sort by date in descending order (latest first)
-                const dateA = new Date(a.date || '1900-01-01');
-                const dateB = new Date(b.date || '1900-01-01');
+                // Convert DD/MM/YYYY to MM/DD/YYYY for proper parsing
+                const parseDate = (dateStr) => {
+                    if (!dateStr) return new Date('1900-01-01');
+                    const parts = dateStr.split('/');
+                    if (parts.length === 3) {
+                        // Convert DD/MM/YYYY to MM/DD/YYYY
+                        return new Date(parts[1] + '/' + parts[0] + '/' + parts[2]);
+                    }
+                    return new Date(dateStr);
+                };
+                
+                const dateA = parseDate(a.date);
+                const dateB = parseDate(b.date);
                 return dateB - dateA;
             });
             
@@ -851,9 +871,16 @@
                 console.log('Row data:', result);
                 console.log('Other players for this row:', otherPlayers);
                 
+                // Handle split pot display
+                let winnersDisplay = result.winners || '';
+                if (result.split && result.split.toLowerCase() === 'true') {
+                    // For split pots, show technical winner with split indicator
+                    winnersDisplay = `${result.winners} ⭐ (split)`;
+                }
+                
                 row.innerHTML = `
                     <td class="date">${result.date || ''}</td>
-                    <td class="winners">${result.winners || ''}</td>
+                    <td class="winners">${winnersDisplay}</td>
                     <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
                     <td class="notes">${result.notes || ''}</td>
                     <td class="other-players">${otherPlayers.join(', ')}</td>
