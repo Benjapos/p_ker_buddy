@@ -84,9 +84,9 @@ date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7
 20/05/2025,Jonah,FALSE,,Jona,Rob,Yossi,Ben,Adrian,Mark,,,
 28/05/2025,Rafi,FALSE,Jonah ran the table then didn't,Jonah,Jona,Ben,Rob,Yossi,Mark,,,
 08/07/2025,Mark,FALSE,Mark was running hot,Jonah,Jona,Rafi,Rob,Yossi,,,,
-22/07/2025,Ben,TRUE,split with Jonah (Ben had more chips),Mark,Jonah,Jona,Rafi,Adrian,Yossi,,,
-25/08/2025,Mark,TRUE,split with Jonah and Rafi,Rob,Adrian,Jona,Yossi,,,,,
-08/09/2025,Mark,TRUE,split with Ben,Adrian,Jonah,Yossi,Rafi,,,,,
+22/07/2025,"Ben, Jonah",TRUE,split with Jonah (Ben had more chips),Mark,Jona,Rafi,Adrian,Yossi,,,,
+25/08/2025,"Mark, Jonah, Rafi",TRUE,split with Jonah and Rafi,Rob,Adrian,Jona,Yossi,,,,,
+08/09/2025,"Mark, Ben",TRUE,split with Ben,Adrian,Jonah,Yossi,Rafi,,,,,
 16/09/2025,Adrian,FALSE,"Rob took Jonah out in the first hand, then Adrian slowly steamrollered everyone",Rob,Mark,Yossi,Jonah,Ben,,,,
 29/10/2025,,TRUE,no idea who won,Rafi,Yossi,Jona,Mark,Jonah,Rob,,,
 12/11/2025,Jona,FALSE,,Adrian,Jonah,Mark,Yossi,Rafi,Rob,,,Mark
