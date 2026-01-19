@@ -1,0 +1,37 @@
+{
+  "rfi": {
+    "UTG": ["22+", "A2s+", "K9s+", "QTs+", "JTs", "T9s", "AJo+", "KQo"],
+    "MP": ["22+", "A2s+", "K9s+", "QTs+", "J9s+", "T9s", "98s", "ATo+", "KJo+"],
+    "CO": ["22+", "A2s+", "K2s+", "Q8s+", "J8s+", "T8s+", "97s+", "87s", "76s", "A8o+", "KTo+", "QTo+", "JTo"],
+    "BTN": ["22+", "A2s+", "K2s+", "Q2s+", "J5s+", "T6s+", "96s+", "85s+", "75s+", "64s+", "54s", "A2o+", "K8o+", "Q9o+", "J9o+", "T9o"]
+  },
+  "vs_open": {
+    "BB_vs_BTN": {
+      "call": ["22-TT", "A2s-A9s", "K2s-KTs", "Q2s-QTs", "J5s-JTs", "T6s-T9s", "96s-98s", "86s-87s", "75s-76s", "64s-65s", "54s", "A2o-AJo", "K8o-KJo", "Q9o-QJo", "J9o-JTo", "T9o"],
+      "three_bet": ["JJ+", "AJs+", "KJs+", "AQo+"]
+    },
+    "SB_vs_BTN": {
+      "call": ["22-TT", "A2s-A9s", "K7s-KTs", "Q9s-QTs", "J9s-JTs", "T9s", "AJo-AQo", "KJo-KQo"],
+      "three_bet": ["JJ+", "ATs+", "KJs+", "QJs", "AKo"]
+    }
+  },
+  "three_bet": {
+    "BTN": ["JJ+", "AJs+", "KQs", "AQo+"],
+    "CO": ["QQ+", "AKs", "AKo"],
+    "MP": ["QQ+", "AKs", "AKo"],
+    "SB": ["JJ+", "AQs+", "AKo"],
+    "BB": ["JJ+", "AQs+", "AKo"]
+  },
+  "postflop_guidelines": {
+    "cbet_dry": {
+      "frequency": 0.7,
+      "sizing": "0.33pot",
+      "hands": ["TopPair+", "FlushDraw", "OESD", "Overcards"]
+    },
+    "value_bet": {
+      "frequency": 1.0,
+      "sizing": "0.75pot",
+      "hands": ["TwoPair+"]
+    }
+  }
+}

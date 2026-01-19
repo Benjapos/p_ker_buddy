@@ -595,7 +595,7 @@
         <div id="error" class="error" style="display: none;">
             <h3>❌ Error Loading Data</h3>
             <p id="errorMessage"></p>
-            <p><strong>Solution:</strong> Create the CSV file at <code>docs/data/poker_results.csv</code> with headers: date,winners,split,notes,other_players</p>
+            <p><strong>Solution:</strong> Create the CSV file at <code>docs/data/poker_results.csv</code> with headers: date,winners,split,notes,other_players,host</p>
         </div>
 
         <!-- Statistics -->
@@ -641,6 +641,7 @@
                         <th>Split</th>
                         <th>Notes</th>
                         <th>Other Players</th>
+                        <th>Host</th>
                     </tr>
                 </thead>
                 <tbody id="resultsBody">
@@ -652,9 +653,9 @@
             <h3>📊 No results found</h3>
             <p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>
             <p><strong>CSV Format:</strong></p>
-            <pre>date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8
-2025-01-22,"Alex, Maya",true,"50/50 split",John,Sarah,Mike,,,,
-2025-01-21,"John",false,"Big pot",Alex,Maya,Lisa,,,</pre>
+            <pre>date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8,host
+2025-01-22,"Alex, Maya",true,"50/50 split",John,Sarah,Mike,,,,,John
+2025-01-21,"John",false,"Big pot",Alex,Maya,Lisa,,,,,Alex</pre>
         </div>
     </div>
 
@@ -917,6 +918,7 @@
                     <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
                     <td class="notes">${result.notes || ''}</td>
                     <td class="other-players">${otherPlayers.join(', ')}</td>
+                    <td>${result.host || ''}</td>
                 `;
                 tbody.appendChild(row);
             });
