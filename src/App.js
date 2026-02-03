@@ -8,7 +8,6 @@ import TestInterface from './components/TestInterface';
 import HandHistory from './components/HandHistory';
 import EquityCalculator from './components/EquityCalculator';
 import LiveTracking from './components/LiveTracking';
-// import TournamentICM from './components/TournamentICM';
 
 import { analyzeGTORange, getGTOAdvice } from './utils/pokerLogic';
 import { mockAnalyzeHand } from './mockBackend';
@@ -440,12 +439,6 @@ function App() {
               >
                 📡 Live Tracking
               </TabButton>
-              {/* <TabButton 
-                active={activeTab === 'icm'} 
-                onClick={() => setActiveTab('icm')}
-              >
-                🏆 Tournament ICM
-              </TabButton> */}
               <TabButton 
                 active={activeTab === 'history'} 
                 onClick={() => setActiveTab('history')}
@@ -562,10 +555,6 @@ function App() {
                 }}
               />
             )}
-            
-            {/* {activeTab === 'icm' && (
-              <TournamentICM />
-            )} */}
             
             {activeTab === 'history' && (
               <HandHistory 
