@@ -431,9 +431,43 @@
                 font-size: 0.8em;
             }
             
-            .info-box p {
-                margin-bottom: 8px;
-            }
+        .info-box p {
+            margin-bottom: 8px;
+        }
+
+        .time-window-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .time-window-row label {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .time-window-select {
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            color: #333;
+            min-width: 180px;
+            cursor: pointer;
+        }
+
+        .time-window-select:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .time-window-note {
+            font-size: 0.85em;
+            color: #666;
+        }
             
             .form-row {
                 flex-direction: column;
@@ -587,6 +621,17 @@
             <p><strong>Technical Winner:</strong> The person with more chips is shown with ⭐ (split) indicator</p>
         </div>
 
+        <!-- Time window: shown when data is loaded; leaderboard recalculated for selected period -->
+        <div id="timeWindowRow" class="time-window-row" style="display: none;">
+            <label for="timeWindowSelect">Time period:</label>
+            <select id="timeWindowSelect" class="time-window-select" aria-label="Select time period for leaderboard">
+                <option value="last2years">Last 2 years (default)</option>
+                <!-- Year options filled by JS -->
+                <option value="alltime">All-time</option>
+            </select>
+            <span id="timeWindowNote" class="time-window-note"></span>
+        </div>
+
         <!-- Loading and Error Messages -->
         <div id="loading" class="loading">
             <h3>📊 Loading leaderboard from CSV...</h3>
@@ -613,7 +658,7 @@
         <!-- Leaderboard -->
         <div id="leaderboard" class="leaderboard" style="display: none;">
             <div class="leaderboard-header">
-                <h2>🏅 Player Rankings</h2>
+                <h2 id="leaderboardTitle">🏅 Player Rankings — Last 2 years</h2>
             </div>
             <table class="leaderboard-table">
                 <thead>
@@ -662,7 +707,65 @@
     <script>
         // CSV file location
         const CSV_URL = './data/poker_results.csv';
-        
+
+        // All loaded results (never modified); filtering is applied for display/ranking
+        let allResults = [];
+
+        // Parse date string (DD/MM/YYYY or similar) to Date for filtering
+        function parseResultDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return null;
+            const parts = dateStr.trim().split('/');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+                    const d = new Date(year, month, day);
+                    if (!isNaN(d.getTime())) return d;
+                }
+            }
+            const d = new Date(dateStr);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        // Get sorted list of years present in results (newest first)
+        function getYearsInData(results) {
+            const years = new Set();
+            results.forEach(r => {
+                const d = parseResultDate(r.date);
+                if (d) years.add(d.getFullYear());
+            });
+            return Array.from(years).sort((a, b) => b - a);
+        }
+
+        // Filter results by time window; returns new array (no mutation of allResults)
+        function filterResultsByTimeWindow(results, windowValue) {
+            if (!windowValue || windowValue === 'alltime') return [...results];
+            if (windowValue === 'last2years') {
+                const cutoff = new Date();
+                cutoff.setMonth(cutoff.getMonth() - 24);
+                return results.filter(r => {
+                    const d = parseResultDate(r.date);
+                    return d && d >= cutoff;
+                });
+            }
+            const year = parseInt(windowValue, 10);
+            if (isNaN(year)) return [...results];
+            return results.filter(r => {
+                const d = parseResultDate(r.date);
+                return d && d.getFullYear() === year;
+            });
+        }
+
+        // Human-readable label for current time window
+        function getTimeWindowLabel(value) {
+            if (value === 'last2years') return 'Last 2 years';
+            if (value === 'alltime') return 'All-time';
+            const y = parseInt(value, 10);
+            if (!isNaN(y)) return String(y);
+            return 'Last 2 years';
+        }
+
         // Load results from CSV file
         async function loadResults() {
             try {
@@ -809,7 +912,32 @@
             return rankings;
         }
         
-        // Display results and leaderboard
+        // Populate year options in time-window select (call once when allResults is set)
+        function populateTimeWindowSelect() {
+            const select = document.getElementById('timeWindowSelect');
+            const years = getYearsInData(allResults);
+            const allTimeOpt = select.querySelector('option[value="alltime"]');
+            const last2Opt = select.querySelector('option[value="last2years"]');
+            select.innerHTML = '';
+            select.appendChild(last2Opt);
+            years.forEach(y => {
+                const opt = document.createElement('option');
+                opt.value = String(y);
+                opt.textContent = String(y);
+                select.appendChild(opt);
+            });
+            select.appendChild(allTimeOpt);
+            select.value = 'last2years';
+        }
+
+        // Apply current time window and redraw leaderboard + results (recalculated, not just filtered view)
+        function applyFilterAndDisplay() {
+            const value = document.getElementById('timeWindowSelect').value;
+            const filtered = filterResultsByTimeWindow(allResults, value);
+            displayResults(filtered);
+        }
+
+        // Display results and leaderboard (results = already filtered for current time window)
         function displayResults(results) {
             const loadingDiv = document.getElementById('loading');
             const errorDiv = document.getElementById('error');
@@ -819,6 +947,9 @@
             const noResultsDiv = document.getElementById('noResults');
             const tbody = document.getElementById('resultsBody');
             const leaderboardBody = document.getElementById('leaderboardBody');
+            const timeWindowRow = document.getElementById('timeWindowRow');
+            const leaderboardTitle = document.getElementById('leaderboardTitle');
+            const timeWindowNote = document.getElementById('timeWindowNote');
             
             // Hide loading
             loadingDiv.style.display = 'none';
@@ -829,16 +960,29 @@
                 leaderboardDiv.style.display = 'none';
                 tableDiv.style.display = 'none';
                 noResultsDiv.style.display = 'block';
+                if (allResults.length > 0) {
+                    timeWindowRow.style.display = 'flex';
+                    leaderboardTitle.textContent = '🏅 Player Rankings — ' + getTimeWindowLabel(document.getElementById('timeWindowSelect').value);
+                    noResultsDiv.innerHTML = '<h3>📊 No games in this period</h3><p>Select another time period above.</p>';
+                } else {
+                    timeWindowRow.style.display = 'none';
+                    noResultsDiv.innerHTML = '<h3>📊 No results found</h3><p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>';
+                }
                 return;
             }
             
-            // Show stats
+            const windowValue = document.getElementById('timeWindowSelect').value;
+            leaderboardTitle.textContent = '🏅 Player Rankings — ' + getTimeWindowLabel(windowValue);
+            timeWindowNote.textContent = 'Rankings and stats recalculated for this period.';
+            timeWindowRow.style.display = 'flex';
+            
+            // Show stats (recalculated for this window)
             const splitCount = results.filter(r => r.split && r.split.toLowerCase() === 'true').length;
             
             document.getElementById('totalGames').textContent = results.length;
             document.getElementById('splitPots').textContent = splitCount;
             
-            // Calculate and display leaderboard
+            // Calculate and display leaderboard from filtered results
             const rankings = calculateRankings(results);
             
             errorDiv.style.display = 'none';
@@ -944,7 +1088,10 @@
         async function init() {
             try {
                 const results = await loadResults();
-                displayResults(results);
+                allResults = results;
+                populateTimeWindowSelect();
+                document.getElementById('timeWindowSelect').addEventListener('change', applyFilterAndDisplay);
+                applyFilterAndDisplay();
             } catch (error) {
                 showError(error.message);
             }
