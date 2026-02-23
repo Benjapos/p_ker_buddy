@@ -1048,16 +1048,18 @@
 
         // Default blind structure (customizable)
         let levelStructure = [
-            { sb: 10, bb: 20, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 1" },
-            { sb: 15, bb: 30, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 2" },
-            { sb: 25, bb: 50, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 3" },
-            { sb: 0, bb: 0, ante: 0, durationMinutes: 10, isBreak: true, name: "Break 1 (Color Up 25s)" },
-            { sb: 50, bb: 100, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 4" },
-            { sb: 75, bb: 150, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 5" },
-            { sb: 100, bb: 200, ante: 25, durationMinutes: 20, isBreak: false, name: "Level 6" },
-            { sb: 0, bb: 0, ante: 0, durationMinutes: 15, isBreak: true, name: "Break 2 (Color Up 100s)" },
-            { sb: 150, bb: 300, ante: 25, durationMinutes: 20, isBreak: false, name: "Level 7" },
-            { sb: 200, bb: 400, ante: 50, durationMinutes: 20, isBreak: false, name: "Level 8" },
+            { sb: 10, bb: 20, ante: 0, durationMinutes: 60, isBreak: false, name: "Level 1" },
+            { sb: 20, bb: 40, ante: 0, durationMinutes: 60, isBreak: false, name: "Level 2" },
+            { sb: 0, bb: 0, ante: 0, durationMinutes: 10, isBreak: true, name: "Break (Color Up)" },
+            { sb: 50, bb: 100, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 3" },
+            { sb: 100, bb: 200, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 4" },
+            { sb: 0, bb: 0, ante: 0, durationMinutes: 10, isBreak: true, name: "Break (Color Up)" },
+            { sb: 200, bb: 400, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 5" },
+            { sb: 500, bb: 1000, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 6" },
+            { sb: 1000, bb: 2000, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 7" },
+            { sb: 2000, bb: 4000, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 8" },
+            { sb: 3000, bb: 6000, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 9" },
+            { sb: 4000, bb: 8000, ante: 0, durationMinutes: 30, isBreak: false, name: "Level 10" },
         ];
 
         let currentLevelIndex = 0;
