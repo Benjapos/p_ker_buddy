@@ -28,6 +28,304 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
+        /* Blind Timer Styles */
+        .blind-timer {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .timer-header {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .timer-time-left {
+            font-size: 4.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #ffd700; /* Gold for main time */
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+
+        .timer-time-left.warning {
+            color: #ff4444;
+            text-shadow: 0 0 20px rgba(255, 68, 68, 0.7);
+            animation: pulse-red 1s infinite alternate;
+        }
+
+        @keyframes pulse-red {
+            from { opacity: 1; }
+            to { opacity: 0.7; }
+        }
+
+        .timer-info-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .timer-info-item {
+            font-size: 1.2em;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        .timer-level-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #ffe066; /* Lighter gold */
+        }
+
+        .timer-next-blinds {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .timer-controls button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 5px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .timer-controls button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .timer-controls button.pause-btn {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .timer-controls button.pause-btn:hover {
+            background: #e0a800;
+        }
+
+        .timer-controls button.play-btn {
+            background: #28a745;
+        }
+
+        .timer-controls button.play-btn:hover {
+            background: #218838;
+        }
+
+        .timer-controls button.edit-btn {
+            background: #17a2b8;
+        }
+
+        .timer-controls button.edit-btn:hover {
+            background: #138496;
+        }
+
+        .timer-options {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+
+        .timer-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .timer-options input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* Edit Structure Modal Styles */
+        .edit-structure-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            color: #333;
+        }
+
+        .modal-content h3 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+
+        #levelList {
+            margin-bottom: 20px;
+        }
+
+        .level-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            flex-wrap: wrap;
+        }
+
+        .level-item label {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .level-item input[type="number"],
+        .level-item input[type="text"] {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .level-item input[type="text"] {
+            flex-grow: 1;
+            width: auto;
+        }
+
+        .level-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+        }
+
+        .level-item .remove-level-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: auto;
+        }
+
+        .level-item .remove-level-btn:hover {
+            background: #c82333;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-actions .btn {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+            }
+
+            .level-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .level-item input[type="number"],
+            .level-item input[type="text"] {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .level-item .remove-level-btn {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-actions .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blind-timer {
+                padding: 15px;
+            }
+
+            .timer-time-left {
+                font-size: 3.5em;
+            }
+
+            .timer-info-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .timer-info-item {
+                font-size: 1em;
+            }
+
+            .timer-controls button {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+
+            .timer-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
         .header-section {
             display: flex;
             justify-content: space-between;
@@ -611,6 +909,44 @@
 </head>
 <body>
     <div class="container">
+        <div class="blind-timer">
+            <div class="timer-header">Tournament Clock</div>
+            <div class="timer-time-left" id="timerTimeLeft">00:00</div>
+            <div class="timer-info-row">
+                <div class="timer-info-item">Level: <span class="timer-level-name" id="timerCurrentLevel">1</span></div>
+                <div class="timer-info-item">Blinds: <span id="timerCurrentBlinds">10/20</span></div>
+                <div class="timer-info-item">Next: <span id="timerNextBlinds">25/50</span></div>
+            </div>
+            <div class="timer-controls">
+                <button id="timerStartPauseBtn" class="play-btn">▶ Start</button>
+                <button id="timerSkipPrevBtn">⏪ Prev Level</button>
+                <button id="timerSkipNextBtn">⏩ Next Level</button>
+                <button id="timerAdjustUp30Btn">+30s</button>
+                <button id="timerAdjustDown30Btn">-30s</button>
+                <button id="timerAdjustUp60Btn">+1m</button>
+                <button id="timerAdjustDown60Btn">-1m</button>
+                <button id="timerEditStructureBtn" class="edit-btn">⚙️ Edit Structure</button>
+            </div>
+            <div class="timer-options">
+                <label><input type="checkbox" id="timerEnableVoice"> Voice Announcements</label>
+                <label><input type="checkbox" id="timerEnableSound"> Warning Sounds</label>
+            </div>
+        </div>
+
+        <div class="edit-structure-modal" id="editStructureModal">
+            <div class="modal-content">
+                <h3>Edit Blind Structure</h3>
+                <div id="levelList">
+                    <!-- Levels will be dynamically loaded here -->
+                </div>
+                <button id="addLevelBtn" class="btn btn-success">+ Add Level</button>
+                <div class="modal-actions">
+                    <button id="saveStructureBtn" class="btn btn-primary">Save Changes</button>
+                    <button id="cancelStructureBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
         <div class="header-section">
             <h1>Leaderboard</h1>
             <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
@@ -708,7 +1044,406 @@
         // CSV file location
         const CSV_URL = './data/poker_results.csv';
 
-        // All loaded results (never modified); filtering is applied for display/ranking
+        // --- Blind Timer Logic ---
+
+        // Default blind structure (customizable)
+        let levelStructure = [
+            { sb: 10, bb: 20, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 1" },
+            { sb: 15, bb: 30, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 2" },
+            { sb: 25, bb: 50, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 3" },
+            { sb: 0, bb: 0, ante: 0, durationMinutes: 10, isBreak: true, name: "Break 1 (Color Up 25s)" },
+            { sb: 50, bb: 100, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 4" },
+            { sb: 75, bb: 150, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 5" },
+            { sb: 100, bb: 200, ante: 25, durationMinutes: 20, isBreak: false, name: "Level 6" },
+            { sb: 0, bb: 0, ante: 0, durationMinutes: 15, isBreak: true, name: "Break 2 (Color Up 100s)" },
+            { sb: 150, bb: 300, ante: 25, durationMinutes: 20, isBreak: false, name: "Level 7" },
+            { sb: 200, bb: 400, ante: 50, durationMinutes: 20, isBreak: false, name: "Level 8" },
+        ];
+
+        let currentLevelIndex = 0;
+        let remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+        let isPaused = true;
+        let timerInterval;
+        let speechSynth = window.speechSynthesis;
+        // Timer DOM elements
+        const timerTimeLeftEl = document.getElementById('timerTimeLeft');
+        const timerCurrentLevelEl = document.getElementById('timerCurrentLevel');
+        const timerCurrentBlindsEl = document.getElementById('timerCurrentBlinds');
+        const timerNextBlindsEl = document.getElementById('timerNextBlinds');
+        const timerStartPauseBtn = document.getElementById('timerStartPauseBtn');
+        const timerSkipNextBtn = document.getElementById('timerSkipNextBtn');
+        const timerSkipPrevBtn = document.getElementById('timerSkipPrevBtn');
+        const timerAdjustUp30Btn = document.getElementById('timerAdjustUp30Btn');
+        const timerAdjustDown30Btn = document.getElementById('timerAdjustDown30Btn');
+        const timerAdjustUp60Btn = document.getElementById('timerAdjustUp60Btn');
+        const timerAdjustDown60Btn = document.getElementById('timerAdjustDown60Btn');
+        const timerEditStructureBtn = document.getElementById('timerEditStructureBtn');
+        const timerEnableVoiceCheckbox = document.getElementById('timerEnableVoice');
+        const timerEnableSoundCheckbox = document.getElementById('timerEnableSound');
+
+        // Modal DOM elements
+        const editStructureModal = document.getElementById('editStructureModal');
+        const levelListEl = document.getElementById('levelList');
+        const addLevelBtn = document.getElementById('addLevelBtn');
+        const saveStructureBtn = document.getElementById('saveStructureBtn');
+        const cancelStructureBtn = document.getElementById('cancelStructureBtn');
+                function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            const currentLevel = levelStructure[currentLevelIndex];
+            const nextLevel = levelStructure[currentLevelIndex + 1];
+
+            timerTimeLeftEl.textContent = formatTime(remainingSeconds);
+            timerCurrentLevelEl.textContent = currentLevel.name;
+
+            if (currentLevel.isBreak) {
+                timerCurrentBlindsEl.textContent = 'Break';
+                timerNextBlindsEl.textContent = nextLevel ? `Resumes at ${nextLevel.sb}/${nextLevel.bb}` : 'End of Tournament';
+                timerTimeLeftEl.classList.remove('warning');
+            } else {
+                const anteDisplay = currentLevel.ante > 0 ? ` / ${currentLevel.ante} ante` : '';
+                timerCurrentBlindsEl.textContent = `${currentLevel.sb}/${currentLevel.bb}${anteDisplay}`;
+                timerNextBlindsEl.textContent = nextLevel ? `${nextLevel.sb}/${nextLevel.bb}` : 'End of Tournament';
+
+                // Warning alerts
+                if (remainingSeconds <= 60 && remainingSeconds > 0) {
+                    timerTimeLeftEl.classList.add('warning');
+                    if (timerEnableSoundCheckbox.checked) playSound(1); // Single beep for 1 min
+                    if (timerEnableVoiceCheckbox.checked && remainingSeconds === 60) speak(`One minute remaining in ${currentLevel.name}. Blinds are ${currentLevel.sb} / ${currentLevel.bb}.`);
+                } else if (remainingSeconds <= 10 && remainingSeconds > 0) {
+                    timerTimeLeftEl.classList.add('warning');
+                    if (timerEnableSoundCheckbox.checked) playSound(0.5, 880); // Faster, higher pitch beep for 10s
+                    if (timerEnableVoiceCheckbox.checked && remainingSeconds === 10) speak(`Ten seconds remaining.`);
+                } else {
+                    timerTimeLeftEl.classList.remove('warning');
+                }
+            }
+        }
+
+        // Audio context for generating beeps
+        let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let oscillator = null;
+
+        function playSound(durationSeconds = 1, frequency = 440, type = 'sine') {
+            console.log("playSound called with duration:", durationSeconds, "frequency:", frequency);
+            if (!timerEnableSoundCheckbox.checked) {
+                console.log("Warning sounds disabled by checkbox.");
+                return;
+            }
+
+            if (oscillator) {
+                oscillator.stop();
+                oscillator.disconnect();
+            }
+
+            oscillator = audioContext.createOscillator();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+            const gainNode = audioContext.createGain();
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + durationSeconds);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + durationSeconds);
+        }
+
+        function speak(text) {
+            console.log("speak called with text:", text);
+            if (!timerEnableVoiceCheckbox.checked) {
+                console.log("Voice announcements disabled by checkbox.");
+                return;
+            }
+            if (speechSynth.speaking) speechSynth.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynth.speak(utterance);
+        }
+
+        // --- Edit Structure Modal Logic ---
+        function renderLevelList() {
+            levelListEl.innerHTML = '';
+            levelStructure.forEach((level, index) => {
+                const levelItem = document.createElement('div');
+                levelItem.className = 'level-item';
+                levelItem.innerHTML = `
+                    <label>#${index + 1}:</label>
+                    <input type="text" class="level-name" value="${level.name}" placeholder="Level Name">
+                    <label>SB:</label>
+                    <input type="number" class="level-sb" value="${level.sb}" ${level.isBreak ? 'disabled' : ''}>
+                    <label>BB:</label>
+                    <input type="number" class="level-bb" value="${level.bb}" ${level.isBreak ? 'disabled' : ''}>
+                    <label>Ante:</label>
+                    <input type="number" class="level-ante" value="${level.ante}" ${level.isBreak ? 'disabled' : ''}>
+                    <label>Duration (min):</label>
+                    <input type="number" class="level-duration" value="${level.durationMinutes}" min="1">
+                    <label><input type="checkbox" class="level-is-break" ${level.isBreak ? 'checked' : ''}> Break</label>
+                    <button class="remove-level-btn" data-index="${index}">Remove</button>
+                `;
+                levelListEl.appendChild(levelItem);
+            });
+            // Add event listeners for remove buttons
+            levelListEl.querySelectorAll('.remove-level-btn').forEach(button => {
+                button.addEventListener('click', (e) => removeLevel(parseInt(e.target.dataset.index)));
+            });
+            // Add event listeners for break checkboxes to disable/enable SB/BB/Ante
+            levelListEl.querySelectorAll('.level-is-break').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const parent = e.target.closest('.level-item');
+                    const isDisabled = e.target.checked;
+                    parent.querySelector('.level-sb').disabled = isDisabled;
+                    parent.querySelector('.level-bb').disabled = isDisabled;
+                    parent.querySelector('.level-ante').disabled = isDisabled;
+                });
+            });
+        }
+
+        function openEditModal() {
+            console.log("openEditModal called.");
+            console.log("editStructureModal:", editStructureModal);
+            console.log("levelListEl:", levelListEl);
+            renderLevelList();
+            editStructureModal.style.display = 'block';
+        }
+
+        function closeEditModal() {
+            editStructureModal.style.display = 'none';
+        }
+
+        function addLevel() {
+            levelStructure.push({ sb: 25, bb: 50, ante: 0, durationMinutes: 15, isBreak: false, name: `Level ${levelStructure.length + 1}` });
+            renderLevelList();
+        }
+
+        function removeLevel(index) {
+            levelStructure.splice(index, 1);
+            // Re-index names
+            levelStructure.forEach((level, i) => {
+                if (!level.isBreak) level.name = `Level ${i + 1}`;
+                else if (level.name.startsWith("Break")) level.name = `Break ${i + 1}`;
+            });
+            renderLevelList();
+        }
+
+        function saveStructure() {
+            const newLevelStructure = [];
+            let valid = true;
+            levelListEl.querySelectorAll('.level-item').forEach((item, index) => {
+                const name = item.querySelector('.level-name').value;
+                const sb = parseInt(item.querySelector('.level-sb').value);
+                const bb = parseInt(item.querySelector('.level-bb').value);
+                const ante = parseInt(item.querySelector('.level-ante').value);
+                const durationMinutes = parseInt(item.querySelector('.level-duration').value);
+                const isBreak = item.querySelector('.level-is-break').checked;
+
+                if (!name || isNaN(durationMinutes) || durationMinutes < 1 || (!isBreak && (isNaN(sb) || isNaN(bb) || sb < 0 || bb < 0 || sb >= bb))) {
+                    alert(`Invalid input for level #${index + 1}. Please check name, blinds, ante, and duration.`);
+                    valid = false;
+                    return;
+                }
+                newLevelStructure.push({
+                    name,
+                    sb: isBreak ? 0 : sb,
+                    bb: isBreak ? 0 : bb,
+                    ante: isBreak ? 0 : ante,
+                    durationMinutes,
+                    isBreak
+                });
+            });
+
+            if (valid) {
+                levelStructure = newLevelStructure;
+                localStorage.setItem('pokerTimerLevelStructure', JSON.stringify(levelStructure));
+                // Reset timer to current level with new duration, or to 0 if levels changed dramatically
+                if (currentLevelIndex >= levelStructure.length) {
+                    currentLevelIndex = 0;
+                }
+                remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+                updateDisplay();
+                closeEditModal();
+            }
+        }
+
+        // --- Main Timer Functions ---
+
+        function nextLevel() {
+            clearInterval(timerInterval);
+            currentLevelIndex++;
+            if (currentLevelIndex >= levelStructure.length) {
+                currentLevelIndex = levelStructure.length - 1; // Stay at last level
+                remainingSeconds = 0; // End of tournament
+                isPaused = true;
+                timerStartPauseBtn.textContent = 'Tournament Over';
+                timerStartPauseBtn.disabled = true;
+                updateDisplay();
+                if (timerEnableVoiceCheckbox.checked) speak("Tournament has ended.");
+                return;
+            }
+            remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+            isPaused = true; // Auto-pause on level skip
+            timerStartPauseBtn.textContent = '▶ Start';
+            timerStartPauseBtn.classList.remove('pause-btn');
+            timerStartPauseBtn.classList.add('play-btn');
+            updateDisplay();
+            if (levelStructure[currentLevelIndex].isBreak) {
+                let breakMessage = `Break level. ${levelStructure[currentLevelIndex].name}. ${levelStructure[currentLevelIndex].durationMinutes} minutes.`;
+                if (levelStructure[currentLevelIndex].name.toLowerCase().includes("color up")) {
+                    breakMessage += " Please color up small chips.";
+                }
+                if (timerEnableVoiceCheckbox.checked) speak(breakMessage);
+            } else {
+                if (timerEnableVoiceCheckbox.checked) speak(`Advancing to ${levelStructure[currentLevelIndex].name}. Blinds are now ${levelStructure[currentLevelIndex].sb} / ${levelStructure[currentLevelIndex].bb}${levelStructure[currentLevelIndex].ante > 0 ? ` with ${levelStructure[currentLevelIndex].ante} ante.` : '.'}`);
+            }
+        }
+
+        function prevLevel() {
+            clearInterval(timerInterval);
+            currentLevelIndex--;
+            if (currentLevelIndex < 0) {
+                currentLevelIndex = 0;
+            }
+            remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+            isPaused = true; // Auto-pause on level skip
+            timerStartPauseBtn.textContent = '▶ Start';
+            timerStartPauseBtn.classList.remove('pause-btn');
+            timerStartPauseBtn.classList.add('play-btn');
+            updateDisplay();
+            if (timerEnableVoiceCheckbox.checked) {
+                speak(`Returning to ${levelStructure[currentLevelIndex].name}. Blinds are now ${levelStructure[currentLevelIndex].sb} / ${levelStructure[currentLevelIndex].bb}${levelStructure[currentLevelIndex].ante > 0 ? ` with ${levelStructure[currentLevelIndex].ante} ante.` : '.'}`);
+            }
+        }
+
+        function adjustTime(seconds) {
+            remainingSeconds += seconds;
+            if (remainingSeconds < 0) remainingSeconds = 0;
+            if (remainingSeconds > levelStructure[currentLevelIndex].durationMinutes * 60) {
+                remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60; // Max to current level duration
+            }
+            updateDisplay();
+        }
+
+        function toggleTimer() {
+            if (isPaused) {
+                startTimer();
+            } else {
+                pauseTimer();
+            }
+        }
+
+        function startTimer() {
+            if (!isPaused) return;
+            isPaused = false;
+            timerStartPauseBtn.textContent = '❚❚ Pause';
+            timerStartPauseBtn.classList.remove('play-btn');
+            timerStartPauseBtn.classList.add('pause-btn');
+            timerInterval = setInterval(() => {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                } else {
+                    nextLevel(); // Auto-advance when time runs out
+                }
+                updateDisplay();
+            }, 1000);
+            updateDisplay(); // Update immediately on start
+        }
+
+        function pauseTimer() {
+            if (isPaused) return;
+            isPaused = true;
+            clearInterval(timerInterval);
+            timerStartPauseBtn.textContent = '▶ Start';
+            timerStartPauseBtn.classList.remove('pause-btn');
+            timerStartPauseBtn.classList.add('play-btn');
+            updateDisplay(); // Update immediately on pause
+        }
+
+        function initTimer() {
+            // Load from localStorage or use defaults
+            const savedLevel = localStorage.getItem('pokerTimerCurrentLevelIndex');
+            const savedTime = localStorage.getItem('pokerTimerRemainingSeconds');
+            const savedPaused = localStorage.getItem('pokerTimerIsPaused');
+            const savedLevels = localStorage.getItem('pokerTimerLevelStructure');
+            const savedVoice = localStorage.getItem('pokerTimerEnableVoice');
+            const savedSound = localStorage.getItem('pokerTimerEnableSound');
+
+            if (savedLevels) {
+                levelStructure = JSON.parse(savedLevels);
+            }
+            if (savedLevel !== null) {
+                currentLevelIndex = parseInt(savedLevel);
+            }
+            if (savedTime !== null) {
+                remainingSeconds = parseInt(savedTime);
+            } else {
+                remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+            }
+            if (savedPaused !== null) {
+                isPaused = JSON.parse(savedPaused);
+            }
+            if (savedVoice !== null) {
+                timerEnableVoiceCheckbox.checked = JSON.parse(savedVoice);
+            }
+            if (savedSound !== null) {
+                timerEnableSoundCheckbox.checked = JSON.parse(savedSound);
+            }
+
+            updateDisplay(); // Initial display update
+            if (!isPaused) {
+                startTimer(); // Resume if not paused
+            }
+
+            // Save state to localStorage on changes
+            window.addEventListener('beforeunload', () => {
+                localStorage.setItem('pokerTimerCurrentLevelIndex', currentLevelIndex);
+                localStorage.setItem('pokerTimerRemainingSeconds', remainingSeconds);
+                localStorage.setItem('pokerTimerIsPaused', isPaused);
+                localStorage.setItem('pokerTimerLevelStructure', JSON.stringify(levelStructure));
+                localStorage.setItem('pokerTimerEnableVoice', timerEnableVoiceCheckbox.checked);
+                localStorage.setItem('pokerTimerEnableSound', timerEnableSoundCheckbox.checked);
+            });
+        }
+
+        // Event Listeners
+        try {
+            timerStartPauseBtn.addEventListener('click', toggleTimer);
+            timerSkipNextBtn.addEventListener('click', nextLevel);
+            timerSkipPrevBtn.addEventListener('click', prevLevel);
+            timerAdjustUp30Btn.addEventListener('click', () => adjustTime(30));
+            timerAdjustDown30Btn.addEventListener('click', () => adjustTime(-30));
+            timerAdjustUp60Btn.addEventListener('click', () => adjustTime(60));
+            timerAdjustDown60Btn.addEventListener('click', () => adjustTime(-60));
+            timerEditStructureBtn.addEventListener('click', openEditModal);
+            addLevelBtn.addEventListener('click', addLevel);
+            saveStructureBtn.addEventListener('click', saveStructure);
+            cancelStructureBtn.addEventListener('click', closeEditModal);
+
+            timerEnableVoiceCheckbox.addEventListener('change', () => {
+                localStorage.setItem('pokerTimerEnableVoice', timerEnableVoiceCheckbox.checked);
+            });
+            timerEnableSoundCheckbox.addEventListener('change', () => {
+                localStorage.setItem('pokerTimerEnableSound', timerEnableSoundCheckbox.checked);
+            });
+        } catch (e) {
+            console.error("Error attaching timer event listeners:", e);
+            alert("Timer controls failed to load. Check console for details.");
+        }
+
+        // Initialize timer on page load (before leaderboard init)
+        try {
+            initTimer();
+        } catch (e) {
+            console.error("Error initializing timer:", e);
+            alert("Timer failed to load. Check console for details.");
+        }
+
+        // --- Leaderboard Logic ---
+
         let allResults = [];
 
         // Parse date string (DD/MM/YYYY or similar) to Date for filtering
@@ -769,6 +1504,7 @@
         // Load results from CSV file
         async function loadResults() {
             try {
+                console.log("Attempting to fetch CSV from URL:", CSV_URL); // Add this line
                 const response = await fetch(CSV_URL);
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);

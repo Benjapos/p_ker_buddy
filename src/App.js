@@ -445,6 +445,13 @@ function App() {
               >
                 📚 Hand History
               </TabButton>
+              <TabButton
+                key="leaderboard"
+                onClick={() => window.open(`${process.env.PUBLIC_URL || ''}/results.html`, '_blank')}
+                active={false} // Not an active tab in the React app
+              >
+                Leaderboard
+              </TabButton>
             </TabContainer>
             
             {showTestInterface && <TestInterface />}
