@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Leaderboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Blind Timer Styles */
+        .blind-timer {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .timer-header {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .timer-time-left {
+            font-size: 4.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #ffd700; /* Gold for main time */
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+
+        .timer-time-left.warning {
+            color: #ff4444;
+            text-shadow: 0 0 20px rgba(255, 68, 68, 0.7);
+            animation: pulse-red 1s infinite alternate;
+        }
+
+        @keyframes pulse-red {
+            from { opacity: 1; }
+            to { opacity: 0.7; }
+        }
+
+        .timer-info-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .timer-info-item {
+            font-size: 1.2em;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        .timer-level-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #ffe066; /* Lighter gold */
+        }
+
+        .timer-next-blinds {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .timer-controls button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 5px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .timer-controls button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .timer-controls button.pause-btn {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .timer-controls button.pause-btn:hover {
+            background: #e0a800;
+        }
+
+        .timer-controls button.play-btn {
+            background: #28a745;
+        }
+
+        .timer-controls button.play-btn:hover {
+            background: #218838;
+        }
+
+        .timer-controls button.edit-btn {
+            background: #17a2b8;
+        }
+
+        .timer-controls button.edit-btn:hover {
+            background: #138496;
+        }
+
+        .timer-options {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+
+        .timer-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .timer-options input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* Edit Structure Modal Styles */
+        .edit-structure-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            color: #333;
+        }
+
+        .modal-content h3 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+
+        #levelList {
+            margin-bottom: 20px;
+        }
+
+        .level-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            flex-wrap: wrap;
+        }
+
+        .level-item label {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .level-item input[type="number"],
+        .level-item input[type="text"] {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .level-item input[type="text"] {
+            flex-grow: 1;
+            width: auto;
+        }
+
+        .level-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+        }
+
+        .level-item .remove-level-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: auto;
+        }
+
+        .level-item .remove-level-btn:hover {
+            background: #c82333;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-actions .btn {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+            }
+
+            .level-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .level-item input[type="number"],
+            .level-item input[type="text"] {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .level-item .remove-level-btn {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-actions .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blind-timer {
+                padding: 15px;
+            }
+
+            .timer-time-left {
+                font-size: 3.5em;
+            }
+
+            .timer-info-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .timer-info-item {
+                font-size: 1em;
+            }
+
+            .timer-controls button {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+
+            .timer-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .add-form {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .leaderboard {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .leaderboard-header {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .leaderboard-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .leaderboard-table th {
+            background: #f8f9fa;
+            color: #1e3c72;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .rank-1 {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            font-weight: 700;
+        }
+
+        .rank-1:hover {
+            background: linear-gradient(45deg, #ffed4e, #fff6b3);
+        }
+
+        .rank-2 {
+            background: linear-gradient(45deg, #c0c0c0, #e8e8e8);
+            color: #333;
+            font-weight: 600;
+        }
+
+        .rank-2:hover {
+            background: linear-gradient(45deg, #e8e8e8, #f0f0f0);
+        }
+
+        .rank-3 {
+            background: linear-gradient(45deg, #cd7f32, #daa520);
+            color: white;
+            font-weight: 600;
+        }
+
+        .rank-3:hover {
+            background: linear-gradient(45deg, #daa520, #e6c200);
+        }
+
+        .rank-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .rank-1 .rank-badge {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .rank-2 .rank-badge {
+            background: #c0c0c0;
+            color: #333;
+        }
+
+        .rank-3 .rank-badge {
+            background: #cd7f32;
+            color: white;
+        }
+
+        .wins-count {
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .split-yes {
+            background-color: #fff6cc;
+            border-left: 4px solid #ffaa00;
+        }
+
+        .split-yes:hover {
+            background-color: #fff2b3;
+        }
+
+        .winners {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .notes {
+            font-style: italic;
+            color: #888;
+        }
+
+        .other-players {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            background: #6c757d;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .file-label:hover {
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header-section {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin: 0;
+                text-align: center;
+            }
+            
+            .download-btn {
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+            
+            .info-box {
+                padding: 10px;
+                font-size: 0.8em;
+            }
+            
+        .info-box p {
+            margin-bottom: 8px;
+        }
+
+        .time-window-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .time-window-row label {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .time-window-select {
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            color: #333;
+            min-width: 180px;
+            cursor: pointer;
+        }
+
+        .time-window-select:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .time-window-note {
+            font-size: 0.85em;
+            color: #666;
+        }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-card {
+                min-width: 120px;
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5em;
+            }
+            
+            .leaderboard-header h2 {
+                font-size: 1.4em;
+                padding: 15px;
+            }
+            
+            .leaderboard-table th, 
+            .leaderboard-table td {
+                padding: 8px 4px;
+                font-size: 0.85em;
+            }
+            
+            .leaderboard-table th {
+                font-size: 0.8em;
+                padding: 10px 4px;
+            }
+            
+            /* Hide less important columns on mobile */
+            .leaderboard-table th:nth-child(4),
+            .leaderboard-table td:nth-child(4) {
+                display: none;
+            }
+            
+            /* Make rank column narrower */
+            .leaderboard-table th:first-child,
+            .leaderboard-table td:first-child {
+                width: 40px;
+                text-align: center;
+            }
+            
+            /* Make player name column wider */
+            .leaderboard-table th:nth-child(2),
+            .leaderboard-table td:nth-child(2) {
+                min-width: 80px;
+            }
+            
+            /* Results table mobile styles */
+            table th, table td {
+                padding: 8px 4px;
+                font-size: 0.85em;
+            }
+            
+            table th {
+                font-size: 0.8em;
+                padding: 10px 4px;
+            }
+            
+            /* Hide notes column on mobile for results table */
+            table th:nth-child(4),
+            table td:nth-child(4) {
+                display: none;
+            }
+            
+            /* Make date column narrower */
+            table th:first-child,
+            table td:first-child {
+                width: 70px;
+            }
+            
+            /* Make winners column wider */
+            table th:nth-child(2),
+            table td:nth-child(2) {
+                min-width: 80px;
+            }
+            
+            .rank-badge {
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                font-size: 0.9em;
+                margin-right: 5px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .leaderboard-table th, 
+            .leaderboard-table td {
+                padding: 6px 2px;
+                font-size: 0.8em;
+            }
+            
+            .leaderboard-table th {
+                font-size: 0.75em;
+                padding: 8px 2px;
+            }
+            
+            table th, table td {
+                padding: 6px 2px;
+                font-size: 0.8em;
+            }
+            
+            table th {
+                font-size: 0.75em;
+                padding: 8px 2px;
+            }
+            
+            .rank-badge {
+                width: 22px;
+                height: 22px;
+                line-height: 22px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="blind-timer">
+            <div class="timer-header">Tournament Clock</div>
+            <div class="timer-time-left" id="timerTimeLeft">00:00</div>
+            <div class="timer-info-row">
+                <div class="timer-info-item">Level: <span class="timer-level-name" id="timerCurrentLevel">1</span></div>
+                <div class="timer-info-item">Blinds: <span id="timerCurrentBlinds">10/20</span></div>
+                <div class="timer-info-item">Next: <span id="timerNextBlinds">25/50</span></div>
+            </div>
+            <div class="timer-controls">
+                <button id="timerStartPauseBtn" class="play-btn">▶ Start</button>
+                <button id="timerSkipPrevBtn">⏪ Prev Level</button>
+                <button id="timerSkipNextBtn">⏩ Next Level</button>
+                <button id="timerAdjustUp30Btn">+30s</button>
+                <button id="timerAdjustDown30Btn">-30s</button>
+                <button id="timerAdjustUp60Btn">+1m</button>
+                <button id="timerAdjustDown60Btn">-1m</button>
+                <button id="timerEditStructureBtn" class="edit-btn">⚙️ Edit Structure</button>
+            </div>
+            <div class="timer-options">
+                <label><input type="checkbox" id="timerEnableVoice"> Voice Announcements</label>
+                <label><input type="checkbox" id="timerEnableSound"> Warning Sounds</label>
+            </div>
+        </div>
+
+        <div class="edit-structure-modal" id="editStructureModal">
+            <div class="modal-content">
+                <h3>Edit Blind Structure</h3>
+                <div id="levelList">
+                    <!-- Levels will be dynamically loaded here -->
+                </div>
+                <button id="addLevelBtn" class="btn btn-success">+ Add Level</button>
+                <div class="modal-actions">
+                    <button id="saveStructureBtn" class="btn btn-primary">Save Changes</button>
+                    <button id="cancelStructureBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-section">
+            <h1>Leaderboard</h1>
+            <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
+        </div>
+        
+        <div class="info-box">
+            <p><strong>Split Pots:</strong> When a pot is split, each winner gets 0.5 wins (shown as decimal wins in the leaderboard)</p>
+            <p><strong>Win Rate:</strong> (Wins ÷ Games) × 100. Wins are the sum of full wins (1) and half-wins (0.5 for splits). Games is the number of hands the player participated in.</p>
+        </div>
+
+        <!-- Time window: shown when data is loaded; leaderboard recalculated for selected period -->
+        <div id="timeWindowRow" class="time-window-row" style="display: none;">
+            <label for="timeWindowSelect">Time period:</label>
+            <select id="timeWindowSelect" class="time-window-select" aria-label="Select time period for leaderboard">
+                <option value="last2years">Last 2 years (default)</option>
+                <!-- Year options filled by JS -->
+                <option value="alltime">All-time</option>
+            </select>
+            <span id="timeWindowNote" class="time-window-note"></span>
+        </div>
+
+        <!-- Loading and Error Messages -->
+        <div id="loading" class="loading">
+            <h3>📊 Loading leaderboard from CSV...</h3>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p id="errorMessage"></p>
+            <p><strong>Solution:</strong> Create the CSV file at <code>docs/data/poker_results.csv</code> with headers: date,winners,split,notes,other_players,host</p>
+        </div>
+
+        <!-- Statistics -->
+        <div id="stats" class="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-number" id="totalGames">0</div>
+                <div class="stat-label">Total Games</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="splitPots">0</div>
+                <div class="stat-label">Split Pots</div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div id="leaderboard" class="leaderboard" style="display: none;">
+            <div class="leaderboard-header">
+                <h2 id="leaderboardTitle">🏅 Player Rankings — Last 2 years</h2>
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                                    <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Wins</th>
+                    <th>Games</th>
+                    <th>Win Rate</th>
+                </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Results Table -->
+        <div id="resultsTable" style="display: none;">
+            <h3 style="color: #1e3c72; margin-bottom: 20px;">📊 Game History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Winners</th>
+                        <th>Split</th>
+                        <th>Notes</th>
+                        <th>Other Players</th>
+                        <th>Host</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <h3>📊 No results found</h3>
+            <p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>
+            <p><strong>CSV Format:</strong></p>
+            <pre>date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8,host
+2025-01-22,"Alex, Maya",true,"50/50 split",John,Sarah,Mike,,,,,John
+2025-01-21,"John",false,"Big pot",Alex,Maya,Lisa,,,,,Alex</pre>
+        </div>
+    </div>
+
+    <script>
+        // CSV file location
+        const CSV_URL = './data/poker_results.csv';
+
+        // --- Blind Timer Logic ---
+
+        // Default blind structure (customizable)
+        let levelStructure = [
+            { sb: 10, bb: 20, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 1" },
+            { sb: 15, bb: 30, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 2" },
+            { sb: 25, bb: 50, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 3" },
+            { sb: 0, bb: 0, ante: 0, durationMinutes: 10, isBreak: true, name: "Break 1 (Color Up 25s)" },
+            { sb: 50, bb: 100, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 4" },
+            { sb: 75, bb: 150, ante: 0, durationMinutes: 15, isBreak: false, name: "Level 5" },
+            { sb: 100, bb: 200, ante: 25, durationMinutes: 20, isBreak: false, name: "Level 6" },
+            { sb: 0, bb: 0, ante: 0, durationMinutes: 15, isBreak: true, name: "Break 2 (Color Up 100s)" },
+            { sb: 150, bb: 300, ante: 25, durationMinutes: 20, isBreak: false, name: "Level 7" },
+            { sb: 200, bb: 400, ante: 50, durationMinutes: 20, isBreak: false, name: "Level 8" },
+        ];
+
+        let currentLevelIndex = 0;
+        let remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+        let isPaused = true;
+        let timerInterval;
+        let speechSynth = window.speechSynthesis;
+        // Timer DOM elements
+        const timerTimeLeftEl = document.getElementById('timerTimeLeft');
+        const timerCurrentLevelEl = document.getElementById('timerCurrentLevel');
+        const timerCurrentBlindsEl = document.getElementById('timerCurrentBlinds');
+        const timerNextBlindsEl = document.getElementById('timerNextBlinds');
+        const timerStartPauseBtn = document.getElementById('timerStartPauseBtn');
+        const timerSkipNextBtn = document.getElementById('timerSkipNextBtn');
+        const timerSkipPrevBtn = document.getElementById('timerSkipPrevBtn');
+        const timerAdjustUp30Btn = document.getElementById('timerAdjustUp30Btn');
+        const timerAdjustDown30Btn = document.getElementById('timerAdjustDown30Btn');
+        const timerAdjustUp60Btn = document.getElementById('timerAdjustUp60Btn');
+        const timerAdjustDown60Btn = document.getElementById('timerAdjustDown60Btn');
+        const timerEditStructureBtn = document.getElementById('timerEditStructureBtn');
+        const timerEnableVoiceCheckbox = document.getElementById('timerEnableVoice');
+        const timerEnableSoundCheckbox = document.getElementById('timerEnableSound');
+
+        // Modal DOM elements
+        const editStructureModal = document.getElementById('editStructureModal');
+        const levelListEl = document.getElementById('levelList');
+        const addLevelBtn = document.getElementById('addLevelBtn');
+        const saveStructureBtn = document.getElementById('saveStructureBtn');
+        const cancelStructureBtn = document.getElementById('cancelStructureBtn');
+                function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            const currentLevel = levelStructure[currentLevelIndex];
+            const nextLevel = levelStructure[currentLevelIndex + 1];
+
+            timerTimeLeftEl.textContent = formatTime(remainingSeconds);
+            timerCurrentLevelEl.textContent = currentLevel.name;
+
+            if (currentLevel.isBreak) {
+                timerCurrentBlindsEl.textContent = 'Break';
+                timerNextBlindsEl.textContent = nextLevel ? `Resumes at ${nextLevel.sb}/${nextLevel.bb}` : 'End of Tournament';
+                timerTimeLeftEl.classList.remove('warning');
+            } else {
+                const anteDisplay = currentLevel.ante > 0 ? ` / ${currentLevel.ante} ante` : '';
+                timerCurrentBlindsEl.textContent = `${currentLevel.sb}/${currentLevel.bb}${anteDisplay}`;
+                timerNextBlindsEl.textContent = nextLevel ? `${nextLevel.sb}/${nextLevel.bb}` : 'End of Tournament';
+
+                // Warning alerts
+                if (remainingSeconds <= 60 && remainingSeconds > 0) {
+                    timerTimeLeftEl.classList.add('warning');
+                    if (timerEnableSoundCheckbox.checked) playSound(1); // Single beep for 1 min
+                    if (timerEnableVoiceCheckbox.checked && remainingSeconds === 60) speak(`One minute remaining in ${currentLevel.name}. Blinds are ${currentLevel.sb} / ${currentLevel.bb}.`);
+                } else if (remainingSeconds <= 10 && remainingSeconds > 0) {
+                    timerTimeLeftEl.classList.add('warning');
+                    if (timerEnableSoundCheckbox.checked) playSound(0.5, 880); // Faster, higher pitch beep for 10s
+                    if (timerEnableVoiceCheckbox.checked && remainingSeconds === 10) speak(`Ten seconds remaining.`);
+                } else {
+                    timerTimeLeftEl.classList.remove('warning');
+                }
+            }
+        }
+
+        // Audio context for generating beeps
+        let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let oscillator = null;
+
+        function playSound(durationSeconds = 1, frequency = 440, type = 'sine') {
+            console.log("playSound called with duration:", durationSeconds, "frequency:", frequency);
+            if (!timerEnableSoundCheckbox.checked) {
+                console.log("Warning sounds disabled by checkbox.");
+                return;
+            }
+
+            if (oscillator) {
+                oscillator.stop();
+                oscillator.disconnect();
+            }
+
+            oscillator = audioContext.createOscillator();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+            const gainNode = audioContext.createGain();
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + durationSeconds);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + durationSeconds);
+        }
+
+        function speak(text) {
+            console.log("speak called with text:", text);
+            if (!timerEnableVoiceCheckbox.checked) {
+                console.log("Voice announcements disabled by checkbox.");
+                return;
+            }
+            if (speechSynth.speaking) speechSynth.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynth.speak(utterance);
+        }
+
+        // --- Edit Structure Modal Logic ---
+        function renderLevelList() {
+            levelListEl.innerHTML = '';
+            levelStructure.forEach((level, index) => {
+                const levelItem = document.createElement('div');
+                levelItem.className = 'level-item';
+                levelItem.innerHTML = `
+                    <label>#${index + 1}:</label>
+                    <input type="text" class="level-name" value="${level.name}" placeholder="Level Name">
+                    <label>SB:</label>
+                    <input type="number" class="level-sb" value="${level.sb}" ${level.isBreak ? 'disabled' : ''}>
+                    <label>BB:</label>
+                    <input type="number" class="level-bb" value="${level.bb}" ${level.isBreak ? 'disabled' : ''}>
+                    <label>Ante:</label>
+                    <input type="number" class="level-ante" value="${level.ante}" ${level.isBreak ? 'disabled' : ''}>
+                    <label>Duration (min):</label>
+                    <input type="number" class="level-duration" value="${level.durationMinutes}" min="1">
+                    <label><input type="checkbox" class="level-is-break" ${level.isBreak ? 'checked' : ''}> Break</label>
+                    <button class="remove-level-btn" data-index="${index}">Remove</button>
+                `;
+                levelListEl.appendChild(levelItem);
+            });
+            // Add event listeners for remove buttons
+            levelListEl.querySelectorAll('.remove-level-btn').forEach(button => {
+                button.addEventListener('click', (e) => removeLevel(parseInt(e.target.dataset.index)));
+            });
+            // Add event listeners for break checkboxes to disable/enable SB/BB/Ante
+            levelListEl.querySelectorAll('.level-is-break').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const parent = e.target.closest('.level-item');
+                    const isDisabled = e.target.checked;
+                    parent.querySelector('.level-sb').disabled = isDisabled;
+                    parent.querySelector('.level-bb').disabled = isDisabled;
+                    parent.querySelector('.level-ante').disabled = isDisabled;
+                });
+            });
+        }
+
+        function openEditModal() {
+            console.log("openEditModal called.");
+            console.log("editStructureModal:", editStructureModal);
+            console.log("levelListEl:", levelListEl);
+            renderLevelList();
+            editStructureModal.style.display = 'block';
+        }
+
+        function closeEditModal() {
+            editStructureModal.style.display = 'none';
+        }
+
+        function addLevel() {
+            levelStructure.push({ sb: 25, bb: 50, ante: 0, durationMinutes: 15, isBreak: false, name: `Level ${levelStructure.length + 1}` });
+            renderLevelList();
+        }
+
+        function removeLevel(index) {
+            levelStructure.splice(index, 1);
+            // Re-index names
+            levelStructure.forEach((level, i) => {
+                if (!level.isBreak) level.name = `Level ${i + 1}`;
+                else if (level.name.startsWith("Break")) level.name = `Break ${i + 1}`;
+            });
+            renderLevelList();
+        }
+
+        function saveStructure() {
+            const newLevelStructure = [];
+            let valid = true;
+            levelListEl.querySelectorAll('.level-item').forEach((item, index) => {
+                const name = item.querySelector('.level-name').value;
+                const sb = parseInt(item.querySelector('.level-sb').value);
+                const bb = parseInt(item.querySelector('.level-bb').value);
+                const ante = parseInt(item.querySelector('.level-ante').value);
+                const durationMinutes = parseInt(item.querySelector('.level-duration').value);
+                const isBreak = item.querySelector('.level-is-break').checked;
+
+                if (!name || isNaN(durationMinutes) || durationMinutes < 1 || (!isBreak && (isNaN(sb) || isNaN(bb) || sb < 0 || bb < 0 || sb >= bb))) {
+                    alert(`Invalid input for level #${index + 1}. Please check name, blinds, ante, and duration.`);
+                    valid = false;
+                    return;
+                }
+                newLevelStructure.push({
+                    name,
+                    sb: isBreak ? 0 : sb,
+                    bb: isBreak ? 0 : bb,
+                    ante: isBreak ? 0 : ante,
+                    durationMinutes,
+                    isBreak
+                });
+            });
+
+            if (valid) {
+                levelStructure = newLevelStructure;
+                localStorage.setItem('pokerTimerLevelStructure', JSON.stringify(levelStructure));
+                // Reset timer to current level with new duration, or to 0 if levels changed dramatically
+                if (currentLevelIndex >= levelStructure.length) {
+                    currentLevelIndex = 0;
+                }
+                remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+                updateDisplay();
+                closeEditModal();
+            }
+        }
+
+        // --- Main Timer Functions ---
+
+        function nextLevel() {
+            clearInterval(timerInterval);
+            currentLevelIndex++;
+            if (currentLevelIndex >= levelStructure.length) {
+                currentLevelIndex = levelStructure.length - 1; // Stay at last level
+                remainingSeconds = 0; // End of tournament
+                isPaused = true;
+                timerStartPauseBtn.textContent = 'Tournament Over';
+                timerStartPauseBtn.disabled = true;
+                updateDisplay();
+                if (timerEnableVoiceCheckbox.checked) speak("Tournament has ended.");
+                return;
+            }
+            remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+            isPaused = true; // Auto-pause on level skip
+            timerStartPauseBtn.textContent = '▶ Start';
+            timerStartPauseBtn.classList.remove('pause-btn');
+            timerStartPauseBtn.classList.add('play-btn');
+            updateDisplay();
+            if (levelStructure[currentLevelIndex].isBreak) {
+                let breakMessage = `Break level. ${levelStructure[currentLevelIndex].name}. ${levelStructure[currentLevelIndex].durationMinutes} minutes.`;
+                if (levelStructure[currentLevelIndex].name.toLowerCase().includes("color up")) {
+                    breakMessage += " Please color up small chips.";
+                }
+                if (timerEnableVoiceCheckbox.checked) speak(breakMessage);
+            } else {
+                if (timerEnableVoiceCheckbox.checked) speak(`Advancing to ${levelStructure[currentLevelIndex].name}. Blinds are now ${levelStructure[currentLevelIndex].sb} / ${levelStructure[currentLevelIndex].bb}${levelStructure[currentLevelIndex].ante > 0 ? ` with ${levelStructure[currentLevelIndex].ante} ante.` : '.'}`);
+            }
+        }
+
+        function prevLevel() {
+            clearInterval(timerInterval);
+            currentLevelIndex--;
+            if (currentLevelIndex < 0) {
+                currentLevelIndex = 0;
+            }
+            remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+            isPaused = true; // Auto-pause on level skip
+            timerStartPauseBtn.textContent = '▶ Start';
+            timerStartPauseBtn.classList.remove('pause-btn');
+            timerStartPauseBtn.classList.add('play-btn');
+            updateDisplay();
+            if (timerEnableVoiceCheckbox.checked) {
+                speak(`Returning to ${levelStructure[currentLevelIndex].name}. Blinds are now ${levelStructure[currentLevelIndex].sb} / ${levelStructure[currentLevelIndex].bb}${levelStructure[currentLevelIndex].ante > 0 ? ` with ${levelStructure[currentLevelIndex].ante} ante.` : '.'}`);
+            }
+        }
+
+        function adjustTime(seconds) {
+            remainingSeconds += seconds;
+            if (remainingSeconds < 0) remainingSeconds = 0;
+            if (remainingSeconds > levelStructure[currentLevelIndex].durationMinutes * 60) {
+                remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60; // Max to current level duration
+            }
+            updateDisplay();
+        }
+
+        function toggleTimer() {
+            if (isPaused) {
+                startTimer();
+            } else {
+                pauseTimer();
+            }
+        }
+
+        function startTimer() {
+            if (!isPaused) return;
+            isPaused = false;
+            timerStartPauseBtn.textContent = '❚❚ Pause';
+            timerStartPauseBtn.classList.remove('play-btn');
+            timerStartPauseBtn.classList.add('pause-btn');
+            timerInterval = setInterval(() => {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                } else {
+                    nextLevel(); // Auto-advance when time runs out
+                }
+                updateDisplay();
+            }, 1000);
+            updateDisplay(); // Update immediately on start
+        }
+
+        function pauseTimer() {
+            if (isPaused) return;
+            isPaused = true;
+            clearInterval(timerInterval);
+            timerStartPauseBtn.textContent = '▶ Start';
+            timerStartPauseBtn.classList.remove('pause-btn');
+            timerStartPauseBtn.classList.add('play-btn');
+            updateDisplay(); // Update immediately on pause
+        }
+
+        function initTimer() {
+            // Load from localStorage or use defaults
+            const savedLevel = localStorage.getItem('pokerTimerCurrentLevelIndex');
+            const savedTime = localStorage.getItem('pokerTimerRemainingSeconds');
+            const savedPaused = localStorage.getItem('pokerTimerIsPaused');
+            const savedLevels = localStorage.getItem('pokerTimerLevelStructure');
+            const savedVoice = localStorage.getItem('pokerTimerEnableVoice');
+            const savedSound = localStorage.getItem('pokerTimerEnableSound');
+
+            if (savedLevels) {
+                levelStructure = JSON.parse(savedLevels);
+            }
+            if (savedLevel !== null) {
+                currentLevelIndex = parseInt(savedLevel);
+            }
+            if (savedTime !== null) {
+                remainingSeconds = parseInt(savedTime);
+            } else {
+                remainingSeconds = levelStructure[currentLevelIndex].durationMinutes * 60;
+            }
+            if (savedPaused !== null) {
+                isPaused = JSON.parse(savedPaused);
+            }
+            if (savedVoice !== null) {
+                timerEnableVoiceCheckbox.checked = JSON.parse(savedVoice);
+            }
+            if (savedSound !== null) {
+                timerEnableSoundCheckbox.checked = JSON.parse(savedSound);
+            }
+
+            updateDisplay(); // Initial display update
+            if (!isPaused) {
+                startTimer(); // Resume if not paused
+            }
+
+            // Save state to localStorage on changes
+            window.addEventListener('beforeunload', () => {
+                localStorage.setItem('pokerTimerCurrentLevelIndex', currentLevelIndex);
+                localStorage.setItem('pokerTimerRemainingSeconds', remainingSeconds);
+                localStorage.setItem('pokerTimerIsPaused', isPaused);
+                localStorage.setItem('pokerTimerLevelStructure', JSON.stringify(levelStructure));
+                localStorage.setItem('pokerTimerEnableVoice', timerEnableVoiceCheckbox.checked);
+                localStorage.setItem('pokerTimerEnableSound', timerEnableSoundCheckbox.checked);
+            });
+        }
+
+        // Event Listeners
+        try {
+            timerStartPauseBtn.addEventListener('click', toggleTimer);
+            timerSkipNextBtn.addEventListener('click', nextLevel);
+            timerSkipPrevBtn.addEventListener('click', prevLevel);
+            timerAdjustUp30Btn.addEventListener('click', () => adjustTime(30));
+            timerAdjustDown30Btn.addEventListener('click', () => adjustTime(-30));
+            timerAdjustUp60Btn.addEventListener('click', () => adjustTime(60));
+            timerAdjustDown60Btn.addEventListener('click', () => adjustTime(-60));
+            timerEditStructureBtn.addEventListener('click', openEditModal);
+            addLevelBtn.addEventListener('click', addLevel);
+            saveStructureBtn.addEventListener('click', saveStructure);
+            cancelStructureBtn.addEventListener('click', closeEditModal);
+
+            timerEnableVoiceCheckbox.addEventListener('change', () => {
+                localStorage.setItem('pokerTimerEnableVoice', timerEnableVoiceCheckbox.checked);
+            });
+            timerEnableSoundCheckbox.addEventListener('change', () => {
+                localStorage.setItem('pokerTimerEnableSound', timerEnableSoundCheckbox.checked);
+            });
+        } catch (e) {
+            console.error("Error attaching timer event listeners:", e);
+            alert("Timer controls failed to load. Check console for details.");
+        }
+
+        // Initialize timer on page load (before leaderboard init)
+        try {
+            initTimer();
+        } catch (e) {
+            console.error("Error initializing timer:", e);
+            alert("Timer failed to load. Check console for details.");
+        }
+
+        // --- Leaderboard Logic ---
+
+        let allResults = [];
+
+        // Parse date string (DD/MM/YYYY or similar) to Date for filtering
+        function parseResultDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return null;
+            const parts = dateStr.trim().split('/');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+                    const d = new Date(year, month, day);
+                    if (!isNaN(d.getTime())) return d;
+                }
+            }
+            const d = new Date(dateStr);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        // Get sorted list of years present in results (newest first)
+        function getYearsInData(results) {
+            const years = new Set();
+            results.forEach(r => {
+                const d = parseResultDate(r.date);
+                if (d) years.add(d.getFullYear());
+            });
+            return Array.from(years).sort((a, b) => b - a);
+        }
+
+        // Filter results by time window; returns new array (no mutation of allResults)
+        function filterResultsByTimeWindow(results, windowValue) {
+            if (!windowValue || windowValue === 'alltime') return [...results];
+            if (windowValue === 'last2years') {
+                const cutoff = new Date();
+                cutoff.setMonth(cutoff.getMonth() - 24);
+                return results.filter(r => {
+                    const d = parseResultDate(r.date);
+                    return d && d >= cutoff;
+                });
+            }
+            const year = parseInt(windowValue, 10);
+            if (isNaN(year)) return [...results];
+            return results.filter(r => {
+                const d = parseResultDate(r.date);
+                return d && d.getFullYear() === year;
+            });
+        }
+
+        // Human-readable label for current time window
+        function getTimeWindowLabel(value) {
+            if (value === 'last2years') return 'Last 2 years';
+            if (value === 'alltime') return 'All-time';
+            const y = parseInt(value, 10);
+            if (!isNaN(y)) return String(y);
+            return 'Last 2 years';
+        }
+
+        // Load results from CSV file
+        async function loadResults() {
+            try {
+                console.log("Attempting to fetch CSV from URL:", CSV_URL); // Add this line
+                const response = await fetch(CSV_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const csvText = await response.text();
+                console.log('Raw CSV text:', csvText);
+                const results = parseCSV(csvText);
+                console.log('Parsed results:', results);
+                return results;
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                throw error;
+            }
+        }
+        
+        // Parse CSV text into array of objects
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            if (lines.length < 2) return [];
+            
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            const results = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                // Parse CSV line (handles quoted values)
+                const values = parseCSVLine(line);
+                
+                if (values.length >= headers.length) {
+                    const result = {};
+                    headers.forEach((header, index) => {
+                        result[header] = values[index] || '';
+                    });
+                    results.push(result);
+                }
+            }
+            
+            return results;
+        }
+        
+        // Parse a single CSV line (handles quoted values)
+        function parseCSVLine(line) {
+            const values = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    values.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            values.push(current.trim());
+            
+            return values;
+        }
+        
+        // Calculate player rankings
+        function calculateRankings(results) {
+            const playerWins = {};
+            const playerGames = {};
+            
+            // Count wins and total games for each player
+            results.forEach(result => {
+                // Count wins from winners column with split pot handling
+                if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
+                    const winners = result.winners.split(',').map(w => w.trim());
+                    const isSplit = result.split && result.split.toLowerCase() === 'true';
+                    const winValue = isSplit ? 0.5 : 1; // Half win for split pots
+                    
+                    winners.forEach(winner => {
+                        if (winner && winner !== '?') {
+                            playerWins[winner] = (playerWins[winner] || 0) + winValue;
+                        }
+                    });
+                    
+                    // For split pots, also give 0.5 wins to the other participant mentioned in notes
+                    if (isSplit && result.notes) {
+                        // Look for "split with [Name]" pattern in notes
+                        const splitMatch = result.notes.match(/split with (\w+)/i);
+                        if (splitMatch) {
+                            const otherParticipant = splitMatch[1];
+                            playerWins[otherParticipant] = (playerWins[otherParticipant] || 0) + 0.5;
+                        }
+                    }
+                }
+                
+                // Count total games (from individual player columns + winners)
+                const allPlayers = new Set();
+                
+                // Add winners to the player list
+                if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
+                    result.winners.split(',').map(w => w.trim()).forEach(p => {
+                        if (p && p !== '?') allPlayers.add(p);
+                    });
+                }
+                
+                // Add players from individual columns (player1, player2, etc.)
+                for (let i = 1; i <= 8; i++) {
+                    const playerKey = `player${i}`;
+                    if (result[playerKey] && result[playerKey].trim() !== '' && result[playerKey] !== '?') {
+                        allPlayers.add(result[playerKey].trim());
+                    }
+                }
+                
+                // Count each player as participating in this game
+                allPlayers.forEach(player => {
+                    playerGames[player] = (playerGames[player] || 0) + 1;
+                });
+            });
+            
+            // Create ranking array - include all players who have participated
+            const allPlayers = new Set([...Object.keys(playerWins), ...Object.keys(playerGames)]);
+            const rankings = Array.from(allPlayers).map(player => ({
+                player: player,
+                wins: playerWins[player] || 0,
+                games: playerGames[player] || 0,
+                winRate: playerGames[player] ? ((playerWins[player] || 0) / playerGames[player] * 100).toFixed(1) : '0.0'
+            }));
+            
+            // Debug logging
+            console.log('Player Wins:', playerWins);
+            console.log('Player Games:', playerGames);
+            console.log('All Players:', Array.from(allPlayers));
+            console.log('Rankings:', rankings);
+            
+            // Sort by wins (descending), then by win rate (descending)
+            rankings.sort((a, b) => {
+                if (b.wins !== a.wins) return b.wins - a.wins;
+                return parseFloat(b.winRate) - parseFloat(a.winRate);
+            });
+            
+            return rankings;
+        }
+        
+        // Populate year options in time-window select (call once when allResults is set)
+        function populateTimeWindowSelect() {
+            const select = document.getElementById('timeWindowSelect');
+            const years = getYearsInData(allResults);
+            const allTimeOpt = select.querySelector('option[value="alltime"]');
+            const last2Opt = select.querySelector('option[value="last2years"]');
+            select.innerHTML = '';
+            select.appendChild(last2Opt);
+            years.forEach(y => {
+                const opt = document.createElement('option');
+                opt.value = String(y);
+                opt.textContent = String(y);
+                select.appendChild(opt);
+            });
+            select.appendChild(allTimeOpt);
+            select.value = 'last2years';
+        }
+
+        // Apply current time window and redraw leaderboard + results (recalculated, not just filtered view)
+        function applyFilterAndDisplay() {
+            const value = document.getElementById('timeWindowSelect').value;
+            const filtered = filterResultsByTimeWindow(allResults, value);
+            displayResults(filtered);
+        }
+
+        // Display results and leaderboard (results = already filtered for current time window)
+        function displayResults(results) {
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const statsDiv = document.getElementById('stats');
+            const leaderboardDiv = document.getElementById('leaderboard');
+            const tableDiv = document.getElementById('resultsTable');
+            const noResultsDiv = document.getElementById('noResults');
+            const tbody = document.getElementById('resultsBody');
+            const leaderboardBody = document.getElementById('leaderboardBody');
+            const timeWindowRow = document.getElementById('timeWindowRow');
+            const leaderboardTitle = document.getElementById('leaderboardTitle');
+            const timeWindowNote = document.getElementById('timeWindowNote');
+            
+            // Hide loading
+            loadingDiv.style.display = 'none';
+            
+            if (results.length === 0) {
+                errorDiv.style.display = 'none';
+                statsDiv.style.display = 'none';
+                leaderboardDiv.style.display = 'none';
+                tableDiv.style.display = 'none';
+                noResultsDiv.style.display = 'block';
+                if (allResults.length > 0) {
+                    timeWindowRow.style.display = 'flex';
+                    leaderboardTitle.textContent = '🏅 Player Rankings — ' + getTimeWindowLabel(document.getElementById('timeWindowSelect').value);
+                    noResultsDiv.innerHTML = '<h3>📊 No games in this period</h3><p>Select another time period above.</p>';
+                } else {
+                    timeWindowRow.style.display = 'none';
+                    noResultsDiv.innerHTML = '<h3>📊 No results found</h3><p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>';
+                }
+                return;
+            }
+            
+            const windowValue = document.getElementById('timeWindowSelect').value;
+            leaderboardTitle.textContent = '🏅 Player Rankings — ' + getTimeWindowLabel(windowValue);
+            timeWindowNote.textContent = 'Rankings and stats recalculated for this period.';
+            timeWindowRow.style.display = 'flex';
+            
+            // Show stats (recalculated for this window)
+            const splitCount = results.filter(r => r.split && r.split.toLowerCase() === 'true').length;
+            
+            document.getElementById('totalGames').textContent = results.length;
+            document.getElementById('splitPots').textContent = splitCount;
+            
+            // Calculate and display leaderboard from filtered results
+            const rankings = calculateRankings(results);
+            
+            errorDiv.style.display = 'none';
+            statsDiv.style.display = 'flex';
+            leaderboardDiv.style.display = 'block';
+            tableDiv.style.display = 'block';
+            noResultsDiv.style.display = 'none';
+            
+            // Build leaderboard
+            leaderboardBody.innerHTML = '';
+            rankings.forEach((rank, index) => {
+                const row = document.createElement('tr');
+                const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                if (rankClass) row.className = rankClass;
+                
+                const rankBadge = index < 3 ? `<span class="rank-badge">${index + 1}</span>` : '';
+                
+                row.innerHTML = `
+                    <td>${rankBadge}${index < 3 ? '' : index + 1}</td>
+                    <td>${rank.player}</td>
+                    <td class="wins-count">${rank.wins.toFixed(1)}</td>
+                    <td>${rank.games}</td>
+                    <td>${rank.winRate}%</td>
+                `;
+                leaderboardBody.appendChild(row);
+            });
+            
+            // Build results table (latest first)
+            tbody.innerHTML = '';
+            const sortedResults = [...results].sort((a, b) => {
+                // Sort by date in descending order (latest first)
+                // Convert DD/MM/YYYY to MM/DD/YYYY for proper parsing
+                const parseDate = (dateStr) => {
+                    if (!dateStr) return new Date('1900-01-01');
+                    const parts = dateStr.split('/');
+                    if (parts.length === 3) {
+                        // Convert DD/MM/YYYY to MM/DD/YYYY
+                        return new Date(parts[1] + '/' + parts[0] + '/' + parts[2]);
+                    }
+                    return new Date(dateStr);
+                };
+                
+                const dateA = parseDate(a.date);
+                const dateB = parseDate(b.date);
+                return dateB - dateA;
+            });
+            
+            sortedResults.forEach(result => {
+                const row = document.createElement('tr');
+                if (result.split && result.split.toLowerCase() === 'true') {
+                    row.className = 'split-yes';
+                }
+                
+                // Build other players list from individual columns
+                const otherPlayers = [];
+                for (let i = 1; i <= 8; i++) {
+                    const playerKey = `player${i}`;
+                    if (result[playerKey] && result[playerKey].trim() !== '' && result[playerKey] !== '?') {
+                        otherPlayers.push(result[playerKey].trim());
+                    }
+                }
+                
+                // Debug logging for this row
+                console.log('Row data:', result);
+                console.log('Other players for this row:', otherPlayers);
+                
+                // Handle split pot display
+                let winnersDisplay = result.winners || '';
+                if (result.split && result.split.toLowerCase() === 'true') {
+                    // For split pots, show technical winner with split indicator
+                    winnersDisplay = `${result.winners} ⭐ (split)`;
+                }
+                
+                row.innerHTML = `
+                    <td class="date">${result.date || ''}</td>
+                    <td class="winners">${winnersDisplay}</td>
+                    <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
+                    <td class="notes">${result.notes || ''}</td>
+                    <td class="other-players">${otherPlayers.join(', ')}</td>
+                    <td>${result.host || ''}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Show error
+        function showError(message) {
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            loadingDiv.style.display = 'none';
+            errorDiv.style.display = 'block';
+            errorMessage.textContent = message;
+        }
+        
+        // Download CSV
+        function downloadCSV() {
+            window.open(CSV_URL, '_blank');
+        }
+        
+        // Initialize
+        async function init() {
+            try {
+                const results = await loadResults();
+                allResults = results;
+                populateTimeWindowSelect();
+                document.getElementById('timeWindowSelect').addEventListener('change', applyFilterAndDisplay);
+                applyFilterAndDisplay();
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+        
+        // Start loading
+        init();
+    </script>
+</body>
+</html> 
