@@ -51,7 +51,7 @@ date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7
 15/05/2023,Jona,FALSE,,Yossi,Mark,Jonah,Ben,,,,,
 08/06/2023,Jonah,FALSE,,Ben,Yossi,Mark,Jona,Adrian,,,,
 29/06/2023,"Rafi, Jona, Mark, Nik",TRUE,split pot,Ben,Yossi,Rob,Jonah,Adrian,,,,
-05/09/2023,"Nik, Mark",TRUE,,Rob,Jona,Yossi,Adrian,Mark,,,,
+05/09/2023,"Nik, Mark",TRUE,,Rob,Jona,Yossi,Adrian,,,,,
 21/09/2023,Ben,FALSE,,Jona,Rafi,Mark,Yossi,Adrian,,,,
 09/11/2023,Adrian,FALSE,,Jonah,Mark,Ben,Rafi,Yossi,,,,
 28/11/2023,Yossi,FALSE,,Adrian,Rob,Jona,Rafi,Jonah,Mark,Nik,,
@@ -90,7 +90,7 @@ date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7
 16/09/2025,Adrian,FALSE,"Rob took Jonah out in the first hand, then Adrian slowly steamrollered everyone",Rob,Mark,Yossi,Jonah,Ben,,,,
 29/10/2025,Yossi,FALSE,,Rafi,Jona,Mark,Jonah,Rob,Adrian,,,
 12/11/2025,Jona,FALSE,,Adrian,Jonah,Mark,Yossi,Rafi,Rob,,,Mark
-26/11/2025,"Ben, Yossi",TRUE,,Rafi,Yossi,Jona,Mark,,,,,Ben
+26/11/2025,"Ben, Yossi",TRUE,,Rafi,Jona,Mark,,,,,,Ben
 08/12/2025,Jonah,FALSE,BP vs Jonah HU,Rob,Mark,Yossi,Adrian,,,,,Mark
 23/12/2025,"Ben, Jona",TRUE,"Late game, split after pushing chips back and forth HU",Rob,Mark,Yossi,Rafi,,,,,Yossi
 06/01/2026,"Yossi, Mark",TRUE,60/40 ,Rob,Rafi,Ben,Jona,Jonah,,,,Jona
@@ -104,3 +104,4 @@ date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7
 09/06/2026,"Ben, Mark",TRUE,The Amnesia All-In - no one was onboard- 1/3-2/3 to Mord,Jona,Jonah,Yossi,Rob,Rafi,Adrian,,,Adrian
 01/07/2026,"Jonah, Jona",TRUE,Engerrrrrlandddd - just got through. Split 150 to Jonah 100 to jona,Yossi,Rob,Rafi,Adrian,,,,,Rafi
 14/07/2026,Ben,FALSE,Pizza dromit,Yossi,Rob,Rafi,Adrian,Mark,,,,Ben
+29/07/2026,"Jonah, Yossi",TRUE,Excellent burgers,Rob,Adrian,Jona,,,,,,Jonah
