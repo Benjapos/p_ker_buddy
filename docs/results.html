@@ -1041,8 +1041,19 @@
     </div>
 
     <script>
-        // CSV file location
-        const CSV_URL = './data/poker_results.csv';
+        // =============================================================================
+        // DATA SOURCE CONFIGURATION
+        // To load results from Google Sheets (so you can update from your phone):
+        //   1. Open your Google Sheet with poker results
+        //   2. Go to File > Share > Publish to web
+        //   3. Select the sheet/tab, choose "Comma-separated values (.csv)" format
+        //   4. Click Publish and copy the URL
+        //   5. Paste it below between the quotes
+        // When the URL is set, the page fetches live data from Google Sheets.
+        // If the fetch fails (offline, etc.), it falls back to the local CSV file.
+        // =============================================================================
+        const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3OcKuaKAQUI37EFCKRd7aDIBqFA26ASMy21K5zRLtKj_xEknlANrgz5ra9WaC0tpk1zqZp_CmL-rt/pub?output=csv';
+        const LOCAL_CSV_FALLBACK = './data/poker_results.csv';
 
         // --- Blind Timer Logic ---
 
@@ -1501,24 +1512,35 @@
             return 'Last 2 years';
         }
 
-        // Load results from CSV file
+        // Load results from Google Sheets (primary) or local CSV (fallback)
         async function loadResults() {
-            try {
-                console.log("Attempting to fetch CSV from URL:", CSV_URL); // Add this line
-                const response = await fetch(CSV_URL);
+            let csvText;
+
+            if (GOOGLE_SHEETS_CSV_URL) {
+                try {
+                    console.log("Fetching CSV from Google Sheets:", GOOGLE_SHEETS_CSV_URL);
+                    const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+                    if (!response.ok) throw new Error('Google Sheets fetch failed');
+                    csvText = await response.text();
+                } catch (err) {
+                    console.warn('Google Sheets fetch failed, falling back to local CSV:', err);
+                    csvText = null;
+                }
+            }
+
+            if (!csvText) {
+                console.log("Fetching CSV from local fallback:", LOCAL_CSV_FALLBACK);
+                const response = await fetch(LOCAL_CSV_FALLBACK);
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-                
-                const csvText = await response.text();
-                console.log('Raw CSV text:', csvText);
-                const results = parseCSV(csvText);
-                console.log('Parsed results:', results);
-                return results;
-            } catch (error) {
-                console.error('Error loading CSV:', error);
-                throw error;
+                csvText = await response.text();
             }
+
+            console.log('Raw CSV text:', csvText);
+            const results = parseCSV(csvText);
+            console.log('Parsed results:', results);
+            return results;
         }
         
         // Parse CSV text into array of objects
@@ -1817,7 +1839,7 @@
         
         // Download CSV
         function downloadCSV() {
-            window.open(CSV_URL, '_blank');
+            window.open(GOOGLE_SHEETS_CSV_URL || LOCAL_CSV_FALLBACK, '_blank');
         }
         
         // Initialize
