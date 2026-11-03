@@ -182,7 +182,6 @@ const HandHistory = ({ currentHand, onLoadHand }) => {
 
   const formatHandCards = (holeCards) => {
     if (!holeCards || holeCards.length !== 2) {
-      console.log('Invalid holeCards:', holeCards);
       return 'Invalid hand';
     }
     return `${holeCards[0]} ${holeCards[1]}`;

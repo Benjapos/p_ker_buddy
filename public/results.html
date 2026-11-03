@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%83%8F%3C/text%3E%3C/svg%3E" />
     <title>Poker Leaderboard</title>
+    <meta name="description" content="Live leaderboard, game history and blind timer for our poker nights.">
+    <meta name="theme-color" content="#1e3c72">
+    <meta property="og:title" content="Poker Leaderboard">
+    <meta property="og:description" content="Live leaderboard, game history and blind timer for our poker nights.">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
@@ -949,6 +955,7 @@
 
         <div class="header-section">
             <h1>Leaderboard</h1>
+            <span id="lastLoaded" class="time-window-note" aria-live="polite"></span>
             <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
         </div>
         
@@ -969,14 +976,15 @@
         </div>
 
         <!-- Loading and Error Messages -->
-        <div id="loading" class="loading">
-            <h3>📊 Loading leaderboard from CSV...</h3>
+        <div id="loading" class="loading" role="status" aria-live="polite">
+            <h3>📊 Loading leaderboard from Google Sheets...</h3>
         </div>
         
-        <div id="error" class="error" style="display: none;">
+        <div id="error" class="error" role="alert" style="display: none;">
             <h3>❌ Error Loading Data</h3>
             <p id="errorMessage"></p>
-            <p><strong>Solution:</strong> Create the CSV file at <code>docs/data/poker_results.csv</code> with headers: date,winners,split,notes,other_players,host</p>
+            <p>Check your connection and that the Google Sheet is still published to the web.</p>
+            <button class="btn btn-primary" onclick="retryLoad()">Try again</button>
         </div>
 
         <!-- Statistics -->
@@ -1032,28 +1040,24 @@
 
         <div id="noResults" class="no-results" style="display: none;">
             <h3>📊 No results found</h3>
-            <p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>
-            <p><strong>CSV Format:</strong></p>
-            <pre>date,winners,split,notes,player1,player2,player3,player4,player5,player6,player7,player8,host
-2025-01-22,"Alex, Maya",true,"50/50 split",John,Sarah,Mike,,,,,John
-2025-01-21,"John",false,"Big pot",Alex,Maya,Lisa,,,,,Alex</pre>
+            <p>The Google Sheet has no games yet.</p>
         </div>
     </div>
 
     <script>
         // =============================================================================
-        // DATA SOURCE CONFIGURATION
-        // To load results from Google Sheets (so you can update from your phone):
-        //   1. Open your Google Sheet with poker results
-        //   2. Go to File > Share > Publish to web
-        //   3. Select the sheet/tab, choose "Comma-separated values (.csv)" format
-        //   4. Click Publish and copy the URL
-        //   5. Paste it below between the quotes
-        // When the URL is set, the page fetches live data from Google Sheets.
-        // If the fetch fails (offline, etc.), it falls back to the local CSV file.
+        // DATA SOURCE
+        // Results live in a Google Sheet published to the web as CSV. The sheet is the only
+        // source of truth: edit it there and this page picks up the change on next load.
         // =============================================================================
         const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3OcKuaKAQUI37EFCKRd7aDIBqFA26ASMy21K5zRLtKj_xEknlANrgz5ra9WaC0tpk1zqZp_CmL-rt/pub?output=csv';
-        const LOCAL_CSV_FALLBACK = './data/poker_results.csv';
+
+        // Escape text before it goes into innerHTML so sheet values can never inject markup.
+        function esc(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[ch]));
+        }
 
         // --- Blind Timer Logic ---
 
@@ -1143,9 +1147,7 @@
         let oscillator = null;
 
         function playSound(durationSeconds = 1, frequency = 440, type = 'sine') {
-            console.log("playSound called with duration:", durationSeconds, "frequency:", frequency);
             if (!timerEnableSoundCheckbox.checked) {
-                console.log("Warning sounds disabled by checkbox.");
                 return;
             }
 
@@ -1170,9 +1172,7 @@
         }
 
         function speak(text) {
-            console.log("speak called with text:", text);
             if (!timerEnableVoiceCheckbox.checked) {
-                console.log("Voice announcements disabled by checkbox.");
                 return;
             }
             if (speechSynth.speaking) speechSynth.cancel();
@@ -1219,9 +1219,6 @@
         }
 
         function openEditModal() {
-            console.log("openEditModal called.");
-            console.log("editStructureModal:", editStructureModal);
-            console.log("levelListEl:", levelListEl);
             renderLevelList();
             editStructureModal.style.display = 'block';
         }
@@ -1515,86 +1512,54 @@
             return 'Last 2 years';
         }
 
-        // Load results from Google Sheets (primary) or local CSV (fallback)
+        // Load results from the published Google Sheet
         async function loadResults() {
-            let csvText;
-
-            if (GOOGLE_SHEETS_CSV_URL) {
-                try {
-                    console.log("Fetching CSV from Google Sheets:", GOOGLE_SHEETS_CSV_URL);
-                    const response = await fetch(GOOGLE_SHEETS_CSV_URL);
-                    if (!response.ok) throw new Error('Google Sheets fetch failed');
-                    csvText = await response.text();
-                } catch (err) {
-                    console.warn('Google Sheets fetch failed, falling back to local CSV:', err);
-                    csvText = null;
-                }
+            const response = await fetch(GOOGLE_SHEETS_CSV_URL, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error('Could not load the Google Sheet (HTTP ' + response.status + ').');
             }
-
-            if (!csvText) {
-                console.log("Fetching CSV from local fallback:", LOCAL_CSV_FALLBACK);
-                const response = await fetch(LOCAL_CSV_FALLBACK);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                csvText = await response.text();
-            }
-
-            console.log('Raw CSV text:', csvText);
-            const results = parseCSV(csvText);
-            console.log('Parsed results:', results);
-            return results;
+            return parseCSV(await response.text());
         }
-        
-        // Parse CSV text into array of objects
+
+        // Parse CSV text into an array of objects keyed by header. Handles quoted cells,
+        // escaped quotes, commas and line breaks inside quotes, and Windows line endings.
         function parseCSV(csvText) {
-            const lines = csvText.trim().split('\n');
-            if (lines.length < 2) return [];
-            
-            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-            const results = [];
-            
-            for (let i = 1; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) continue;
-                
-                // Parse CSV line (handles quoted values)
-                const values = parseCSVLine(line);
-                
-                if (values.length >= headers.length) {
-                    const result = {};
-                    headers.forEach((header, index) => {
-                        result[header] = values[index] || '';
-                    });
-                    results.push(result);
-                }
-            }
-            
-            return results;
-        }
-        
-        // Parse a single CSV line (handles quoted values)
-        function parseCSVLine(line) {
-            const values = [];
-            let current = '';
+            const rows = [];
+            let row = [];
+            let cell = '';
             let inQuotes = false;
-            
-            for (let i = 0; i < line.length; i++) {
-                const char = line[i];
-                if (char === '"') {
-                    inQuotes = !inQuotes;
-                } else if (char === ',' && !inQuotes) {
-                    values.push(current.trim());
-                    current = '';
+            const text = csvText.replace(/^\uFEFF/, '');
+
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                if (inQuotes) {
+                    if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+                    else if (ch === '"') { inQuotes = false; }
+                    else { cell += ch; }
+                } else if (ch === '"') {
+                    inQuotes = true;
+                } else if (ch === ',') {
+                    row.push(cell.trim()); cell = '';
+                } else if (ch === '\n' || ch === '\r') {
+                    if (ch === '\r' && text[i + 1] === '\n') i++;
+                    row.push(cell.trim()); cell = '';
+                    rows.push(row); row = [];
                 } else {
-                    current += char;
+                    cell += ch;
                 }
             }
-            values.push(current.trim());
-            
-            return values;
+            if (cell !== '' || row.length) { row.push(cell.trim()); rows.push(row); }
+
+            const nonEmpty = rows.filter(r => r.some(c => c !== ''));
+            if (nonEmpty.length < 2) return [];
+            const headers = nonEmpty[0].map(h => h.toLowerCase());
+            return nonEmpty.slice(1).map(values => {
+                const result = {};
+                headers.forEach((header, index) => { result[header] = values[index] || ''; });
+                return result;
+            });
         }
-        
+
         // Calculate player rankings
         function calculateRankings(results) {
             const playerWins = {};
@@ -1658,11 +1623,6 @@
                 winRate: playerGames[player] ? ((playerWins[player] || 0) / playerGames[player] * 100).toFixed(1) : '0.0'
             }));
             
-            // Debug logging
-            console.log('Player Wins:', playerWins);
-            console.log('Player Games:', playerGames);
-            console.log('All Players:', Array.from(allPlayers));
-            console.log('Rankings:', rankings);
             
             // Sort by wins (descending), then by win rate (descending)
             rankings.sort((a, b) => {
@@ -1727,7 +1687,7 @@
                     noResultsDiv.innerHTML = '<h3>📊 No games in this period</h3><p>Select another time period above.</p>';
                 } else {
                     timeWindowRow.style.display = 'none';
-                    noResultsDiv.innerHTML = '<h3>📊 No results found</h3><p>Create the CSV file at <code>docs/data/poker_results.csv</code> with your poker results.</p>';
+                    noResultsDiv.innerHTML = '<h3>📊 No results found</h3><p>The Google Sheet has no games yet.</p>';
                 }
                 return;
             }
@@ -1763,7 +1723,7 @@
                 
                 row.innerHTML = `
                     <td>${rankBadge}${index < 3 ? '' : index + 1}</td>
-                    <td>${rank.player}</td>
+                    <td>${esc(rank.player)}</td>
                     <td class="wins-count">${rank.wins.toFixed(1)}</td>
                     <td>${rank.games}</td>
                     <td>${rank.winRate}%</td>
@@ -1806,9 +1766,6 @@
                     }
                 }
                 
-                // Debug logging for this row
-                console.log('Row data:', result);
-                console.log('Other players for this row:', otherPlayers);
                 
                 // Handle split pot display
                 let winnersDisplay = result.winners || '';
@@ -1818,12 +1775,12 @@
                 }
                 
                 row.innerHTML = `
-                    <td class="date">${result.date || ''}</td>
-                    <td class="winners">${winnersDisplay}</td>
+                    <td class="date">${esc(result.date)}</td>
+                    <td class="winners">${esc(winnersDisplay)}</td>
                     <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
-                    <td class="notes">${result.notes || ''}</td>
-                    <td class="other-players">${otherPlayers.join(', ')}</td>
-                    <td>${result.host || ''}</td>
+                    <td class="notes">${esc(result.notes)}</td>
+                    <td class="other-players">${esc(otherPlayers.join(', '))}</td>
+                    <td>${esc(result.host)}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -1842,23 +1799,27 @@
         
         // Download CSV
         function downloadCSV() {
-            window.open(GOOGLE_SHEETS_CSV_URL || LOCAL_CSV_FALLBACK, '_blank');
+            window.open(GOOGLE_SHEETS_CSV_URL, '_blank', 'noopener');
         }
         
         // Initialize
         async function init() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
             try {
-                const results = await loadResults();
-                allResults = results;
+                allResults = await loadResults();
                 populateTimeWindowSelect();
-                document.getElementById('timeWindowSelect').addEventListener('change', applyFilterAndDisplay);
                 applyFilterAndDisplay();
+                document.getElementById('lastLoaded').textContent =
+                    'Updated from Google Sheets at ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             } catch (error) {
-                showError(error.message);
+                showError(error.message || 'Could not load results.');
             }
         }
-        
-        // Start loading
+
+        function retryLoad() { init(); }
+
+        document.getElementById('timeWindowSelect').addEventListener('change', applyFilterAndDisplay);
         init();
     </script>
 </body>

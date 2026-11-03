@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { calculateEquity, notationToCombos, rangeToCombos } from '../utils/equity';
 
 const CalculatorContainer = styled.div`
   background: #1a1a1a;
@@ -147,45 +148,39 @@ const EquityCalculator = () => {
   const [customRange, setCustomRange] = useState('');
   const [equity, setEquity] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const calculateEquity = async () => {
-    if (!playerHand.trim()) {
-      alert('Please enter your hand (e.g., "AKs", "QQ")');
+  const runCalculation = () => {
+    setError('');
+    setEquity(null);
+
+    const hero = notationToCombos(playerHand);
+    if (hero.length === 0) {
+      setError('Enter your hand in poker notation, for example AKs, QQ or 72o.');
+      return;
+    }
+
+    const { combos, invalid } = rangeToCombos(customRange.trim() || RangePresets[opponentRange]);
+    if (invalid.length > 0) {
+      setError(`Could not read these range entries: ${invalid.join(', ')}`);
+      return;
+    }
+    if (combos.length === 0) {
+      setError('The opponent range is empty.');
       return;
     }
 
     setLoading(true);
-    
-    try {
-      // Simulate equity calculation (in real implementation, this would call the backend)
-              const response = await fetch('https://p-ker-buddy.vercel.app/api/equity', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          playerHand: playerHand.trim(),
-          opponentRange: customRange.trim() || RangePresets[opponentRange],
-          communityCards: []
-        })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setEquity(result.equity);
-      } else {
-        // Fallback calculation
-        const mockEquity = Math.random() * 100;
-        setEquity(mockEquity.toFixed(1));
+    // Let the "Calculating..." state paint before the simulation blocks the thread.
+    setTimeout(() => {
+      try {
+        setEquity(calculateEquity({ heroCombos: hero, opponents: [combos], iterations: 20000 }));
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error calculating equity:', error);
-      // Fallback calculation
-      const mockEquity = Math.random() * 100;
-      setEquity(mockEquity.toFixed(1));
-    } finally {
-      setLoading(false);
-    }
+    }, 20);
   };
 
   const handleRangeChange = (range) => {
@@ -197,7 +192,7 @@ const EquityCalculator = () => {
     <CalculatorContainer>
       <CalculatorTitle>🎯 Equity Calculator</CalculatorTitle>
       <div style={{ color: '#ccc', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
-        Calculate your hand's equity (winning percentage) against an opponent's range. This helps you make better decisions by knowing how often your hand will win against different opponent types. Enter your hand in poker notation (e.g., 'AKs' for Ace-King suited) and select or define your opponent's range.
+        Estimate your hand's equity (winning percentage) against an opponent's range by simulating 20,000 hands. This helps you make better decisions by knowing how often your hand will win against different opponent types. Enter your hand in poker notation (e.g., 'AKs' for Ace-King suited) and select or define your opponent's range.
       </div>
       
       <CalculatorGrid>
@@ -207,6 +202,7 @@ const EquityCalculator = () => {
             placeholder="Enter your hand (e.g., 'AKs', 'QQ', 'JTs')"
             value={playerHand}
             onChange={(e) => setPlayerHand(e.target.value)}
+            aria-label="Your hand"
           />
           <div style={{ color: '#ccc', fontSize: '0.8em', marginTop: '8px' }}>
             Examples: AA, KK, QQ, AKs, AKo, JTs, 98s, 72o
@@ -246,22 +242,31 @@ const EquityCalculator = () => {
             placeholder="Enter custom range (e.g., 'AA,KK,QQ,AKs')"
             value={customRange}
             onChange={(e) => setCustomRange(e.target.value)}
+            aria-label="Custom opponent range"
           />
         </Section>
       </CalculatorGrid>
 
       <CalculateButton 
-        onClick={calculateEquity}
+        onClick={runCalculation}
         disabled={loading || !playerHand.trim()}
       >
         {loading ? 'Calculating...' : 'Calculate Equity'}
       </CalculateButton>
 
+      {error && (
+        <div role="alert" style={{ color: '#ff8a80', marginTop: '15px', textAlign: 'center' }}>{error}</div>
+      )}
+
       {equity !== null && (
-        <EquityDisplay>
-          <EquityValue>{equity}%</EquityValue>
+        <EquityDisplay aria-live="polite">
+          <EquityValue>{equity.equity.toFixed(1)}%</EquityValue>
           <EquityLabel>
-            Your hand has {equity}% equity against the opponent's range
+            Your hand's equity against the opponent's range
+            <br />
+            Wins {equity.win.toFixed(1)}% · Ties (your share) {equity.tie.toFixed(1)}% · Loses {equity.lose.toFixed(1)}%
+            <br />
+            Monte Carlo estimate from {equity.iterations.toLocaleString()} simulated hands, so expect about ±0.7%
           </EquityLabel>
         </EquityDisplay>
       )}

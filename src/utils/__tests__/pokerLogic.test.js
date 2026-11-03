@@ -82,12 +82,12 @@ describe('Poker Logic Utilities', () => {
 
   describe('getPositionMultiplier', () => {
     test('returns correct multipliers for positions', () => {
-      expect(getPositionMultiplier('early')).toBe(0.8);
-      expect(getPositionMultiplier('middle')).toBe(1.0);
-      expect(getPositionMultiplier('late')).toBe(1.2);
-      expect(getPositionMultiplier('button')).toBe(1.3);
-      expect(getPositionMultiplier('small_blind')).toBe(0.9);
-      expect(getPositionMultiplier('big_blind')).toBe(1.1);
+      expect(getPositionMultiplier('early')).toBe(0.75);
+      expect(getPositionMultiplier('middle')).toBe(0.95);
+      expect(getPositionMultiplier('late')).toBe(1.15);
+      expect(getPositionMultiplier('button')).toBe(1.25);
+      expect(getPositionMultiplier('small_blind')).toBe(0.85);
+      expect(getPositionMultiplier('big_blind')).toBe(1.05);
     });
 
     test('returns default multiplier for unknown position', () => {
@@ -97,13 +97,13 @@ describe('Poker Logic Utilities', () => {
 
   describe('getPlayerCountAdjustment', () => {
     test('returns correct adjustments for player counts', () => {
-      expect(getPlayerCountAdjustment(2)).toBe(1.0);
-      expect(getPlayerCountAdjustment(6)).toBe(0.6);
-      expect(getPlayerCountAdjustment(10)).toBe(0.2);
+      expect(getPlayerCountAdjustment(2)).toBe(1.2);
+      expect(getPlayerCountAdjustment(6)).toBe(1.0);
+      expect(getPlayerCountAdjustment(10)).toBe(0.8);
     });
 
-    test('never returns less than 0.5', () => {
-      expect(getPlayerCountAdjustment(20)).toBe(0.5);
+    test('stays tight for large full-ring tables', () => {
+      expect(getPlayerCountAdjustment(20)).toBe(0.8);
     });
   });
 

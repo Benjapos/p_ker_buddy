@@ -7,7 +7,6 @@ import AIRecommendation from './components/AIRecommendation';
 import TestInterface from './components/TestInterface';
 import HandHistory from './components/HandHistory';
 import EquityCalculator from './components/EquityCalculator';
-import LiveTracking from './components/LiveTracking';
 
 import { analyzeGTORange, getGTOAdvice } from './utils/pokerLogic';
 import { mockAnalyzeHand } from './mockBackend';
@@ -101,7 +100,7 @@ const MainContent = styled.div`
   @media (max-width: 768px) {
     max-width: calc(100% - 20px);
     margin: 0 10px;
-    padding: 20px;
+    padding: 56px 16px 20px;
   }
 `;
 
@@ -111,32 +110,16 @@ const Header = styled.h1`
   margin-bottom: 15px;
   font-size: 2.8rem;
   font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
   transition: color 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
-`;
-
-const LiveIndicator = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: ${props => props.isLive ? 'linear-gradient(45deg, #00ff88, #00cc66)' : 'rgba(255, 255, 255, 0.1)'};
-  color: ${props => props.isLive ? '#000' : props.theme.textSecondary};
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border: 2px solid ${props => props.isLive ? '#00ff88' : props.theme.border};
-  animation: ${props => props.isLive ? 'pulse 2s infinite' : 'none'};
-  
-  @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
-  }
 `;
 
 const SubHeader = styled.h2`
@@ -160,6 +143,13 @@ const GameTypeBadge = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
+const focusRing = props => `
+  &:focus-visible {
+    outline: 3px solid ${props.theme.primary};
+    outline-offset: 2px;
+  }
+`;
+
 const ThemeToggle = styled.button`
   position: fixed;
   top: 20px;
@@ -179,6 +169,14 @@ const ThemeToggle = styled.button`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px ${props => props.theme.shadow};
+  }
+  ${focusRing}
+
+  @media (max-width: 768px) {
+    top: 8px;
+    left: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
   }
 `;
 
@@ -205,6 +203,7 @@ const ToggleButton = styled.button`
     background: ${props => props.active ? 'linear-gradient(45deg, #45a049, #4CAF50)' : props.theme.inputBackground};
     transform: translateY(-1px);
   }
+  ${focusRing}
 `;
 
 const TabContainer = styled.div`
@@ -230,6 +229,7 @@ const TabButton = styled.button`
     background: ${props => props.active ? 'linear-gradient(45deg, #2a5298, #1e3c72)' : props.theme.inputBackground};
     transform: translateY(-1px);
   }
+  ${focusRing}
 `;
 
 const Grid = styled.div`
@@ -267,6 +267,16 @@ const Section = styled.div`
   }
 `;
 
+const ErrorBanner = styled.div`
+  background: ${props => props.theme.error};
+  color: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+`;
+
 const DevToggle = styled.button`
   position: fixed;
   top: 20px;
@@ -302,6 +312,7 @@ function App() {
   const [stackSize, setStackSize] = useState(1000);
   const [recommendation, setRecommendation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [showTestInterface, setShowTestInterface] = useState(false);
   const [isPreflop, setIsPreflop] = useState(true);
   const [activeTab, setActiveTab] = useState('main');
@@ -310,16 +321,6 @@ function App() {
     return saved ? JSON.parse(saved) : false;
   });
   
-  // Live tracking state - moved to App level to persist across tab changes
-  const [isLiveTracking, setIsLiveTracking] = useState(false);
-  const [liveTrackingData, setLiveTrackingData] = useState(null);
-  const [liveTrackingStats, setLiveTrackingStats] = useState({
-    handsProcessed: 0,
-    totalWinnings: 0,
-    winRate: 0,
-    avgPotSize: 0
-  });
-
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const toggleTheme = () => {
@@ -341,16 +342,13 @@ function App() {
 
   const handleAnalyze = async () => {
     if (holeCards.length !== 2) {
-      alert('Please select exactly 2 hole cards');
+      setErrorMessage('Please select exactly 2 hole cards.');
       return;
     }
 
+    setErrorMessage('');
     setLoading(true);
     try {
-      // Use mock backend only (offline mode)
-      console.log('Using mock backend (offline mode)');
-      
-      // Fallback to mock backend
       const result = await mockAnalyzeHand({
         holeCards,
         flop: isPreflop ? [] : flop,
@@ -374,7 +372,7 @@ function App() {
       
     } catch (error) {
       console.error('Error analyzing hand:', error);
-      alert('Error analyzing hand. Please try again.');
+      setErrorMessage('Something went wrong analyzing this hand. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -398,10 +396,6 @@ function App() {
             <Header>
               🃏 P_Ker Buddy
               <GameTypeBadge>Texas No-Limit Hold'em</GameTypeBadge>
-              <LiveIndicator isLive={isLiveTracking}>
-                {isLiveTracking ? '🔴 LIVE' : '⚪ OFFLINE'}
-                {isLiveTracking && ` (${liveTrackingStats.handsProcessed} hands)`}
-              </LiveIndicator>
             </Header>
             <SubHeader>Professional AI-powered decision making for the world's most popular poker game</SubHeader>
             
@@ -425,19 +419,13 @@ function App() {
                 active={activeTab === 'main'} 
                 onClick={() => setActiveTab('main')}
               >
-                🎯 Main Analysis
+                ♠️ Main Analysis
               </TabButton>
               <TabButton 
                 active={activeTab === 'equity'} 
                 onClick={() => setActiveTab('equity')}
               >
                 🎯 Equity Calculator
-              </TabButton>
-              <TabButton 
-                active={activeTab === 'live'} 
-                onClick={() => setActiveTab('live')}
-              >
-                📡 Live Tracking
               </TabButton>
               <TabButton 
                 active={activeTab === 'history'} 
@@ -447,13 +435,15 @@ function App() {
               </TabButton>
               <TabButton
                 key="leaderboard"
-                onClick={() => window.open(`${process.env.PUBLIC_URL || ''}/results.html`, '_blank')}
+                onClick={() => window.open(`${process.env.PUBLIC_URL || ''}/results.html`, '_blank', 'noopener')}
                 active={false} // Not an active tab in the React app
               >
                 Leaderboard
               </TabButton>
             </TabContainer>
             
+            {errorMessage && <ErrorBanner role="alert">{errorMessage}</ErrorBanner>}
+
             {showTestInterface && <TestInterface />}
             
             {activeTab === 'main' && (
@@ -523,44 +513,6 @@ function App() {
             
             {activeTab === 'equity' && (
               <EquityCalculator />
-            )}
-            
-            {activeTab === 'live' && (
-              <LiveTracking 
-                isTracking={isLiveTracking}
-                currentHand={liveTrackingData}
-                stats={liveTrackingStats}
-                onStartTracking={(provider) => {
-                  setIsLiveTracking(true);
-                  // Start tracking logic will be handled by LiveTracking component
-                }}
-                onStopTracking={() => {
-                  setIsLiveTracking(false);
-                  setLiveTrackingData(null);
-                }}
-                onHandDataReceived={(handData) => {
-                  setLiveTrackingData(handData);
-                  // Update stats
-                  setLiveTrackingStats(prev => ({
-                    handsProcessed: prev.handsProcessed + 1,
-                    totalWinnings: prev.totalWinnings + (handData.result === 'win' ? handData.potSize : 0),
-                    winRate: ((prev.handsProcessed + 1) / (prev.handsProcessed + 1)) * 100,
-                    avgPotSize: Math.round((prev.avgPotSize * prev.handsProcessed + handData.potSize) / (prev.handsProcessed + 1))
-                  }));
-                }}
-                onLoadToAnalysis={(handData) => {
-                  // Auto-populate the main analysis with live hand data
-                  setHoleCards(handData.holeCards || []);
-                  setFlop(handData.communityCards?.slice(0, 3) || []);
-                  setTurn(handData.communityCards?.[3] || null);
-                  setRiver(handData.communityCards?.[4] || null);
-                  setNumPlayers(handData.numPlayers || 6);
-                  setPosition(handData.position || 'middle');
-                  setPotSize(handData.potSize || 100);
-                  setBetSize(handData.betSize || 0);
-                  setActiveTab('main');
-                }}
-              />
             )}
             
             {activeTab === 'history' && (

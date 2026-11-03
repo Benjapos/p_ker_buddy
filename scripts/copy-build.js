@@ -20,6 +20,11 @@ async function copyBuildToDocs() {
     // Copy build to docs
     await fs.copy(buildPath, docsPath);
     
+    // Source maps are not needed on the live site and add ~700KB to every commit
+    for (const file of await fs.readdir(path.join(docsPath, 'static', 'js'))) {
+      if (file.endsWith('.map')) await fs.remove(path.join(docsPath, 'static', 'js', file));
+    }
+    
     console.log('✅ Build copied to docs folder successfully!');
     console.log(`📁 Source: ${buildPath}`);
     console.log(`📁 Destination: ${docsPath}`);

@@ -188,7 +188,6 @@ const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverC
   };
 
   // Debug logging
-  console.log('BoardSelector - flop:', flop, 'turn:', turn, 'river:', river);
 
   return (
     <div style={{ opacity: disabled ? 0.5 : 1, pointerEvents: disabled ? 'none' : 'auto' }}>

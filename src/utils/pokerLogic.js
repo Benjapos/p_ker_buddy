@@ -1,5 +1,9 @@
 // Professional GTO-based poker logic with real ranges from Upswing Poker, PokerStars School, and professional training sites
 
+import { scoreHand, cardToInt } from './equity.js';
+
+const HAND_NAMES = ['High Card', 'Pair', 'Two Pair', 'Three of a Kind', 'Straight', 'Flush', 'Full House', 'Four of a Kind', 'Straight Flush'];
+
 // Utility functions
 const parseCard = (cardStr) => {
   const rank = cardStr.slice(0, -1);
@@ -120,26 +124,6 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
   const isFacingLimp = potSize > (blindsOnly + 1) && potSize <= (limpPot + 2); // Someone limped
   const isFacingRaise = potSize > (limpPot + 2); // Someone raised
   
-  // Debug logging
-  console.log('DEBUG GTO:', {
-    holeCards,
-    position,
-    handNotation,
-    gtoPosition,
-    potSize,
-    blindsOnly,
-    limpPot,
-    isOpening,
-    isFacingRaise,
-    isFacingLimp,
-    betSize,
-    bigBlind,
-    smallBlind,
-    inRaiseRange: ranges.raise.includes(handNotation),
-    inCallRange: ranges.call.includes(handNotation),
-    raiseRange: ranges.raise.slice(0, 10) + '...', // Show first 10 hands
-    actionContext: isOpening ? 'OPENING' : isFacingLimp ? 'FACING_LIMP' : isFacingRaise ? 'FACING_RAISE' : 'UNKNOWN'
-  });
   
   // Opening scenario (no action before you)
   if (isOpening) {
@@ -276,8 +260,10 @@ const evaluateHand = (holeCards, communityCards) => {
     }
   }
   
-  // Post-flop evaluation (simplified)
-  return { strength: 'Post-flop hand', value: 50 };
+  // Post-flop evaluation: needs at least the flop
+  if (communityCards.length < 3) return { strength: 'Incomplete', value: 0 };
+  const category = Math.floor(scoreHand([...holeCards, ...communityCards].map(cardToInt)) / 13 ** 5);
+  return { strength: HAND_NAMES[category], value: category };
 };
 
 // Generate professional AI recommendation

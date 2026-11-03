@@ -207,13 +207,11 @@ const CardSelector = ({ selectedCards, onCardsChange, maxCards, title }) => {
   };
 
   const handleRankClick = (rank) => {
-    console.log('Rank clicked:', rank);
     setSelectedRank(rank);
     setSelectedSuit(null);
   };
 
   const handleSuitClick = (suit) => {
-    console.log('Suit clicked:', suit, 'Selected rank:', selectedRank);
     setSelectedSuit(suit);
     if (selectedRank) {
       handleCardClick(selectedRank, suit);
