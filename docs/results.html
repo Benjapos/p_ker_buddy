@@ -346,6 +346,13 @@
             font-weight: 700;
         }
 
+        .header-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
         .download-btn {
             background: #28a745;
             color: white;
@@ -763,6 +770,10 @@
                 text-align: center;
             }
             
+            .header-actions {
+                align-items: center;
+            }
+
             .download-btn {
                 font-size: 12px;
                 padding: 10px 16px;
@@ -956,8 +967,10 @@
 
         <div class="header-section">
             <h1>Leaderboard</h1>
-            <span id="lastLoaded" class="time-window-note" aria-live="polite"></span>
-            <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
+            <div class="header-actions">
+                <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
+                <span id="lastLoaded" class="time-window-note" aria-live="polite"></span>
+            </div>
         </div>
         
         <div class="info-box">
