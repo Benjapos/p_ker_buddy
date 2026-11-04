@@ -606,6 +606,21 @@
         .download-btn { background: var(--green-700); color: #fff; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; }
         .download-btn:hover { opacity: 0.9; }
 
+
+        /* Collapsible tournament clock */
+        .clock-panel { margin-bottom: 18px; }
+        .clock-panel > summary {
+            list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; background: var(--green-900); color: #fff; border-radius: 12px; padding: 10px 18px; font-weight: 600;
+        }
+        .clock-panel > summary::-webkit-details-marker { display: none; }
+        .clock-panel > summary::after { content: '\25BE'; color: var(--gold-500); margin-left: 4px; }
+        .clock-panel[open] > summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+        .clock-panel[open] > summary::after { content: '\25B4'; }
+        .clock-title { font-family: var(--serif); font-size: 1.15rem; }
+        .clock-mini { margin-left: auto; color: #ffd700; font-variant-numeric: tabular-nums; font-size: 1.15rem; }
+        .clock-panel .blind-timer { margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+
         /* ===== Responsive ===== */
         @media (max-width: 960px) {
             .highlights { grid-template-columns: 1fr; }
@@ -662,6 +677,47 @@
     </header>
 
     <main class="page">
+        <details class="clock-panel" id="clockPanel">
+            <summary><span class="clock-title">Tournament clock</span><span class="clock-mini" id="timerSummaryTime">00:00</span></summary>
+        <div class="blind-timer">
+            <div class="timer-header">Tournament Clock</div>
+            <div class="timer-time-left" id="timerTimeLeft">00:00</div>
+            <div class="timer-info-row">
+                <div class="timer-info-item">Level: <span class="timer-level-name" id="timerCurrentLevel">1</span></div>
+                <div class="timer-info-item">Blinds: <span id="timerCurrentBlinds">10/20</span></div>
+                <div class="timer-info-item">Next: <span id="timerNextBlinds">25/50</span></div>
+            </div>
+            <div class="timer-controls">
+                <button id="timerStartPauseBtn" class="play-btn">▶ Start</button>
+                <button id="timerSkipPrevBtn">⏪ Prev Level</button>
+                <button id="timerSkipNextBtn">⏩ Next Level</button>
+                <button id="timerAdjustUp30Btn">+30s</button>
+                <button id="timerAdjustDown30Btn">-30s</button>
+                <button id="timerAdjustUp60Btn">+1m</button>
+                <button id="timerAdjustDown60Btn">-1m</button>
+                <button id="timerEditStructureBtn" class="edit-btn">⚙️ Edit Structure</button>
+            </div>
+            <div class="timer-options">
+                <label><input type="checkbox" id="timerEnableVoice"> Voice Announcements</label>
+                <label><input type="checkbox" id="timerEnableSound"> Warning Sounds</label>
+            </div>
+        </div>
+
+        <div class="edit-structure-modal" id="editStructureModal">
+            <div class="modal-content">
+                <h3>Edit Blind Structure</h3>
+                <div id="levelList">
+                    <!-- Levels will be dynamically loaded here -->
+                </div>
+                <button id="addLevelBtn" class="btn btn-success">+ Add Level</button>
+                <div class="modal-actions">
+                    <button id="saveStructureBtn" class="btn btn-primary">Save Changes</button>
+                    <button id="cancelStructureBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+        </details>
+
         <div class="title-row"><h1>The race for bragging rights</h1></div>
         <p class="summary" id="summaryLine" aria-live="polite"></p>
 
@@ -771,45 +827,6 @@
             <p>The Google Sheet has no games yet.</p>
         </div>
 
-        <h2 class="section-title">Tournament clock</h2>
-        <div class="blind-timer">
-            <div class="timer-header">Tournament Clock</div>
-            <div class="timer-time-left" id="timerTimeLeft">00:00</div>
-            <div class="timer-info-row">
-                <div class="timer-info-item">Level: <span class="timer-level-name" id="timerCurrentLevel">1</span></div>
-                <div class="timer-info-item">Blinds: <span id="timerCurrentBlinds">10/20</span></div>
-                <div class="timer-info-item">Next: <span id="timerNextBlinds">25/50</span></div>
-            </div>
-            <div class="timer-controls">
-                <button id="timerStartPauseBtn" class="play-btn">▶ Start</button>
-                <button id="timerSkipPrevBtn">⏪ Prev Level</button>
-                <button id="timerSkipNextBtn">⏩ Next Level</button>
-                <button id="timerAdjustUp30Btn">+30s</button>
-                <button id="timerAdjustDown30Btn">-30s</button>
-                <button id="timerAdjustUp60Btn">+1m</button>
-                <button id="timerAdjustDown60Btn">-1m</button>
-                <button id="timerEditStructureBtn" class="edit-btn">⚙️ Edit Structure</button>
-            </div>
-            <div class="timer-options">
-                <label><input type="checkbox" id="timerEnableVoice"> Voice Announcements</label>
-                <label><input type="checkbox" id="timerEnableSound"> Warning Sounds</label>
-            </div>
-        </div>
-
-        <div class="edit-structure-modal" id="editStructureModal">
-            <div class="modal-content">
-                <h3>Edit Blind Structure</h3>
-                <div id="levelList">
-                    <!-- Levels will be dynamically loaded here -->
-                </div>
-                <button id="addLevelBtn" class="btn btn-success">+ Add Level</button>
-                <div class="modal-actions">
-                    <button id="saveStructureBtn" class="btn btn-primary">Save Changes</button>
-                    <button id="cancelStructureBtn" class="btn btn-secondary">Cancel</button>
-                </div>
-            </div>
-        </div>
-
         <div class="page-actions">
             <button class="btn btn-success download-btn" onclick="downloadCSV()">Download CSV</button>
             <span id="lastLoaded" aria-live="polite"></span>
@@ -894,6 +911,8 @@
             const nextLevel = levelStructure[currentLevelIndex + 1];
 
             timerTimeLeftEl.textContent = formatTime(remainingSeconds);
+            const miniEl = document.getElementById('timerSummaryTime');
+            if (miniEl) miniEl.textContent = formatTime(remainingSeconds);
             timerCurrentLevelEl.textContent = currentLevel.name;
 
             if (currentLevel.isBreak) {
