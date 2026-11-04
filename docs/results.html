@@ -393,7 +393,7 @@
             display: flex;
             align-items: center;
             gap: 22px;
-            padding: 14px 32px;
+            padding: 14px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
@@ -419,7 +419,7 @@
             white-space: nowrap;
         }
 
-        .page { max-width: 1180px; margin: 0 auto; padding: 28px 24px 40px; }
+        .page { max-width: 1600px; margin: 0 auto; padding: 24px 16px 36px; }
 
         /* Main heading with gold rules */
         .title-row { display: flex; align-items: center; gap: 28px; margin-bottom: 4px; }
@@ -444,8 +444,8 @@
         }
 
         /* Highlight cards */
-        .highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-bottom: 22px; }
-        .highlight { padding: 16px 20px; }
+        .highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px; align-items: stretch; }
+        .highlight { padding: 16px 20px; display: flex; flex-direction: column; }
         .highlight h2 {
             font-size: 0.8rem;
             letter-spacing: 1.2px;
@@ -454,7 +454,7 @@
             font-weight: 700;
             margin-bottom: 10px;
         }
-        .highlight-body { display: flex; align-items: center; gap: 16px; }
+        .highlight-body { display: flex; align-items: center; gap: 16px; flex: 1; }
         .highlight-icon { flex: 0 0 64px; display: flex; justify-content: center; }
         .highlight-icon svg { width: 64px; height: 64px; }
         .highlight-text { border-left: 1px solid var(--line); padding-left: 16px; min-width: 0; flex: 1; }
@@ -632,7 +632,7 @@
             .club-name { font-size: 1.3rem; }
             .brand svg { width: 28px; height: 28px; }
             .season-label { font-size: 0.95rem; padding-left: 14px; }
-            .page { padding: 18px 14px 28px; }
+            .page { padding: 16px 10px 28px; }
             .title-row::before, .title-row::after { display: none; }
             h1 { font-size: 2rem; }
             .panel-head h2, .history h2 { font-size: 1.6rem; }
@@ -810,7 +810,7 @@
                     </table>
                 </div>
                 <p class="panel-empty" id="standingsEmpty" style="display: none;">No games in this period. Select another year above.</p>
-                <p class="scoring-note"><strong>Scoring:</strong> a solo win is 1 win. In a split pot each recorded winner gets 0.5 wins (and a player named in a "split with ..." note gets 0.5 too). Win rate = wins &divide; games played &times; 100. Players are ranked by wins, then win rate.</p>
+                <p class="scoring-note"><strong>Scoring:</strong> a solo win counts as 1 win. In a split pot, each winner gets 0.5 wins. Win rate = wins &divide; games played &times; 100. Players are ranked by wins, then by win rate.</p>
             </section>
 
             <!-- Game history -->
