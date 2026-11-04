@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%83%8F%3C/text%3E%3C/svg%3E" />
-    <title>Poker Leaderboard</title>
+    <title>The Poker Dudes | Leaderboard</title>
     <meta name="description" content="Live leaderboard, game history and blind timer for our poker nights.">
-    <meta name="theme-color" content="#1e3c72">
-    <meta property="og:title" content="Poker Leaderboard">
+    <meta name="theme-color" content="#0d3b24">
+    <meta property="og:title" content="The Poker Dudes">
     <meta property="og:description" content="Live leaderboard, game history and blind timer for our poker nights.">
     <meta property="og:type" content="website">
     <style>
@@ -17,26 +17,9 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            color: #333;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
         /* Blind Timer Styles */
         .blind-timer {
-            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            background: linear-gradient(45deg, #0d3b24, #1b5e3a);
             color: white;
             border-radius: 15px;
             padding: 25px 30px;
@@ -194,7 +177,7 @@
         }
 
         .modal-content h3 {
-            color: #1e3c72;
+            color: #0d3b24;
             margin-bottom: 25px;
             font-size: 1.6em;
             text-align: center;
@@ -332,116 +315,8 @@
             }
         }
 
-        .header-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #1e3c72;
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 700;
-        }
-
-        #lastLoaded {
-            color: #9a9fa8;
-            font-size: 0.8em;
-        }
-
-        .header-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 6px;
-        }
-
-        .download-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-        }
-
-        .download-btn:hover {
-            opacity: 0.9;
-        }
-
-        .info-box {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 0.85em;
-            color: #666;
-        }
-
-        .add-form {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #1e3c72;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #1e3c72;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
-            align-items: end;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin: 0;
-        }
-
         .btn {
-            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            background: linear-gradient(45deg, #0d3b24, #1b5e3a);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -473,465 +348,337 @@
             background: #dc3545;
         }
 
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
+        /* ===== Page theme: forest green, ivory, white panels, restrained gold ===== */
+        :root {
+            --green-900: #0d3b24;
+            --green-800: #124a2d;
+            --green-700: #1b5e3a;
+            --gold-600: #a97f1f;
+            --gold-500: #c39a2e;
+            --gold-200: #f1e3b3;
+            --gold-100: #fbf3d6;
+            --ivory: #faf5ea;
+            --panel: #fffdf8;
+            --line: #e8dfca;
+            --ink: #1f2a22;
+            --muted: #5f675f;
+            --serif: Georgia, 'Times New Roman', serif;
         }
 
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            min-width: 150px;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--ivory);
+            color: var(--ink);
+            padding: 0;
+            min-height: 100vh;
         }
 
-        .stat-number {
-            font-size: 2em;
-            font-weight: 700;
-            color: #1e3c72;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .leaderboard {
-            background: white;
-            border-radius: 10px;
+        .visually-hidden {
+            position: absolute;
+            width: 1px; height: 1px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
         }
 
-        .leaderboard-header {
-            background: linear-gradient(45deg, #1e3c72, #2a5298);
-            color: white;
-            padding: 20px;
-            text-align: center;
+        a:focus-visible, button:focus-visible, select:focus-visible {
+            outline: 3px solid var(--gold-500);
+            outline-offset: 2px;
         }
 
-        .leaderboard-header h2 {
-            margin: 0;
-            font-size: 1.8em;
-            font-weight: 700;
-        }
-
-        .leaderboard-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .leaderboard-table th, .leaderboard-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        .leaderboard-table th {
-            background: #f8f9fa;
-            color: #1e3c72;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
-        }
-
-        .leaderboard-table tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .rank-1 {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #333;
-            font-weight: 700;
-        }
-
-        .rank-1:hover {
-            background: linear-gradient(45deg, #ffed4e, #fff6b3);
-        }
-
-        .rank-2 {
-            background: linear-gradient(45deg, #c0c0c0, #e8e8e8);
-            color: #333;
-            font-weight: 600;
-        }
-
-        .rank-2:hover {
-            background: linear-gradient(45deg, #e8e8e8, #f0f0f0);
-        }
-
-        .rank-3 {
-            background: linear-gradient(45deg, #cd7f32, #daa520);
-            color: white;
-            font-weight: 600;
-        }
-
-        .rank-3:hover {
-            background: linear-gradient(45deg, #daa520, #e6c200);
-        }
-
-        .rank-badge {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: 700;
-            margin-right: 10px;
-        }
-
-        .rank-1 .rank-badge {
-            background: #ffd700;
-            color: #333;
-        }
-
-        .rank-2 .rank-badge {
-            background: #c0c0c0;
-            color: #333;
-        }
-
-        .rank-3 .rank-badge {
-            background: #cd7f32;
-            color: white;
-        }
-
-        .wins-count {
-            font-weight: 700;
-            color: #1e3c72;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background: linear-gradient(45deg, #1e3c72, #2a5298);
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
-        }
-
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .split-yes {
-            background-color: #fff6cc;
-            border-left: 4px solid #ffaa00;
-        }
-
-        .split-yes:hover {
-            background-color: #fff2b3;
-        }
-
-        .winners {
-            font-weight: 600;
-            color: #1e3c72;
-        }
-
-        .date {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .notes {
-            font-style: italic;
-            color: #888;
-        }
-
-        .other-players {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 50px;
-            color: #666;
-            font-size: 1.2em;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .file-label {
-            background: #6c757d;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
-
-        .file-label:hover {
-            opacity: 0.9;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-        }
-
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
-        }
-
-        .info-box p {
-            margin-bottom: 8px;
-        }
-
-        .time-window-row {
+        /* Header band */
+        .site-header {
+            background: var(--green-900);
+            color: #fff;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+            gap: 22px;
+            padding: 14px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .time-window-row label {
+        .brand { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+        .brand svg { width: 34px; height: 34px; fill: var(--gold-500); }
+        .brand .divider { width: 1px; height: 34px; background: var(--gold-500); opacity: 0.7; }
+        .club-name { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; letter-spacing: 0.2px; }
+        .tagline {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #e9e2cf;
+            padding-left: 22px;
+            border-left: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .season-label {
+            margin-left: auto;
+            color: var(--gold-500);
             font-weight: 600;
-            color: #1e3c72;
+            font-size: 1.1rem;
+            padding-left: 22px;
+            border-left: 1px solid var(--gold-500);
+            white-space: nowrap;
         }
 
+        .page { max-width: 1180px; margin: 0 auto; padding: 28px 24px 40px; }
+
+        /* Main heading with gold rules */
+        .title-row { display: flex; align-items: center; gap: 28px; margin-bottom: 4px; }
+        .title-row::before, .title-row::after { content: ''; flex: 1; height: 1px; background: var(--gold-500); opacity: 0.8; }
+        h1 {
+            font-family: var(--serif);
+            color: var(--green-900);
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+        }
+        .summary { text-align: center; color: var(--green-800); font-size: 1.15rem; margin-bottom: 24px; min-height: 1.5em; }
+
+        /* Panels */
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(60, 50, 20, 0.07);
+            margin-bottom: 22px;
+        }
+
+        /* Highlight cards */
+        .highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-bottom: 22px; }
+        .highlight { padding: 16px 20px; }
+        .highlight h2 {
+            font-size: 0.8rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--gold-600);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .highlight-body { display: flex; align-items: center; gap: 16px; }
+        .highlight-icon { flex: 0 0 64px; display: flex; justify-content: center; }
+        .highlight-icon svg { width: 64px; height: 64px; }
+        .highlight-text { border-left: 1px solid var(--line); padding-left: 16px; min-width: 0; flex: 1; }
+        .highlight-title { font-family: var(--serif); font-size: 1.65rem; font-weight: 700; color: var(--green-900); line-height: 1.2; overflow-wrap: anywhere; }
+        .highlight-title.small { font-size: 1.35rem; }
+        .highlight-sub { color: #3b443c; font-size: 1rem; margin-top: 4px; overflow-wrap: anywhere; }
+        .highlight-quote { font-family: var(--serif); font-style: italic; font-size: 1.25rem; line-height: 1.35; color: var(--green-900); overflow-wrap: anywhere; }
+        .gem-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+        .gem-date { font-size: 0.85rem; color: var(--muted); }
+        .gem-btn {
+            background: none;
+            border: 1px solid var(--gold-500);
+            color: var(--gold-600);
+            border-radius: 999px;
+            padding: 3px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .gem-btn:hover { background: var(--gold-100); }
+
+        /* Standings */
+        .standings { padding: 14px 18px 10px; }
+        .panel-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+        .panel-head h2 { font-family: var(--serif); font-size: 2rem; color: var(--green-900); font-weight: 700; }
+        .year-picker { display: flex; align-items: center; gap: 12px; padding-left: 16px; border-left: 1px solid var(--line); }
+        .year-picker label { font-size: 1rem; color: var(--ink); }
         .time-window-select {
-            padding: 10px 14px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 15px;
-            background: white;
-            color: #333;
-            min-width: 180px;
+            appearance: auto;
+            padding: 6px 12px;
+            border: 1.5px solid var(--gold-500);
+            border-radius: 999px;
+            background: var(--panel);
+            color: var(--green-900);
+            font-size: 1rem;
+            font-weight: 700;
+            min-width: 0;
             cursor: pointer;
         }
 
-        .time-window-select:focus {
-            outline: none;
-            border-color: #1e3c72;
+        .table-wrap { overflow-x: auto; }
+        .standings-table { width: 100%; border-collapse: collapse; background: transparent; box-shadow: none; border-radius: 0; }
+        .standings-table th {
+            background: none;
+            color: var(--muted);
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--gold-500);
         }
+        .standings-table td { padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 1.05rem; vertical-align: middle; }
+        .standings-table tr:last-child td { border-bottom: none; }
+        .standings-table tr:hover { background: transparent; }
+        .standings-table tr.is-leader { background: #e6f2dc; }
+        .standings-table tr.is-leader:hover { background: #e6f2dc; }
+        .standings-table .c-rank { width: 64px; text-align: center; }
+        .standings-table th.c-rank { text-align: center; }
+        .standings-table .c-num { width: 90px; }
+        .standings-table .wins { font-weight: 700; color: var(--ink); }
 
-        .time-window-note {
-            font-size: 0.85em;
-            color: #666;
+        .medal {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%;
+            font-size: 0.85rem; font-weight: 800; color: #fff;
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.55), 0 1px 2px rgba(0, 0, 0, 0.25);
+        }
+        .medal-1 { background: radial-gradient(circle at 35% 30%, #f5d76e, #c39a2e); }
+        .medal-2 { background: radial-gradient(circle at 35% 30%, #d9dde0, #8e9499); }
+        .medal-3 { background: radial-gradient(circle at 35% 30%, #e8a366, #b06a2c); }
+
+        .c-player { white-space: nowrap; }
+        .avatar {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--green-700); color: #fff;
+            font-size: 0.8rem; font-weight: 700; margin-right: 14px; vertical-align: middle;
+        }
+        .pname { font-weight: 700; vertical-align: middle; }
+
+        .c-rate { min-width: 260px; }
+        .rate-cell { display: flex; align-items: center; gap: 18px; }
+        .bar { flex: 1; height: 9px; border-radius: 999px; background: #e9e6df; overflow: hidden; min-width: 80px; }
+        .bar i { display: block; height: 100%; background: linear-gradient(90deg, #d9b24a, #c39a2e); border-radius: 999px; }
+        .pct { width: 56px; text-align: right; font-variant-numeric: tabular-nums; }
+
+        .c-badge { min-width: 170px; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            border-radius: 999px; padding: 2px 14px;
+            font-size: 0.88rem; white-space: nowrap;
+            background: var(--gold-100); border: 1px solid var(--gold-500); color: #3a3220;
+        }
+        .badge.leader { background: var(--green-900); border-color: var(--green-900); color: #fff; font-weight: 600; }
+        .badge.leader svg { width: 14px; height: 14px; fill: var(--gold-500); }
+        .no-badge { color: var(--muted); }
+
+        .scoring-note { font-size: 0.85rem; color: var(--muted); padding: 10px 10px 4px; border-top: 1px solid var(--line); margin-top: 6px; }
+        .panel-empty { text-align: center; color: var(--muted); padding: 24px 10px; }
+
+        /* Game history */
+        .history { padding: 14px 18px 12px; }
+        .history h2 { font-family: var(--serif); font-size: 2rem; color: var(--green-900); font-weight: 700; margin-bottom: 8px; }
+        .game-list { list-style: none; }
+        .game {
+            display: grid;
+            grid-template-columns: 120px minmax(0, 2.3fr) minmax(0, 1.4fr) 150px;
+            column-gap: 18px;
+            padding: 10px 0;
+            border-top: 1px solid var(--line);
+            align-items: start;
+        }
+        .game > div { min-width: 0; overflow-wrap: anywhere; }
+        .g-date { color: var(--ink); }
+        .g-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .g-winners { font-weight: 700; font-size: 1.05rem; }
+        .pill { background: var(--gold-200); border-radius: 999px; padding: 1px 14px; font-size: 0.88rem; }
+        .g-att { font-size: 0.92rem; margin-top: 3px; line-height: 1.4; }
+        .g-att strong { font-weight: 700; }
+        .g-att.unknown { color: var(--muted); font-style: italic; }
+        .g-note { font-family: var(--serif); font-style: italic; color: #2c352d; }
+        .g-host { color: var(--ink); }
+        .show-more {
+            display: block; margin: 8px auto 2px;
+            background: none; border: 1px solid var(--gold-500); color: var(--gold-600);
+            border-radius: 999px; padding: 6px 18px; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+        }
+        .show-more:hover { background: var(--gold-100); }
+
+        /* Footer */
+        .page-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 6px 0 18px; }
+        .page-actions #lastLoaded { color: #8a8f88; font-size: 0.8em; }
+        .site-footer { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
+        .site-footer::before, .site-footer::after { content: ''; flex: 1; height: 1px; background: var(--gold-500); opacity: 0.8; max-width: 300px; }
+        .site-footer p { font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--green-900); text-align: center; }
+        .site-footer svg { width: 22px; height: 22px; fill: var(--gold-500); flex: 0 0 auto; }
+
+        .section-title { font-family: var(--serif); color: var(--green-900); font-size: 1.6rem; margin: 10px 0 12px; }
+
+        .loading { text-align: center; padding: 20px; color: var(--muted); }
+        .error {
+            background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px;
+            margin-bottom: 20px; border: 1px solid #f5c6cb;
+        }
+        .no-results { text-align: center; padding: 50px; color: var(--muted); font-size: 1.2em; }
+
+        .download-btn { background: var(--green-700); color: #fff; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; }
+        .download-btn:hover { opacity: 0.9; }
+
+
+        /* Collapsible tournament clock */
+        .clock-panel { margin-bottom: 18px; }
+        .clock-panel > summary {
+            list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; background: var(--green-900); color: #fff; border-radius: 12px; padding: 10px 18px; font-weight: 600;
+        }
+        .clock-panel > summary::-webkit-details-marker { display: none; }
+        .clock-panel > summary::after { content: '\25BE'; color: var(--gold-500); margin-left: 4px; }
+        .clock-panel[open] > summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+        .clock-panel[open] > summary::after { content: '\25B4'; }
+        .clock-title { font-family: var(--serif); font-size: 1.15rem; }
+        .clock-mini { margin-left: auto; color: #ffd700; font-variant-numeric: tabular-nums; font-size: 1.15rem; }
+        .clock-panel .blind-timer { margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 960px) {
+            .highlights { grid-template-columns: 1fr; }
+            .tagline { display: none; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 15px;
-                margin: 10px;
-                border-radius: 10px;
-            }
-            
-            .header-section {
-                flex-direction: column;
-                gap: 15px;
-                align-items: center;
-            }
-            
-            h1 {
-                font-size: 1.8em;
-                margin: 0;
-                text-align: center;
-            }
-            
-            .header-actions {
-                align-items: center;
-            }
-
-            .download-btn {
-                font-size: 12px;
-                padding: 10px 16px;
-            }
-            
-            .info-box {
-                padding: 10px;
-                font-size: 0.8em;
-            }
-            
-            
-            .form-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .stat-card {
-                min-width: 120px;
-                padding: 15px;
-            }
-            
-            .stat-number {
-                font-size: 1.5em;
-            }
-            
-            .leaderboard-header h2 {
-                font-size: 1.4em;
-                padding: 15px;
-            }
-            
-            .leaderboard-table th, 
-            .leaderboard-table td {
-                padding: 8px 4px;
-                font-size: 0.85em;
-            }
-            
-            .leaderboard-table th {
-                font-size: 0.8em;
-                padding: 10px 4px;
-            }
-            
-            /* Hide less important columns on mobile */
-            .leaderboard-table th:nth-child(4),
-            .leaderboard-table td:nth-child(4) {
-                display: none;
-            }
-            
-            /* Make rank column narrower */
-            .leaderboard-table th:first-child,
-            .leaderboard-table td:first-child {
-                width: 40px;
-                text-align: center;
-            }
-            
-            /* Make player name column wider */
-            .leaderboard-table th:nth-child(2),
-            .leaderboard-table td:nth-child(2) {
-                min-width: 80px;
-            }
-            
-            /* Results table mobile styles */
-            table th, table td {
-                padding: 8px 4px;
-                font-size: 0.85em;
-            }
-            
-            table th {
-                font-size: 0.8em;
-                padding: 10px 4px;
-            }
-            
-            /* Hide notes column on mobile for results table */
-            table th:nth-child(4),
-            table td:nth-child(4) {
-                display: none;
-            }
-            
-            /* Make date column narrower */
-            table th:first-child,
-            table td:first-child {
-                width: 70px;
-            }
-            
-            /* Make winners column wider */
-            table th:nth-child(2),
-            table td:nth-child(2) {
-                min-width: 80px;
-            }
-            
-            .rank-badge {
-                width: 25px;
-                height: 25px;
-                line-height: 25px;
-                font-size: 0.9em;
-                margin-right: 5px;
-            }
-            
-            .actions {
-                flex-direction: column;
-            }
-            
-            th, td {
-                padding: 10px;
-                font-size: 0.9em;
-            }
+            .site-header { padding: 12px 16px; gap: 14px; }
+            .club-name { font-size: 1.3rem; }
+            .brand svg { width: 28px; height: 28px; }
+            .season-label { font-size: 0.95rem; padding-left: 14px; }
+            .page { padding: 18px 14px 28px; }
+            .title-row::before, .title-row::after { display: none; }
+            h1 { font-size: 2rem; }
+            .panel-head h2, .history h2 { font-size: 1.6rem; }
+            .year-picker { border-left: none; padding-left: 0; }
+            .standings { padding: 12px 10px 8px; }
+            .history { padding: 12px 12px 10px; }
+            .standings-table th, .standings-table td { padding: 7px 6px; font-size: 0.95rem; }
+            .standings-table th { font-size: 0.7rem; }
+            .standings-table .c-rank { width: 44px; }
+            .standings-table .c-num { width: 56px; }
+            .c-rate { min-width: 0; }
+            .bar { display: none; }
+            .pct { width: auto; text-align: left; }
+            .c-badge { min-width: 0; }
+            .badge { white-space: normal; padding: 2px 10px; font-size: 0.8rem; }
+            .avatar { margin-right: 8px; }
+            .game { grid-template-columns: 1fr; row-gap: 4px; }
+            .g-date { font-weight: 600; color: var(--muted); }
+            .site-footer::before, .site-footer::after { display: none; }
+            .site-footer p { font-size: 1.1rem; }
+            .actions { flex-direction: column; }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 1.5em;
-            }
-            
-            .leaderboard-table th, 
-            .leaderboard-table td {
-                padding: 6px 2px;
-                font-size: 0.8em;
-            }
-            
-            .leaderboard-table th {
-                font-size: 0.75em;
-                padding: 8px 2px;
-            }
-            
-            table th, table td {
-                padding: 6px 2px;
-                font-size: 0.8em;
-            }
-            
-            table th {
-                font-size: 0.75em;
-                padding: 8px 2px;
-            }
-            
-            .rank-badge {
-                width: 22px;
-                height: 22px;
-                line-height: 22px;
-                font-size: 0.8em;
-            }
+            .site-header { flex-wrap: wrap; }
+            .season-label { margin-left: 0; border-left: none; padding-left: 0; }
+            .highlight-body { gap: 12px; }
+            .highlight-icon { flex-basis: 48px; }
+            .highlight-icon svg { width: 48px; height: 48px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header class="site-header">
+        <div class="brand">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12 1.5 3.5 8.6 3.5 14a4.3 4.3 0 0 0 7.2 3.2c-.2 2.2-1 3.7-2.6 4.8h7.8c-1.6-1.1-2.4-2.6-2.6-4.8A4.3 4.3 0 0 0 20.5 14C20.5 8.6 12 1.5 12 1.5z"/></svg>
+            <span class="divider" aria-hidden="true"></span>
+            <span class="club-name">The Poker Dudes</span>
+        </div>
+        <span class="tagline">Good chicken, the Bissli family and questionable pudding</span>
+        <span class="season-label" id="seasonLabel"></span>
+    </header>
+
+    <main class="page">
+        <details class="clock-panel" id="clockPanel">
+            <summary><span class="clock-title">Tournament clock</span><span class="clock-mini" id="timerSummaryTime">00:00</span></summary>
         <div class="blind-timer">
             <div class="timer-header">Tournament Clock</div>
             <div class="timer-time-left" id="timerTimeLeft">00:00</div>
@@ -969,99 +716,128 @@
                 </div>
             </div>
         </div>
+        </details>
 
-        <div class="header-section">
-            <h1>Leaderboard</h1>
-            <div class="header-actions">
-                <button class="btn btn-success download-btn" onclick="downloadCSV()">📥 Download CSV</button>
-                <span id="lastLoaded" class="time-window-note" aria-live="polite"></span>
-            </div>
-        </div>
-        
-        <div class="info-box">
-            <p><strong>Split Pots:</strong> When a pot is split, each winner gets 0.5 wins (shown as decimal wins in the leaderboard)</p>
-            <p><strong>Win Rate:</strong> (Wins ÷ Games) × 100. Wins are the sum of full wins (1) and half-wins (0.5 for splits). Games is the number of hands the player participated in.</p>
-        </div>
-
-        <!-- Time window: shown when data is loaded; leaderboard recalculated for selected period -->
-        <div id="timeWindowRow" class="time-window-row" style="display: none;">
-            <label for="timeWindowSelect">Time period:</label>
-            <select id="timeWindowSelect" class="time-window-select" aria-label="Select time period for leaderboard">
-                <option value="last2years">Last 2 years (default)</option>
-                <!-- Year options filled by JS -->
-                <option value="alltime">All-time</option>
-            </select>
-            <span id="timeWindowNote" class="time-window-note"></span>
-        </div>
+        <div class="title-row"><h1>The race for bragging rights</h1></div>
+        <p class="summary" id="summaryLine" aria-live="polite"></p>
 
         <!-- Loading and Error Messages -->
         <div id="loading" class="loading" role="status" aria-live="polite">
-            <h3>📊 Loading leaderboard from Google Sheets...</h3>
+            <h3>Loading leaderboard from Google Sheets...</h3>
         </div>
-        
+
         <div id="error" class="error" role="alert" style="display: none;">
-            <h3>❌ Error Loading Data</h3>
+            <h3>Error Loading Data</h3>
             <p id="errorMessage"></p>
             <p>Check your connection and that the Google Sheet is still published to the web.</p>
             <button class="btn btn-primary" onclick="retryLoad()">Try again</button>
         </div>
 
-        <!-- Statistics -->
-        <div id="stats" class="stats" style="display: none;">
-            <div class="stat-card">
-                <div class="stat-number" id="totalGames">0</div>
-                <div class="stat-label">Total Games</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="splitPots">0</div>
-                <div class="stat-label">Split Pots</div>
-            </div>
-        </div>
+        <div id="board" style="display: none;">
+            <!-- Highlight cards -->
+            <section class="highlights" aria-label="Highlights">
+                <article class="panel highlight">
+                    <h2>The crown holders</h2>
+                    <div class="highlight-body">
+                        <div class="highlight-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <g fill="none" stroke="#c39a2e" stroke-width="2" stroke-linecap="round">
+                                    <path d="M12 46C4 38 4 24 12 14M12 46c-1-5 0-9 3-13M9 38c-1-4-1-9 1-13M10 30c0-4 2-8 5-10"/>
+                                    <path d="M52 46c8-8 8-22 0-32M52 46c1-5 0-9-3-13M55 38c1-4 1-9-1-13M54 30c0-4-2-8-5-10"/>
+                                </g>
+                                <path fill="#c39a2e" d="M18 42l-3-18 11 9 6-14 6 14 11-9-3 18z"/>
+                                <rect x="18" y="44" width="28" height="4" rx="1.5" fill="#a97f1f"/>
+                            </svg>
+                        </div>
+                        <div class="highlight-text" id="crownCard"></div>
+                    </div>
+                </article>
+                <article class="panel highlight">
+                    <h2>Current form</h2>
+                    <div class="highlight-body">
+                        <div class="highlight-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <g stroke="#a97f1f" stroke-width="2" fill="#fffdf8" stroke-linejoin="round">
+                                    <rect x="8" y="12" width="28" height="38" rx="4" transform="rotate(-12 22 31)"/>
+                                    <rect x="26" y="14" width="28" height="38" rx="4" transform="rotate(8 40 33)"/>
+                                </g>
+                                <path fill="#124a2d" transform="rotate(8 40 33)" d="M40 24c0 0-8 6.5-8 11a3.4 3.4 0 0 0 5.8 2.4c-.2 1.8-.8 3-2 3.8h8.4c-1.2-.8-1.8-2-2-3.8A3.4 3.4 0 0 0 48 35c0-4.500-8-11-8-11z"/>
+                            </svg>
+                        </div>
+                        <div class="highlight-text" id="formCard"></div>
+                    </div>
+                </article>
+                <article class="panel highlight">
+                    <h2>Overheard at the table</h2>
+                    <div class="highlight-body">
+                        <div class="highlight-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M10 16a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H30l-12 10v-10h-2a6 6 0 0 1-6-6z" fill="none" stroke="#a97f1f" stroke-width="2.5" stroke-linejoin="round"/>
+                                <circle cx="22" cy="26" r="2.6" fill="#a97f1f"/><circle cx="32" cy="26" r="2.6" fill="#a97f1f"/><circle cx="42" cy="26" r="2.6" fill="#a97f1f"/>
+                            </svg>
+                        </div>
+                        <div class="highlight-text" id="noteCard" aria-live="polite"></div>
+                    </div>
+                </article>
+            </section>
 
-        <!-- Leaderboard -->
-        <div id="leaderboard" class="leaderboard" style="display: none;">
-            <div class="leaderboard-header">
-                <h2 id="leaderboardTitle">🏅 Player Rankings — Last 2 years</h2>
-            </div>
-            <table class="leaderboard-table">
-                <thead>
-                                    <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Wins</th>
-                    <th>Games</th>
-                    <th>Win Rate</th>
-                </tr>
-                </thead>
-                <tbody id="leaderboardBody">
-                </tbody>
-            </table>
-        </div>
+            <!-- Season standings -->
+            <section class="panel standings" aria-labelledby="standingsTitle">
+                <div class="panel-head">
+                    <h2 id="standingsTitle">Season standings</h2>
+                    <div class="year-picker">
+                        <label for="timeWindowSelect">Year</label>
+                        <select id="timeWindowSelect" class="time-window-select">
+                            <option value="last2years">Last 2 years (default)</option>
+                            <!-- Year options filled by JS -->
+                            <option value="alltime">All-time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="standings-table">
+                        <thead>
+                            <tr>
+                                <th class="c-rank" scope="col">Rank</th>
+                                <th scope="col">Player</th>
+                                <th class="c-num" scope="col">Wins</th>
+                                <th class="c-num" scope="col">Played</th>
+                                <th class="c-rate" scope="col">Win rate</th>
+                                <th class="c-badge" scope="col">Badge</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+                <p class="panel-empty" id="standingsEmpty" style="display: none;">No games in this period. Select another year above.</p>
+                <p class="scoring-note"><strong>Scoring:</strong> a solo win is 1 win. In a split pot each recorded winner gets 0.5 wins (and a player named in a "split with ..." note gets 0.5 too). Win rate = wins &divide; games played &times; 100. Players are ranked by wins, then win rate.</p>
+            </section>
 
-        <!-- Results Table -->
-        <div id="resultsTable" style="display: none;">
-            <h3 style="color: #1e3c72; margin-bottom: 20px;">📊 Game History</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Winners</th>
-                        <th>Split</th>
-                        <th>Notes</th>
-                        <th>Other Players</th>
-                        <th>Host</th>
-                    </tr>
-                </thead>
-                <tbody id="resultsBody">
-                </tbody>
-            </table>
+            <!-- Game history -->
+            <section class="panel history" aria-labelledby="historyTitle">
+                <h2 id="historyTitle">Game history</h2>
+                <ul class="game-list" id="resultsBody"></ul>
+                <p class="panel-empty" id="historyEmpty" style="display: none;">No games in this period.</p>
+                <button type="button" class="show-more" id="showMoreBtn" style="display: none;"></button>
+            </section>
         </div>
 
         <div id="noResults" class="no-results" style="display: none;">
-            <h3>📊 No results found</h3>
+            <h3>No results found</h3>
             <p>The Google Sheet has no games yet.</p>
         </div>
-    </div>
+
+        <div class="page-actions">
+            <button class="btn btn-success download-btn" onclick="downloadCSV()">Download CSV</button>
+            <span id="lastLoaded" aria-live="polite"></span>
+        </div>
+
+        <footer class="site-footer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12 1.5 3.5 8.6 3.5 14a4.3 4.3 0 0 0 7.2 3.2c-.2 2.2-1 3.7-2.6 4.8h7.8c-1.6-1.1-2.4-2.6-2.6-4.8A4.3 4.3 0 0 0 20.5 14C20.5 8.6 12 1.5 12 1.5z"/></svg>
+            <p>Cards are temporary. Bragging rights are forever.</p>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12 1.5 3.5 8.6 3.5 14a4.3 4.3 0 0 0 7.2 3.2c-.2 2.2-1 3.7-2.6 4.8h7.8c-1.6-1.1-2.4-2.6-2.6-4.8A4.3 4.3 0 0 0 20.5 14C20.5 8.6 12 1.5 12 1.5z"/></svg>
+        </footer>
+    </main>
 
     <script>
         // =============================================================================
@@ -1135,6 +911,8 @@
             const nextLevel = levelStructure[currentLevelIndex + 1];
 
             timerTimeLeftEl.textContent = formatTime(remainingSeconds);
+            const miniEl = document.getElementById('timerSummaryTime');
+            if (miniEl) miniEl.textContent = formatTime(remainingSeconds);
             timerCurrentLevelEl.textContent = currentLevel.name;
 
             if (currentLevel.isBreak) {
@@ -1472,72 +1250,83 @@
             alert("Timer failed to load. Check console for details.");
         }
 
-        // --- Leaderboard Logic ---
+        // ===== LOGIC:BEGIN (pure functions, no DOM access; exercised by the verification script) =====
 
-        let allResults = [];
+        const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const MONTH_ABBR = MONTH_NAMES.map(m => m.slice(0, 3));
+        const NUMBER_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
 
-        // Parse date string (DD/MM/YYYY or similar) to Date for filtering
-        function parseResultDate(dateStr) {
-            if (!dateStr || typeof dateStr !== 'string') return null;
-            const parts = dateStr.trim().split('/');
-            if (parts.length === 3) {
-                const day = parseInt(parts[0], 10);
-                const month = parseInt(parts[1], 10) - 1;
-                const year = parseInt(parts[2], 10);
-                if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
-                    const d = new Date(year, month, day);
-                    if (!isNaN(d.getTime())) return d;
-                }
+        // Parse a sheet date as a CALENDAR date (day, month, year), never as an instant in time,
+        // so time-zone conversions can never move a game into another day or year.
+        // Accepts DD/MM/YYYY (the sheet format) and YYYY-MM-DD; anything else falls back to Date().
+        function parseCalendarDate(str) {
+            if (!str || typeof str !== 'string') return null;
+            const s = str.trim();
+            let y, mo, d, m;
+            if ((m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/))) {
+                d = +m[1]; mo = +m[2]; y = +m[3];
+            } else if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:$|[T ])/))) {
+                y = +m[1]; mo = +m[2]; d = +m[3];
+            } else {
+                const dt = new Date(s);
+                if (isNaN(dt.getTime())) return null;
+                y = dt.getFullYear(); mo = dt.getMonth() + 1; d = dt.getDate();
             }
-            const d = new Date(dateStr);
-            return isNaN(d.getTime()) ? null : d;
+            const check = new Date(Date.UTC(y, mo - 1, d));
+            if (check.getUTCFullYear() !== y || check.getUTCMonth() !== mo - 1 || check.getUTCDate() !== d) return null;
+            return { y, m: mo, d, key: y * 10000 + mo * 100 + d };
         }
 
-        // Get sorted list of years present in results (newest first)
+        function calendarKeyOf(date) {
+            return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
+        }
+
+        // Games dated after today have not happened yet, so they never count toward any result.
+        function dropFutureGames(results, now) {
+            const todayKey = calendarKeyOf(now || new Date());
+            return results.filter(r => {
+                const c = parseCalendarDate(r.date);
+                return !c || c.key <= todayKey;
+            });
+        }
+
+        // Sorted list of years present in results (newest first)
         function getYearsInData(results) {
             const years = new Set();
             results.forEach(r => {
-                const d = parseResultDate(r.date);
-                if (d) years.add(d.getFullYear());
+                const c = parseCalendarDate(r.date);
+                if (c) years.add(c.y);
             });
             return Array.from(years).sort((a, b) => b - a);
         }
 
-        // Filter results by time window; returns new array (no mutation of allResults)
-        function filterResultsByTimeWindow(results, windowValue) {
+        // Filter results by time window; returns a new array (no mutation of the input)
+        function filterResultsByTimeWindow(results, windowValue, now) {
             if (!windowValue || windowValue === 'alltime') return [...results];
             if (windowValue === 'last2years') {
-                const cutoff = new Date();
+                const cutoff = new Date(now || new Date());
                 cutoff.setMonth(cutoff.getMonth() - 24);
+                const cutoffKey = calendarKeyOf(cutoff);
                 return results.filter(r => {
-                    const d = parseResultDate(r.date);
-                    return d && d >= cutoff;
+                    const c = parseCalendarDate(r.date);
+                    return c && c.key > cutoffKey;
                 });
             }
             const year = parseInt(windowValue, 10);
             if (isNaN(year)) return [...results];
             return results.filter(r => {
-                const d = parseResultDate(r.date);
-                return d && d.getFullYear() === year;
+                const c = parseCalendarDate(r.date);
+                return c && c.y === year;
             });
         }
 
-        // Human-readable label for current time window
+        // Human-readable label for the current time window
         function getTimeWindowLabel(value) {
             if (value === 'last2years') return 'Last 2 years';
             if (value === 'alltime') return 'All-time';
             const y = parseInt(value, 10);
             if (!isNaN(y)) return String(y);
             return 'Last 2 years';
-        }
-
-        // Load results from the published Google Sheet
-        async function loadResults() {
-            const response = await fetch(GOOGLE_SHEETS_CSV_URL, { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error('Could not load the Google Sheet (HTTP ' + response.status + ').');
-            }
-            return parseCSV(await response.text());
         }
 
         // Parse CSV text into an array of objects keyed by header. Handles quoted cells,
@@ -1579,11 +1368,13 @@
             });
         }
 
-        // Calculate player rankings
+        // Calculate player rankings. UNCHANGED scoring and tie-breaking rules: a win is 1 point, a split
+        // pot gives each recorded winner 0.5 (plus 0.5 to a "split with <name>" partner in the notes);
+        // players are sorted by wins, then win rate.
         function calculateRankings(results) {
             const playerWins = {};
             const playerGames = {};
-            
+
             // Count wins and total games for each player
             results.forEach(result => {
                 // Count wins from winners column with split pot handling
@@ -1591,13 +1382,13 @@
                     const winners = result.winners.split(',').map(w => w.trim());
                     const isSplit = result.split && result.split.toLowerCase() === 'true';
                     const winValue = isSplit ? 0.5 : 1; // Half win for split pots
-                    
+
                     winners.forEach(winner => {
                         if (winner && winner !== '?') {
                             playerWins[winner] = (playerWins[winner] || 0) + winValue;
                         }
                     });
-                    
+
                     // For split pots, also give 0.5 wins to the other participant mentioned in notes
                     if (isSplit && result.notes) {
                         // Look for "split with [Name]" pattern in notes
@@ -1608,17 +1399,17 @@
                         }
                     }
                 }
-                
+
                 // Count total games (from individual player columns + winners)
                 const allPlayers = new Set();
-                
+
                 // Add winners to the player list
                 if (result.winners && result.winners.trim() !== '' && result.winners !== '?') {
                     result.winners.split(',').map(w => w.trim()).forEach(p => {
                         if (p && p !== '?') allPlayers.add(p);
                     });
                 }
-                
+
                 // Add players from individual columns (player1, player2, etc.)
                 for (let i = 1; i <= 8; i++) {
                     const playerKey = `player${i}`;
@@ -1626,13 +1417,13 @@
                         allPlayers.add(result[playerKey].trim());
                     }
                 }
-                
+
                 // Count each player as participating in this game
                 allPlayers.forEach(player => {
                     playerGames[player] = (playerGames[player] || 0) + 1;
                 });
             });
-            
+
             // Create ranking array - include all players who have participated
             const allPlayers = new Set([...Object.keys(playerWins), ...Object.keys(playerGames)]);
             const rankings = Array.from(allPlayers).map(player => ({
@@ -1641,20 +1432,250 @@
                 games: playerGames[player] || 0,
                 winRate: playerGames[player] ? ((playerWins[player] || 0) / playerGames[player] * 100).toFixed(1) : '0.0'
             }));
-            
-            
+
+
             // Sort by wins (descending), then by win rate (descending)
             rankings.sort((a, b) => {
                 if (b.wins !== a.wins) return b.wins - a.wins;
                 return parseFloat(b.winRate) - parseFloat(a.winRate);
             });
-            
+
             return rankings;
         }
-        
-        // Populate year options in time-window select (call once when allResults is set)
+
+        // ---- Game model (winners, shared wins, attendance) ----
+
+        function cleanName(n) { return String(n == null ? '' : n).trim().replace(/\s+/g, ' '); }
+        function nameKey(n) { return cleanName(n).toLowerCase(); }
+        function isRealName(n) { const c = cleanName(n); return c !== '' && c !== '?'; }
+        function isSplitRow(r) { return !!(r.split && String(r.split).toLowerCase() === 'true'); }
+
+        function otherPlayerNames(r) {
+            const names = [];
+            for (let i = 1; i <= 8; i++) {
+                const v = r[`player${i}`];
+                if (isRealName(v)) names.push(cleanName(v));
+            }
+            return names;
+        }
+
+        // The sheet has no player IDs: a player is identified by name (trimmed, case-insensitive).
+        // Maps name key -> display spelling for every player seen anywhere in the sheet.
+        function collectKnownPlayers(results) {
+            const known = new Map();
+            const add = n => { if (isRealName(n) && !known.has(nameKey(n))) known.set(nameKey(n), cleanName(n)); };
+            results.forEach(r => {
+                String(r.winners || '').split(',').forEach(add);
+                otherPlayerNames(r).forEach(add);
+            });
+            return known;
+        }
+
+        // True when the sheet lists newest games first (used only to order games that share a date).
+        function detectNewestFirst(results) {
+            const keys = results.map(r => parseCalendarDate(r.date)).filter(Boolean).map(c => c.key);
+            if (keys.length < 2) return false;
+            return keys[0] > keys[keys.length - 1];
+        }
+
+        // Build game objects, oldest to newest. Rows without a recorded winner are not "completed".
+        function buildGames(results, knownPlayers, sheetNewestFirst) {
+            const games = results.map((r, i) => {
+                const cal = parseCalendarDate(r.date);
+                const winners = [];
+                const seen = new Set();
+                const addWinner = n => {
+                    if (!isRealName(n)) return;
+                    const k = nameKey(n);
+                    if (seen.has(k)) return;
+                    seen.add(k);
+                    winners.push((knownPlayers && knownPlayers.get(k)) || cleanName(n));
+                };
+                String(r.winners || '').split(',').forEach(addWinner);
+                const splitFlag = isSplitRow(r);
+                // Same rule the scoring already uses: "split with <name>" credits that player too.
+                if (winners.length && splitFlag && r.notes) {
+                    const m = String(r.notes).match(/split with (\w+)/i);
+                    if (m && knownPlayers && knownPlayers.has(nameKey(m[1]))) addWinner(m[1]);
+                }
+                const others = otherPlayerNames(r);
+                let attended = null; // null = attendance not recorded
+                if (others.length) {
+                    attended = [...winners];
+                    const have = new Set(winners.map(nameKey));
+                    others.forEach(n => {
+                        const k = nameKey(n);
+                        if (!have.has(k)) { have.add(k); attended.push((knownPlayers && knownPlayers.get(k)) || n); }
+                    });
+                }
+                return {
+                    order: sheetNewestFirst ? -i : i,
+                    cal,
+                    key: cal ? cal.key : 0,
+                    dateText: r.date || '',
+                    winners,
+                    winnerKeys: new Set(winners.map(nameKey)),
+                    splitFlag,
+                    shared: splitFlag || winners.length > 1,
+                    note: String(r.notes || '').trim(),
+                    host: cleanName(r.host),
+                    attended,
+                    completed: winners.length > 0
+                };
+            });
+            games.sort((a, b) => (a.key - b.key) || (a.order - b.order));
+            return games;
+        }
+
+        // Consecutive-club-game win streaks that END at the latest completed game.
+        // A win (solo or shared) extends the streak; missing a game or losing ends it.
+        function computeStreaks(chrono) {
+            const streaks = new Map();
+            if (!chrono.length) return streaks;
+            const latest = chrono[chrono.length - 1];
+            latest.winners.forEach(name => {
+                const k = nameKey(name);
+                let length = 0;
+                const kinds = [];
+                for (let i = chrono.length - 1; i >= 0; i--) {
+                    if (chrono[i].winnerKeys.has(k)) { length++; kinds.push(chrono[i].shared); }
+                    else break;
+                }
+                streaks.set(k, { name, length, kinds });
+            });
+            return streaks;
+        }
+
+        function numberWord(n) { return NUMBER_WORDS[n] || String(n); }
+
+        function joinNames(names) {
+            if (names.length <= 1) return names.join('');
+            return names.slice(0, -1).join(', ') + ' & ' + names[names.length - 1];
+        }
+
+        function formatLongDate(cal, currentYear) {
+            if (!cal) return '';
+            const base = `${cal.d} ${MONTH_NAMES[cal.m - 1]}`;
+            return cal.y === currentYear ? base : `${base} ${cal.y}`;
+        }
+
+        function formatShortDate(game) {
+            if (!game.cal) return game.dateText;
+            return `${String(game.cal.d).padStart(2, '0')} ${MONTH_ABBR[game.cal.m - 1]} ${game.cal.y}`;
+        }
+
+        // Content for the three highlight cards.
+        function computeHighlights(chrono, now) {
+            const currentYear = (now || new Date()).getFullYear();
+            const latest = chrono.length ? chrono[chrono.length - 1] : null;
+            const streaks = computeStreaks(chrono);
+
+            const crown = latest ? {
+                names: latest.winners,
+                label: latest.shared ? 'Shared win' : 'Solo win',
+                date: formatLongDate(latest.cal, currentYear) || latest.dateText
+            } : null;
+
+            let form;
+            if (!latest) {
+                form = { headline: 'Waiting for the first deal.', detail: '' };
+            } else {
+                let longest = 0;
+                streaks.forEach(s => { if (s.length > longest) longest = s.length; });
+                const featured = longest >= 2 ? [...streaks.values()].filter(s => s.length === longest) : [];
+                if (!featured.length) {
+                    form = { headline: 'The crown is changing hands', detail: 'No active streak of two or more games.' };
+                } else {
+                    // Every featured player's streak spans the same latest games, so the kinds are identical.
+                    const kinds = featured[0].kinds;
+                    const word = kinds.every(Boolean) ? 'shared wins' : kinds.every(k => !k) ? 'solo wins' : 'wins';
+                    const names = featured.map(s => s.name);
+                    form = {
+                        headline: `${joinNames(names)} ${names.length > 1 ? 'are' : 'is'} on a roll`,
+                        detail: `${numberWord(longest)} consecutive ${word}. Someone check the sleeves.`
+                    };
+                }
+            }
+
+            const notes = chrono.filter(g => g.note).reverse().map(g => ({
+                text: g.note,
+                date: formatShortDate(g)
+            }));
+
+            return { latest, streaks, crown, form, notes };
+        }
+
+        function formatWinsBehind(gap) {
+            if (Math.abs(gap - 0.5) < 1e-9) return 'Half a win behind';
+            const n = Number.isInteger(gap) ? String(gap) : String(parseFloat(gap.toFixed(2)));
+            return `${n} ${Math.abs(gap - 1) < 1e-9 ? 'win' : 'wins'} behind`;
+        }
+
+        // One badge per player, derived from rankings and game history. Priority:
+        // leader > win streak > latest winner > wins behind (2nd place only) > just getting started.
+        // (Active streaks only ever belong to latest winners, so the streak badge must outrank the
+        // latest-winner badge or it could never appear.)
+        function computeBadges(rankings, highlights, windowValue) {
+            const badges = rankings.map(() => null);
+            if (!rankings.length) return badges;
+            const top = rankings[0];
+            const tiedLeaders = rankings.filter(r => r.wins === top.wins && r.winRate === top.winRate);
+            const base = 'Season';
+            const latest = highlights.latest;
+
+            rankings.forEach((r, i) => {
+                const key = nameKey(r.player);
+                if (r.wins > 0 && tiedLeaders.includes(r)) {
+                    badges[i] = { text: tiedLeaders.length > 1 ? `${base} co-leader` : `${base} leader`, kind: 'leader' };
+                    return;
+                }
+                const streak = highlights.streaks.get(key);
+                if (streak && streak.length >= 2) {
+                    badges[i] = { text: `${streak.length}-game win streak`, kind: 'info' };
+                    return;
+                }
+                if (latest && latest.winnerKeys.has(key)) {
+                    badges[i] = { text: (latest.winners.length > 1 || latest.shared) ? 'Latest co-winner' : 'Latest winner', kind: 'info' };
+                    return;
+                }
+                if (i === 1) {
+                    const gap = top.wins - r.wins;
+                    if (gap > 1e-9) { badges[i] = { text: formatWinsBehind(gap), kind: 'info' }; return; }
+                }
+                if (r.games === 1 && r.wins === 0) {
+                    badges[i] = { text: 'Just getting started', kind: 'info' };
+                }
+            });
+            return badges;
+        }
+
+        // ===== LOGIC:END =====
+
+        // --- Leaderboard UI ---
+
+        let allResults = [];          // every row from the sheet (past and future)
+        let knownPlayers = new Map(); // name key -> display name, across the whole sheet
+        let sheetNewestFirst = false;
+        let noteList = [];
+        let noteIndex = 0;
+        let historyExpanded = false;
+        const HISTORY_PAGE_SIZE = 10;
+        const CROWN_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19l-1.5-11 6 5 4.500-8 4.500 8 6-5L21 19z"/></svg>';
+
+        function $(id) { return document.getElementById(id); }
+
+        // Load results from the published Google Sheet
+        async function loadResults() {
+            const response = await fetch(GOOGLE_SHEETS_CSV_URL, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error('Could not load the Google Sheet (HTTP ' + response.status + ').');
+            }
+            return parseCSV(await response.text());
+        }
+
+        // Populate year options in the time-window select (call once when allResults is set)
         function populateTimeWindowSelect() {
-            const select = document.getElementById('timeWindowSelect');
+            const select = $('timeWindowSelect');
             const years = getYearsInData(allResults);
             const allTimeOpt = select.querySelector('option[value="alltime"]');
             const last2Opt = select.querySelector('option[value="last2years"]');
@@ -1670,166 +1691,211 @@
             select.value = 'last2years';
         }
 
-        // Apply current time window and redraw leaderboard + results (recalculated, not just filtered view)
+        // Apply the current time window and redraw every section from the same filtered games.
         function applyFilterAndDisplay() {
-            const value = document.getElementById('timeWindowSelect').value;
-            const filtered = filterResultsByTimeWindow(allResults, value);
-            displayResults(filtered);
+            const value = $('timeWindowSelect').value;
+            const filtered = filterResultsByTimeWindow(dropFutureGames(allResults), value);
+            displayResults(filtered, value);
         }
 
-        // Display results and leaderboard (results = already filtered for current time window)
-        function displayResults(results) {
-            const loadingDiv = document.getElementById('loading');
-            const errorDiv = document.getElementById('error');
-            const statsDiv = document.getElementById('stats');
-            const leaderboardDiv = document.getElementById('leaderboard');
-            const tableDiv = document.getElementById('resultsTable');
-            const noResultsDiv = document.getElementById('noResults');
-            const tbody = document.getElementById('resultsBody');
-            const leaderboardBody = document.getElementById('leaderboardBody');
-            const timeWindowRow = document.getElementById('timeWindowRow');
-            const leaderboardTitle = document.getElementById('leaderboardTitle');
-            const timeWindowNote = document.getElementById('timeWindowNote');
-            
-            // Hide loading
-            loadingDiv.style.display = 'none';
-            
-            if (results.length === 0) {
-                errorDiv.style.display = 'none';
-                statsDiv.style.display = 'none';
-                leaderboardDiv.style.display = 'none';
-                tableDiv.style.display = 'none';
-                noResultsDiv.style.display = 'block';
-                if (allResults.length > 0) {
-                    timeWindowRow.style.display = 'flex';
-                    leaderboardTitle.textContent = '🏅 Player Rankings — ' + getTimeWindowLabel(document.getElementById('timeWindowSelect').value);
-                    noResultsDiv.innerHTML = '<h3>📊 No games in this period</h3><p>Select another time period above.</p>';
-                } else {
-                    timeWindowRow.style.display = 'none';
-                    noResultsDiv.innerHTML = '<h3>📊 No results found</h3><p>The Google Sheet has no games yet.</p>';
-                }
+        function plural(n, one, many) { return `${n} ${n === 1 ? one : many}`; }
+
+        function renderNote() {
+            const el = $('noteCard');
+            if (!noteList.length) {
+                el.textContent = '';
+                const p = document.createElement('div');
+                p.className = 'highlight-sub';
+                p.textContent = 'No table talk recorded yet.';
+                el.appendChild(p);
                 return;
             }
-            
-            const windowValue = document.getElementById('timeWindowSelect').value;
-            leaderboardTitle.textContent = '🏅 Player Rankings — ' + getTimeWindowLabel(windowValue);
-            timeWindowNote.textContent = 'Rankings and stats recalculated for this period.';
-            timeWindowRow.style.display = 'flex';
-            
-            // Show stats (recalculated for this window)
-            const splitCount = results.filter(r => r.split && r.split.toLowerCase() === 'true').length;
-            
-            document.getElementById('totalGames').textContent = results.length;
-            document.getElementById('splitPots').textContent = splitCount;
-            
-            // Calculate and display leaderboard from filtered results
+            const note = noteList[noteIndex % noteList.length];
+            el.textContent = '';
+            const q = document.createElement('div');
+            q.className = 'highlight-quote';
+            q.textContent = '“' + note.text + '”';   // plain text only, never HTML
+            el.appendChild(q);
+            const row = document.createElement('div');
+            row.className = 'gem-row';
+            const d = document.createElement('span');
+            d.className = 'gem-date';
+            d.textContent = 'Game note · ' + note.date;
+            row.appendChild(d);
+            if (noteList.length > 1) {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'gem-btn';
+                b.textContent = 'Another gem';
+                b.addEventListener('click', () => { noteIndex = (noteIndex + 1) % noteList.length; renderNote(); });
+                row.appendChild(b);
+            }
+            el.appendChild(row);
+        }
+
+        function renderHistory(historyGames) {
+            const list = $('resultsBody');
+            const empty = $('historyEmpty');
+            const moreBtn = $('showMoreBtn');
+            list.innerHTML = '';
+            if (!historyGames.length) {
+                empty.style.display = 'block';
+                moreBtn.style.display = 'none';
+                return;
+            }
+            empty.style.display = 'none';
+            const visible = historyExpanded ? historyGames : historyGames.slice(0, HISTORY_PAGE_SIZE);
+            visible.forEach(g => {
+                const li = document.createElement('li');
+                li.className = 'game';
+                const attended = g.attended
+                    ? `<div class="g-att"><strong>Attended:</strong> ${esc(g.attended.join(', '))}</div>`
+                    : `<div class="g-att unknown">Attendance not recorded</div>`;
+                li.innerHTML = `
+                    <div class="g-date">${esc(formatShortDate(g))}</div>
+                    <div class="g-main">
+                        <div class="g-top"><span class="g-winners">${esc(joinNames(g.winners))}</span><span class="pill">${g.shared ? 'Shared win' : 'Solo win'}</span></div>
+                        ${attended}
+                    </div>
+                    <div class="g-note">${esc(g.note)}</div>
+                    <div class="g-host">${g.host ? 'Host: ' + esc(g.host) : ''}</div>
+                `;
+                list.appendChild(li);
+            });
+            if (historyGames.length > HISTORY_PAGE_SIZE) {
+                moreBtn.style.display = 'block';
+                moreBtn.textContent = historyExpanded ? 'Show fewer games' : `Show all ${historyGames.length} games`;
+            } else {
+                moreBtn.style.display = 'none';
+            }
+        }
+
+        // Display every section for one period. `results` is already filtered for that period.
+        function displayResults(results, windowValue) {
+            $('loading').style.display = 'none';
+
+            if (allResults.length === 0) {
+                $('error').style.display = 'none';
+                $('board').style.display = 'none';
+                $('noResults').style.display = 'block';
+                $('summaryLine').textContent = '';
+                $('seasonLabel').textContent = '';
+                return;
+            }
+
+            $('error').style.display = 'none';
+            $('noResults').style.display = 'none';
+            $('board').style.display = 'block';
+
+            const isYear = /^\d{4}$/.test(String(windowValue));
+            $('seasonLabel').textContent = isYear ? `${windowValue} season` : getTimeWindowLabel(windowValue);
+            $('standingsTitle').textContent = isYear ? 'Season standings' : 'Standings';
+
+            // Completed games only (a recorded winner), oldest to newest.
+            const chrono = buildGames(results, knownPlayers, sheetNewestFirst).filter(g => g.completed);
+            const splitPots = chrono.filter(g => g.splitFlag).length;
+            $('summaryLine').textContent = chrono.length
+                ? `${plural(chrono.length, 'game', 'games')} played · ${plural(splitPots, 'split pot', 'split pots')}`
+                : '0 games played';
+
+            const highlights = computeHighlights(chrono);
+
+            // Crown holders
+            const crownEl = $('crownCard');
+            crownEl.textContent = '';
+            if (highlights.crown) {
+                const t = document.createElement('div');
+                t.className = 'highlight-title';
+                t.textContent = joinNames(highlights.crown.names);
+                const s = document.createElement('div');
+                s.className = 'highlight-sub';
+                s.textContent = `${highlights.crown.label} · ${highlights.crown.date}`;
+                crownEl.append(t, s);
+            } else {
+                const t = document.createElement('div');
+                t.className = 'highlight-title small';
+                t.textContent = 'No results yet';
+                crownEl.appendChild(t);
+            }
+
+            // Current form
+            const formEl = $('formCard');
+            formEl.textContent = '';
+            const ft = document.createElement('div');
+            ft.className = 'highlight-title small';
+            ft.textContent = highlights.form.headline;
+            formEl.appendChild(ft);
+            if (highlights.form.detail) {
+                const fs = document.createElement('div');
+                fs.className = 'highlight-sub';
+                fs.textContent = highlights.form.detail;
+                formEl.appendChild(fs);
+            }
+
+            // Overheard at the table
+            noteList = highlights.notes;
+            noteIndex = 0;
+            renderNote();
+
+            // Standings (ranking calculation is unchanged)
             const rankings = calculateRankings(results);
-            
-            errorDiv.style.display = 'none';
-            statsDiv.style.display = 'flex';
-            leaderboardDiv.style.display = 'block';
-            tableDiv.style.display = 'block';
-            noResultsDiv.style.display = 'none';
-            
-            // Build leaderboard
-            leaderboardBody.innerHTML = '';
+            const badges = computeBadges(rankings, highlights, windowValue);
+            const body = $('leaderboardBody');
+            body.innerHTML = '';
+            $('standingsEmpty').style.display = rankings.length ? 'none' : 'block';
             rankings.forEach((rank, index) => {
                 const row = document.createElement('tr');
-                const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
-                if (rankClass) row.className = rankClass;
-                
-                const rankBadge = index < 3 ? `<span class="rank-badge">${index + 1}</span>` : '';
-                
+                const badge = badges[index];
+                if (badge && badge.kind === 'leader') row.className = 'is-leader';
+                const initial = Array.from(cleanName(rank.player))[0] || '?';
+                const rankCell = index < 3
+                    ? `<span class="medal medal-${index + 1}" aria-label="Rank ${index + 1}">${index + 1}</span>`
+                    : String(index + 1);
+                const rate = rank.games > 0 ? parseFloat(rank.winRate) : null;
+                const rateCell = rate === null
+                    ? '<span class="pct">—</span>'
+                    : `<div class="rate-cell"><span class="bar" aria-hidden="true"><i style="width:${Math.min(100, Math.max(0, rate))}%"></i></span><span class="pct">${rank.winRate}%</span></div>`;
+                const badgeCell = badge
+                    ? `<span class="badge ${badge.kind === 'leader' ? 'leader' : ''}">${badge.kind === 'leader' ? CROWN_SVG : ''}${esc(badge.text)}</span>`
+                    : '<span class="no-badge" aria-label="No badge">—</span>';
                 row.innerHTML = `
-                    <td>${rankBadge}${index < 3 ? '' : index + 1}</td>
-                    <td>${esc(rank.player)}</td>
-                    <td class="wins-count">${rank.wins.toFixed(1)}</td>
-                    <td>${rank.games}</td>
-                    <td>${rank.winRate}%</td>
+                    <td class="c-rank">${rankCell}</td>
+                    <td class="c-player"><span class="avatar" aria-hidden="true">${esc(initial.toUpperCase())}</span><span class="pname">${esc(rank.player)}</span></td>
+                    <td class="c-num wins">${rank.wins.toFixed(1)}</td>
+                    <td class="c-num">${rank.games}</td>
+                    <td class="c-rate">${rateCell}</td>
+                    <td class="c-badge">${badgeCell}</td>
                 `;
-                leaderboardBody.appendChild(row);
+                body.appendChild(row);
             });
-            
-            // Build results table (latest first)
-            tbody.innerHTML = '';
-            const sortedResults = [...results].sort((a, b) => {
-                // Sort by date in descending order (latest first)
-                // Convert DD/MM/YYYY to MM/DD/YYYY for proper parsing
-                const parseDate = (dateStr) => {
-                    if (!dateStr) return new Date('1900-01-01');
-                    const parts = dateStr.split('/');
-                    if (parts.length === 3) {
-                        // Convert DD/MM/YYYY to MM/DD/YYYY
-                        return new Date(parts[1] + '/' + parts[0] + '/' + parts[2]);
-                    }
-                    return new Date(dateStr);
-                };
-                
-                const dateA = parseDate(a.date);
-                const dateB = parseDate(b.date);
-                return dateB - dateA;
-            });
-            
-            sortedResults.forEach(result => {
-                const row = document.createElement('tr');
-                if (result.split && result.split.toLowerCase() === 'true') {
-                    row.className = 'split-yes';
-                }
-                
-                // Build other players list from individual columns
-                const otherPlayers = [];
-                for (let i = 1; i <= 8; i++) {
-                    const playerKey = `player${i}`;
-                    if (result[playerKey] && result[playerKey].trim() !== '' && result[playerKey] !== '?') {
-                        otherPlayers.push(result[playerKey].trim());
-                    }
-                }
-                
-                
-                // Handle split pot display
-                let winnersDisplay = result.winners || '';
-                if (result.split && result.split.toLowerCase() === 'true') {
-                    // For split pots, show technical winner with split indicator
-                    winnersDisplay = `${result.winners} ⭐ (split)`;
-                }
-                
-                row.innerHTML = `
-                    <td class="date">${esc(result.date)}</td>
-                    <td class="winners">${esc(winnersDisplay)}</td>
-                    <td>${(result.split && result.split.toLowerCase() === 'true') ? 'Yes' : 'No'}</td>
-                    <td class="notes">${esc(result.notes)}</td>
-                    <td class="other-players">${esc(otherPlayers.join(', '))}</td>
-                    <td>${esc(result.host)}</td>
-                `;
-                tbody.appendChild(row);
-            });
+
+            // Game history, newest first
+            renderHistory([...chrono].reverse());
         }
-        
+
         // Show error
         function showError(message) {
-            const loadingDiv = document.getElementById('loading');
-            const errorDiv = document.getElementById('error');
-            const errorMessage = document.getElementById('errorMessage');
-            
-            loadingDiv.style.display = 'none';
-            errorDiv.style.display = 'block';
-            errorMessage.textContent = message;
+            $('loading').style.display = 'none';
+            $('error').style.display = 'block';
+            $('errorMessage').textContent = message;
         }
-        
+
         // Download CSV
         function downloadCSV() {
             window.open(GOOGLE_SHEETS_CSV_URL, '_blank', 'noopener');
         }
-        
+
         // Initialize
         async function init() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('error').style.display = 'none';
+            $('loading').style.display = 'block';
+            $('error').style.display = 'none';
             try {
                 allResults = await loadResults();
+                knownPlayers = collectKnownPlayers(allResults);
+                sheetNewestFirst = detectNewestFirst(allResults);
                 populateTimeWindowSelect();
                 applyFilterAndDisplay();
-                document.getElementById('lastLoaded').textContent =
+                $('lastLoaded').textContent =
                     'Updated from Google Sheets at ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             } catch (error) {
                 showError(error.message || 'Could not load results.');
@@ -1838,8 +1904,9 @@
 
         function retryLoad() { init(); }
 
-        document.getElementById('timeWindowSelect').addEventListener('change', applyFilterAndDisplay);
+        $('timeWindowSelect').addEventListener('change', () => { historyExpanded = false; applyFilterAndDisplay(); });
+        $('showMoreBtn').addEventListener('click', () => { historyExpanded = !historyExpanded; applyFilterAndDisplay(); });
         init();
     </script>
 </body>
-</html> 
+</html>
