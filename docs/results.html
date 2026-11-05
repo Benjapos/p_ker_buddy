@@ -739,7 +739,7 @@
             <!-- Highlight cards -->
             <section class="highlights" aria-label="Highlights">
                 <article class="panel highlight">
-                    <h2 id="crownTitle">The crown holders</h2>
+                    <h2 id="crownTitle">The latest winners</h2>
                     <div class="highlight-body">
                         <div class="highlight-icon" aria-hidden="true">
                             <svg viewBox="0 0 64 64">
@@ -1807,7 +1807,7 @@
             crownEl.textContent = '';
             // Singular heading for a single winner, plural for shared wins or no results
             $('crownTitle').textContent = (highlights.crown && highlights.crown.names.length === 1)
-                ? 'The crown holder' : 'The crown holders';
+                ? 'The latest winner' : 'The latest winners';
             if (highlights.crown) {
                 const t = document.createElement('div');
                 t.className = 'highlight-title';
