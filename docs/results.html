@@ -397,7 +397,9 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .brand { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+        .brand { display: flex; align-items: center; gap: 14px; flex-shrink: 0; color: inherit; text-decoration: none; border-radius: 8px; }
+        .brand:hover .club-name { text-decoration: underline; text-decoration-color: var(--gold-500); text-underline-offset: 4px; }
+        .brand:focus-visible { outline: 3px solid var(--gold-500); outline-offset: 4px; }
         .brand svg { width: 34px; height: 34px; fill: var(--gold-500); }
         .brand .divider { width: 1px; height: 34px; background: var(--gold-500); opacity: 0.7; }
         .club-name { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; letter-spacing: 0.2px; }
@@ -409,23 +411,8 @@
             padding-left: 22px;
             border-left: 1px solid rgba(255, 255, 255, 0.18);
         }
-        .home-link {
-            margin-left: auto;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #fff;
-            text-decoration: none;
-            font-family: var(--serif);
-            font-weight: 700;
-            font-size: 1.05rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            border-radius: 999px;
-            padding: 5px 14px;
-        }
-        .home-link svg { width: 18px; height: 18px; fill: var(--gold-500); }
-        .home-link:hover { background: rgba(255, 255, 255, 0.12); }
         .season-label {
+            margin-left: auto;
             color: var(--gold-500);
             font-weight: 600;
             font-size: 1.1rem;
@@ -682,16 +669,12 @@
 </head>
 <body>
     <header class="site-header">
-        <div class="brand">
+        <a class="brand" href="./" title="Back to P_Ker Buddy home">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12 1.5 3.5 8.6 3.5 14a4.3 4.3 0 0 0 7.2 3.2c-.2 2.2-1 3.7-2.6 4.8h7.8c-1.6-1.1-2.4-2.6-2.6-4.8A4.3 4.3 0 0 0 20.5 14C20.5 8.6 12 1.5 12 1.5z"/></svg>
             <span class="divider" aria-hidden="true"></span>
             <span class="club-name">The Poker Dudes</span>
-        </div>
-        <span class="tagline">Good chicken, the Bissli family and questionable pudding</span>
-        <a class="home-link" href="./" title="Back to P_Ker Buddy home">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C12 1.5 3.5 8.6 3.5 14a4.3 4.3 0 0 0 7.2 3.2c-.2 2.2-1 3.7-2.6 4.8h7.8c-1.6-1.1-2.4-2.6-2.6-4.8A4.3 4.3 0 0 0 20.5 14C20.5 8.6 12 1.5 12 1.5z"/></svg>
-            <span>P_Ker Buddy</span>
         </a>
+        <span class="tagline">Good chicken, the Bissli family and questionable pudding</span>
         <span class="season-label" id="seasonLabel"></span>
     </header>
 
