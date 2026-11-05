@@ -3,17 +3,18 @@ import styled from 'styled-components';
 import { calculateEquity, notationToCombos, rangeToCombos } from '../utils/equity';
 
 const CalculatorContainer = styled.div`
-  background: #1a1a1a;
+  background: ${props => props.theme.cardBackground};
   border-radius: 12px;
   padding: 20px;
-  margin: 20px 0;
-  border: 1px solid #333;
+  margin: 0;
+  border: 1px solid ${props => props.theme.cardBorder};
 `;
 
 const CalculatorTitle = styled.h3`
-  color: #fff;
-  margin: 0 0 20px 0;
-  font-size: 1.2em;
+  font-family: ${props => props.theme.serif};
+  color: ${props => props.theme.primary};
+  margin: 0 0 14px 0;
+  font-size: 1.4rem;
 `;
 
 const CalculatorGrid = styled.div`
@@ -27,13 +28,14 @@ const CalculatorGrid = styled.div`
 `;
 
 const Section = styled.div`
-  background: #2a2a2a;
+  background: ${props => props.theme.buttonSecondary};
+  border: 1px solid ${props => props.theme.border};
   border-radius: 8px;
   padding: 15px;
 `;
 
 const SectionTitle = styled.h4`
-  color: #fff;
+  color: ${props => props.theme.primary};
   margin: 0 0 15px 0;
   font-size: 1em;
 `;
@@ -46,9 +48,9 @@ const RangeSelector = styled.div`
 `;
 
 const RangeButton = styled.button`
-  background: ${props => props.selected ? '#4CAF50' : '#444'};
-  color: white;
-  border: none;
+  background: ${props => props.selected ? props.theme.primary : props.theme.inputBackground};
+  color: ${props => props.selected ? '#fff' : props.theme.text};
+  border: 1px solid ${props => props.selected ? props.theme.primary : props.theme.inputBorder};
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -56,16 +58,16 @@ const RangeButton = styled.button`
   font-weight: ${props => props.selected ? 'bold' : 'normal'};
   
   &:hover {
-    background: ${props => props.selected ? '#45a049' : '#555'};
+    background: ${props => props.selected ? props.theme.secondary : props.theme.buttonSecondary};
   }
 `;
 
 const CustomRangeInput = styled.textarea`
   width: 100%;
   height: 80px;
-  background: #333;
-  color: #fff;
-  border: 1px solid #555;
+  background: ${props => props.theme.inputBackground};
+  color: ${props => props.theme.text};
+  border: 1px solid ${props => props.theme.inputBorder};
   border-radius: 6px;
   padding: 10px;
   font-family: monospace;
@@ -74,12 +76,13 @@ const CustomRangeInput = styled.textarea`
   
   &:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: ${props => props.theme.primary};
   }
 `;
 
 const EquityDisplay = styled.div`
-  background: #333;
+  background: ${props => props.theme.buttonSecondary};
+  border: 1px solid ${props => props.theme.border};
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -89,17 +92,17 @@ const EquityDisplay = styled.div`
 const EquityValue = styled.div`
   font-size: 2.5em;
   font-weight: bold;
-  color: #4CAF50;
+  color: ${props => props.theme.success};
   margin-bottom: 10px;
 `;
 
 const EquityLabel = styled.div`
-  color: #ccc;
+  color: ${props => props.theme.textSecondary};
   font-size: 0.9em;
 `;
 
 const CalculateButton = styled.button`
-  background: #4CAF50;
+  background: ${props => props.theme.primary};
   color: white;
   border: none;
   padding: 12px 24px;
@@ -111,11 +114,11 @@ const CalculateButton = styled.button`
   margin-top: 15px;
   
   &:hover {
-    background: #45a049;
+    background: ${props => props.theme.secondary};
   }
   
   &:disabled {
-    background: #666;
+    background: ${props => props.theme.inputBorder};
     cursor: not-allowed;
   }
 `;
@@ -130,16 +133,16 @@ const RangePresets = {
 };
 
 const RangeDisplay = styled.div`
-  background: #333;
+  background: ${props => props.theme.inputBackground};
   border-radius: 6px;
   padding: 10px;
   margin-top: 10px;
   font-family: monospace;
   font-size: 0.85em;
-  color: #ccc;
+  color: ${props => props.theme.textSecondary};
   max-height: 100px;
   overflow-y: auto;
-  border: 1px solid #555;
+  border: 1px solid ${props => props.theme.inputBorder};
 `;
 
 const EquityCalculator = () => {
@@ -190,8 +193,8 @@ const EquityCalculator = () => {
 
   return (
     <CalculatorContainer>
-      <CalculatorTitle>🎯 Equity Calculator</CalculatorTitle>
-      <div style={{ color: '#ccc', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
+      <CalculatorTitle>Equity Calculator</CalculatorTitle>
+      <div style={{ color: '#5f675f', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
         Estimate your hand's equity (winning percentage) against an opponent's range by simulating 20,000 hands. This helps you make better decisions by knowing how often your hand will win against different opponent types. Enter your hand in poker notation (e.g., 'AKs' for Ace-King suited) and select or define your opponent's range.
       </div>
       
@@ -204,7 +207,7 @@ const EquityCalculator = () => {
             onChange={(e) => setPlayerHand(e.target.value)}
             aria-label="Your hand"
           />
-          <div style={{ color: '#ccc', fontSize: '0.8em', marginTop: '8px' }}>
+          <div style={{ color: '#5f675f', fontSize: '0.8em', marginTop: '8px' }}>
             Examples: AA, KK, QQ, AKs, AKo, JTs, 98s, 72o
           </div>
         </Section>
@@ -226,7 +229,7 @@ const EquityCalculator = () => {
           {/* Show selected range */}
           {!customRange && opponentRange && (
             <div style={{ marginTop: '10px' }}>
-              <div style={{ color: '#fff', fontSize: '0.9em', marginBottom: '5px' }}>
+              <div style={{ color: '#1f2a22', fontSize: '0.9em', marginBottom: '5px' }}>
                 <strong>Selected Range ({opponentRange}):</strong>
               </div>
               <RangeDisplay>
@@ -236,7 +239,7 @@ const EquityCalculator = () => {
           )}
           
           <div style={{ marginBottom: '10px', marginTop: '15px' }}>
-            <strong style={{ color: '#fff' }}>Or Custom Range:</strong>
+            <strong style={{ color: '#1f2a22' }}>Or Custom Range:</strong>
           </div>
           <CustomRangeInput
             placeholder="Enter custom range (e.g., 'AA,KK,QQ,AKs')"
@@ -255,7 +258,7 @@ const EquityCalculator = () => {
       </CalculateButton>
 
       {error && (
-        <div role="alert" style={{ color: '#ff8a80', marginTop: '15px', textAlign: 'center' }}>{error}</div>
+        <div role="alert" style={{ color: '#b5483a', marginTop: '15px', textAlign: 'center' }}>{error}</div>
       )}
 
       {equity !== null && (

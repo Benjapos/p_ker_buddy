@@ -1,138 +1,101 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../App';
 
-const RecommendationContainer = styled.div`
-  background: ${props => props.theme.cardBackground};
-  border-radius: 12px;
-  padding: 15px;
-  border: 1px solid ${props => props.theme.cardBorder};
-  min-height: 180px;
-  max-height: none;
-  overflow-y: visible;
-  transition: all 0.3s ease;
+const Container = styled.div`
+  min-height: 160px;
 `;
 
-const LoadingSpinner = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  color: ${props => props.theme.success};
-  font-size: 1.2em;
+const Message = styled.div`
+  text-align: center;
+  color: ${props => props.theme.textSecondary};
+  padding: 28px 16px 12px;
+  font-style: italic;
 `;
 
 const ActionDisplay = styled.div`
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 `;
 
-const ActionButton = styled.div`
+const ActionLabel = styled.div`
   display: inline-block;
-  padding: 15px 30px;
-  border-radius: 8px;
-  font-size: 1.5em;
-  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 10px;
+  font-family: ${props => props.theme.serif};
+  font-size: 2rem;
+  font-weight: 700;
   text-transform: uppercase;
-  color: white;
-  margin-bottom: 10px;
-  
-  &.fold {
-    background: #f44336;
-  }
-  
-  &.call {
-    background: #ff9800;
-  }
-  
-  &.raise {
-    background: #4CAF50;
-  }
+  letter-spacing: 1px;
+  color: #fff;
+
+  &.fold { background: ${props => props.theme.error}; }
+  &.call, &.check { background: ${props => props.theme.warning}; color: #1f2a22; }
+  &.raise, &.bet { background: ${props => props.theme.primary}; }
 `;
 
-const ConfidenceBar = styled.div`
-  width: 100%;
-  height: 8px;
-  background: #333;
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 10px 0;
-`;
-
-const ConfidenceFill = styled.div`
-  height: 100%;
-  background: ${props => {
-    if (props.confidence >= 80) return '#4CAF50';
-    if (props.confidence >= 60) return '#ff9800';
-    return '#f44336';
-  }};
-  width: ${props => props.confidence}%;
-  transition: width 0.3s ease;
-`;
-
-const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin: 15px 0;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-`;
-
-const StatCard = styled.div`
-  background: ${props => props.theme.inputBackground};
-  border-radius: 6px;
-  padding: 10px;
-  text-align: center;
-  border-left: 3px solid ${props => props.theme.success};
-  transition: all 0.3s ease;
-`;
-
-const StatLabel = styled.div`
-  color: ${props => props.theme.textSecondary};
-  font-size: 0.9em;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
-`;
-
-const StatValue = styled.div`
-  color: ${props => props.theme.text};
-  font-weight: bold;
-  font-size: 1.1em;
-  transition: color 0.3s ease;
-`;
-
-const EquityValue = styled(StatValue)`
-  color: ${props => props.theme.success};
-`;
-
-const ReasoningBox = styled.div`
-  background: ${props => props.theme.inputBackground};
-  border-radius: 6px;
-  padding: 12px;
-  margin-top: 15px;
-  border-left: 3px solid ${props => props.theme.primary};
-  transition: all 0.3s ease;
-`;
-
-const ReasoningTitle = styled.div`
+const Sizing = styled.div`
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
   color: ${props => props.theme.primary};
-  font-weight: bold;
-  margin-bottom: 10px;
-  font-size: 1.1em;
-  transition: color 0.3s ease;
+
+  span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.88rem;
+    color: ${props => props.theme.textSecondary};
+  }
 `;
 
-const ReasoningText = styled.div`
+const Stats = styled.dl`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 0 0 12px;
+`;
+
+const Stat = styled.div`
+  background: ${props => props.theme.buttonSecondary};
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+
+  dt {
+    color: ${props => props.theme.textSecondary};
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: ${props => props.theme.text};
+  }
+`;
+
+const Why = styled.div`
+  border-left: 3px solid ${props => props.theme.warning};
+  background: ${props => props.theme.buttonSecondary};
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+
+  strong {
+    display: block;
+    color: ${props => props.theme.primary};
+    margin-bottom: 4px;
+  }
+`;
+
+const Footnote = styled.p`
   color: ${props => props.theme.textSecondary};
-  line-height: 1.6;
-  font-size: 0.95em;
-  transition: color 0.3s ease;
+  font-size: 0.8rem;
+  margin: 8px 2px 0;
 `;
 
 const AnalyzeButton = styled.button`
@@ -140,157 +103,99 @@ const AnalyzeButton = styled.button`
   color: ${props => props.theme.buttonText};
   border: none;
   padding: 12px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  width: 100%;
-  margin-top: 12px;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px ${props => props.theme.shadow};
-  }
-  
-  &:disabled {
-    background: ${props => props.theme.border};
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-  
-  @media (max-width: 768px) {
-    padding: 10px 15px;
-    font-size: 0.9em;
-  }
-`;
-
-const EmptyState = styled.div`
-  text-align: center;
-  color: ${props => props.theme.textSecondary};
-  padding: 40px 20px;
-  font-style: italic;
-  transition: color 0.3s ease;
-`;
-
-const RaiseAmount = styled.div`
-  color: ${props => props.theme.success};
-  font-weight: bold;
-  margin-top: 15px;
-  font-size: 1.3em;
-  background: ${props => props.theme.inputBackground};
-  padding: 12px;
   border-radius: 8px;
-  border: 2px solid ${props => props.theme.success};
-  text-align: center;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 100%;
+  margin-top: 14px;
+
+  &:hover { background: ${props => props.theme.secondary}; }
+  &:focus-visible { outline: 3px solid ${props => props.theme.warning}; outline-offset: 2px; }
 `;
 
-const RaiseSizing = styled.div`
-  color: ${props => props.theme.text};
-  font-size: 0.9em;
-  margin-top: 8px;
-  opacity: 0.8;
-  transition: color 0.3s ease;
-`;
+// A "call" with nothing to call is a check, and a "raise" with nothing to raise is a bet.
+const actionLabel = (recommendation, isPreflop) => {
+  const { action, facingBet } = recommendation;
+  if (isPreflop || facingBet) return action;
+  if (action === 'call') return 'check';
+  if (action === 'raise') return 'bet';
+  return action;
+};
 
 const AIRecommendation = ({ recommendation, loading, onAnalyze, canAnalyze, isPreflop }) => {
   if (loading) {
     return (
-      <RecommendationContainer>
-        <LoadingSpinner>
-          🧠 AI is analyzing your hand...
-        </LoadingSpinner>
-      </RecommendationContainer>
+      <Container>
+        <Message role="status">Analyzing your hand...</Message>
+      </Container>
     );
   }
 
   if (!recommendation) {
     return (
-      <RecommendationContainer>
-        <EmptyState>
-          {canAnalyze 
-            ? "Click 'Get AI Recommendation' to analyze your hand"
-            : "Please select your hole cards to get a recommendation"
-          }
-        </EmptyState>
-        {canAnalyze && (
-          <AnalyzeButton onClick={onAnalyze}>
-            Get AI Recommendation
-          </AnalyzeButton>
-        )}
-      </RecommendationContainer>
+      <Container>
+        <Message>
+          {canAnalyze
+            ? 'Ready when you are.'
+            : 'Select your two hole cards to get a recommendation.'}
+        </Message>
+        <AnalyzeButton onClick={onAnalyze} disabled={!canAnalyze} style={!canAnalyze ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}>
+          Get recommendation
+        </AnalyzeButton>
+      </Container>
     );
   }
 
-  const { action, confidence, raiseAmount, handStrength, equity, potOdds, impliedOdds, ev, reasoning } = recommendation;
+  const { raiseAmount, handStrength, equity, requiredEquity, ev, reasoning, numOpponents, villainPct, draw, allIn } = recommendation;
+  const label = actionLabel(recommendation, isPreflop);
 
   return (
-    <RecommendationContainer>
-      <ActionDisplay>
-        <ActionButton className={action}>
-          {action}
-        </ActionButton>
-        <div style={{ color: '#ccc', marginBottom: '10px' }}>
-          Confidence: {confidence}%
-        </div>
-        <ConfidenceBar>
-          <ConfidenceFill confidence={confidence} />
-        </ConfidenceBar>
-        {action === 'raise' && raiseAmount && (
-          <RaiseAmount>
-            💰 RAISE TO: ${raiseAmount}
-            <RaiseSizing>
-              ({recommendation.bigBlind ? (raiseAmount / recommendation.bigBlind).toFixed(1) : 'N/A'} big blinds)
-            </RaiseSizing>
-          </RaiseAmount>
+    <Container>
+      <ActionDisplay aria-live="polite">
+        <ActionLabel className={label}>{label}</ActionLabel>
+        {(label === 'raise' || label === 'bet') && raiseAmount && (
+          <Sizing>
+            {allIn ? 'All-in' : label === 'bet' ? 'Bet' : 'Raise to'} ${raiseAmount}
+            {recommendation.bigBlind ? (
+              <span>{(raiseAmount / recommendation.bigBlind).toFixed(1)} big blinds</span>
+            ) : null}
+          </Sizing>
         )}
       </ActionDisplay>
 
-      <StatsGrid>
-        <StatCard>
-          <StatLabel>Hand Strength</StatLabel>
-          <StatValue>{handStrength}</StatValue>
-        </StatCard>
-        
-        <StatCard>
-          <StatLabel>Equity</StatLabel>
-          <EquityValue>{equity}%</EquityValue>
-        </StatCard>
-        
-        {!isPreflop && potOdds !== null && (
-          <StatCard>
-            <StatLabel>Pot Odds</StatLabel>
-            <StatValue>{potOdds}%</StatValue>
-          </StatCard>
+      <Stats>
+        <Stat><dt>Hand</dt><dd>{handStrength}</dd></Stat>
+        <Stat><dt>Equity</dt><dd>{equity}%</dd></Stat>
+        {!isPreflop && requiredEquity != null && (
+          <Stat><dt>Equity needed</dt><dd>{requiredEquity}%</dd></Stat>
         )}
-        
-        {!isPreflop && impliedOdds !== null && (
-          <StatCard>
-            <StatLabel>Implied Odds</StatLabel>
-            <StatValue>{impliedOdds}%</StatValue>
-          </StatCard>
+        {draw && (
+          <Stat><dt>Draw</dt><dd>{draw.outs} outs (~{draw.hitPct}%)</dd></Stat>
         )}
-        
-        <StatCard>
-          <StatLabel>Expected Value</StatLabel>
-          <StatValue style={{ color: ev >= 0 ? '#4CAF50' : '#f44336' }}>
-            ${ev}
-          </StatValue>
-        </StatCard>
-      </StatsGrid>
+        <Stat title="Rough estimate. It assumes your bet or raise is called, so it flatters aggressive plays.">
+          <dt>Rough EV</dt>
+          <dd style={{ color: ev == null ? undefined : ev >= 0 ? '#1b5e3a' : '#b5483a' }}>{ev == null ? '\u2014' : `$${ev}`}</dd>
+        </Stat>
+      </Stats>
 
-      <ReasoningBox>
-        <ReasoningTitle>🤖 AI Reasoning</ReasoningTitle>
-        <ReasoningText>{reasoning}</ReasoningText>
-      </ReasoningBox>
+      <Why>
+        <strong>Why</strong>
+        {reasoning}
+      </Why>
 
-      <AnalyzeButton onClick={onAnalyze}>
-        {isPreflop ? '🔄 Re-analyze Preflop' : '🔄 Re-analyze Hand'}
-      </AnalyzeButton>
-    </RecommendationContainer>
+      {numOpponents ? (
+        <Footnote>
+          {villainPct
+            ? `Equity is your win chance against a range that bets this size (about the top ${villainPct}% of hands)${numOpponents > 1 ? ` plus ${numOpponents - 1} random hand${numOpponents === 2 ? '' : 's'}` : ''}.`
+            : `Equity is your win chance against ${numOpponents} random opponent hand${numOpponents === 1 ? '' : 's'}.`}
+          {' '}Advice is a rule-of-thumb guide, not a solver.
+        </Footnote>
+      ) : null}
+
+      <AnalyzeButton onClick={onAnalyze}>Re-analyze</AnalyzeButton>
+    </Container>
   );
 };
 
-export default AIRecommendation; 
+export default AIRecommendation;

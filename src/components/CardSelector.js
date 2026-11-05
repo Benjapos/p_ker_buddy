@@ -1,158 +1,127 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../App';
 
-const CardGrid = styled.div`
+export const RANKS = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
+export const SUITS = ['♠', '♥', '♦', '♣'];
+
+const RANK_NAMES = { A: 'Ace', K: 'King', Q: 'Queen', J: 'Jack' };
+const SUIT_NAMES = { '♠': 'spades', '♥': 'hearts', '♦': 'diamonds', '♣': 'clubs' };
+const isRed = suit => suit === '♥' || suit === '♦';
+
+const cardName = (rank, suit) => `${RANK_NAMES[rank] || rank} of ${SUIT_NAMES[suit]}`;
+
+const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  gap: 5px;
-  margin-top: 15px;
-  
-  @media (max-width: 768px) {
-    gap: 4px;
-    margin-top: 12px;
-  }
-  
-  @media (max-width: 480px) {
-    gap: 3px;
-    margin-top: 10px;
-  }
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 4px;
 `;
 
-const Card = styled.div`
-  width: 40px;
-  height: 56px;
-  border: 2px solid ${props => props.selected ? props.theme.success : props.theme.border};
-  border-radius: 8px;
+const Cell = styled.button`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
+  gap: 1px;
+  height: 46px;
+  padding: 0;
+  border: 1.5px solid ${props => props.$selected ? props.theme.primary : props.theme.cardBorder};
+  border-radius: 6px;
+  background: ${props => props.$selected ? props.theme.primary : '#fff'};
+  color: ${props => props.$selected ? '#fff' : isRed(props.$suit) ? '#c0392b' : props.theme.text};
   cursor: pointer;
-  background: ${props => props.selected ? props.theme.success : props.theme.cardBackground};
-  color: ${props => props.selected ? 'white' : props.suit === '♥' || props.suit === '♦' ? 'red' : props.theme.text};
-  transition: all 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px ${props => props.theme.shadow};
+  font-family: inherit;
+  line-height: 1;
+
+  b { font-size: 0.95rem; }
+  i { font-style: normal; font-size: 0.95rem; }
+
+  &:hover:not(:disabled) {
+    border-color: ${props => props.theme.warning};
+    transform: translateY(-1px);
   }
-  
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 50px;
-    font-size: 12px;
-    border-radius: 6px;
+
+  &:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
   }
-  
-  @media (max-width: 480px) {
-    width: 32px;
-    height: 45px;
-    font-size: 11px;
-    border-radius: 5px;
+
+  &:focus-visible {
+    outline: 3px solid ${props => props.theme.warning};
+    outline-offset: 1px;
+  }
+
+  @media (max-width: 600px) {
+    height: 40px;
+    border-radius: 4px;
+    b, i { font-size: 0.78rem; }
   }
 `;
 
-const SuitGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
-  margin-top: 15px;
-  
-  @media (max-width: 768px) {
-    gap: 4px;
-    margin-top: 12px;
-  }
-  
-  @media (max-width: 480px) {
-    gap: 3px;
-    margin-top: 10px;
-  }
-`;
+// One-click deck: four suit rows by thirteen ranks.
+// `selected` cards are highlighted, `blocked` cards (in use elsewhere) are greyed out.
+export const DeckGrid = ({ selected = [], blocked = [], disabled = false, onPick, label = 'Pick a card' }) => (
+  <Grid role="group" aria-label={label}>
+    {SUITS.map(suit => RANKS.map(rank => {
+      const card = `${rank}${suit}`;
+      const isSelected = selected.includes(card);
+      const isBlocked = blocked.includes(card);
+      return (
+        <Cell
+          key={card}
+          type="button"
+          $suit={suit}
+          $selected={isSelected}
+          disabled={(disabled && !isSelected) || isBlocked}
+          aria-pressed={isSelected}
+          aria-label={cardName(rank, suit)}
+          onClick={() => onPick(card)}
+        >
+          <b>{rank}</b>
+          <i>{suit}</i>
+        </Cell>
+      );
+    }))}
+  </Grid>
+);
 
-const SuitCard = styled.div`
-  width: 40px;
-  height: 56px;
-  border: 2px solid ${props => props.selected ? props.theme.success : props.theme.border};
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  cursor: pointer;
-  background: ${props => props.selected ? props.theme.success : props.theme.cardBackground};
-  color: ${props => props.selected ? 'white' : props.suit === '♥' || props.suit === '♦' ? 'red' : props.theme.text};
-  transition: all 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px ${props => props.theme.shadow};
-  }
-  
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 50px;
-    font-size: 18px;
-    border-radius: 6px;
-  }
-  
-  @media (max-width: 480px) {
-    width: 32px;
-    height: 45px;
-    font-size: 16px;
-    border-radius: 5px;
-  }
-`;
-
-const SelectedCards = styled.div`
+export const Chips = styled.div`
   display: flex;
   gap: 10px;
-  margin-top: 15px;
   flex-wrap: wrap;
-  
-  @media (max-width: 768px) {
-    gap: 8px;
-    margin-top: 12px;
-    justify-content: center;
-  }
-  
-  @media (max-width: 480px) {
-    gap: 6px;
-    margin-top: 10px;
-  }
+  margin-bottom: 12px;
+  min-height: 62px;
 `;
 
-const SelectedCard = styled.div`
-  width: 50px;
-  height: 70px;
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
+export const Chip = styled.div`
+  position: relative;
+  width: 46px;
+  height: 62px;
+  border: 2px solid ${props => props.theme.primary};
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 16px;
-  background: #4CAF50;
-  color: white;
-  position: relative;
-  
-  @media (max-width: 768px) {
-    width: 45px;
-    height: 63px;
-    font-size: 14px;
-    border-radius: 8px;
-  }
-  
-  @media (max-width: 480px) {
-    width: 40px;
-    height: 56px;
-    font-size: 12px;
-    border-radius: 6px;
-  }
+  font-weight: 700;
+  font-size: 1rem;
+  background: #fff;
+  color: ${props => props.$red ? '#c0392b' : props.theme.text};
 `;
 
-const RemoveButton = styled.button`
+export const Placeholder = styled.div`
+  width: 46px;
+  height: 62px;
+  border: 2px dashed ${props => props.theme.inputBorder};
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${props => props.theme.textSecondary};
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+`;
+
+export const RemoveButton = styled.button`
   position: absolute;
   top: -8px;
   right: -8px;
@@ -160,122 +129,59 @@ const RemoveButton = styled.button`
   height: 20px;
   border-radius: 50%;
   border: none;
-  background: #ff4444;
+  background: ${props => props.theme.error};
   color: white;
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  @media (max-width: 768px) {
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
-    top: -6px;
-    right: -6px;
-  }
-  
-  @media (max-width: 480px) {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-    top: -5px;
-    right: -5px;
-  }
+  padding: 0;
+
+  &:focus-visible { outline: 3px solid ${props => props.theme.warning}; outline-offset: 1px; }
 `;
 
-const CardSelector = ({ selectedCards, onCardsChange, maxCards, title }) => {
-  const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-  const suits = ['♠', '♥', '♦', '♣'];
-  const [selectedRank, setSelectedRank] = useState(null);
-  const [selectedSuit, setSelectedSuit] = useState(null);
+export const Count = styled.p`
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: ${props => props.theme.textSecondary};
+`;
 
-  const handleCardClick = (rank, suit) => {
-    const card = `${rank}${suit}`;
-    const isSelected = selectedCards.some(c => c === card);
-    
-    if (isSelected) {
+const CardSelector = ({ selectedCards, onCardsChange, maxCards, title, blockedCards = [] }) => {
+  const pick = (card) => {
+    if (selectedCards.includes(card)) {
       onCardsChange(selectedCards.filter(c => c !== card));
     } else if (selectedCards.length < maxCards) {
       onCardsChange([...selectedCards, card]);
     }
   };
 
-  const removeCard = (card) => {
-    onCardsChange(selectedCards.filter(c => c !== card));
-  };
-
-  const handleRankClick = (rank) => {
-    setSelectedRank(rank);
-    setSelectedSuit(null);
-  };
-
-  const handleSuitClick = (suit) => {
-    setSelectedSuit(suit);
-    if (selectedRank) {
-      handleCardClick(selectedRank, suit);
-      setSelectedRank(null);
-      setSelectedSuit(null);
-    }
-  };
+  const slots = Array.from({ length: maxCards }, (_, i) => selectedCards[i] || null);
 
   return (
     <div>
-      <h3>{title}</h3>
-      
-      <SelectedCards>
-        {selectedCards.map((card, index) => (
-          <SelectedCard key={index}>
+      {title ? <h3>{title}</h3> : null}
+
+      <Chips>
+        {slots.map((card, index) => card ? (
+          <Chip key={card} $red={isRed(card.slice(-1))}>
             {card}
-            <RemoveButton onClick={() => removeCard(card)}>×</RemoveButton>
-          </SelectedCard>
+            <RemoveButton type="button" aria-label={`Remove ${card}`} onClick={() => onCardsChange(selectedCards.filter(c => c !== card))}>×</RemoveButton>
+          </Chip>
+        ) : (
+          <Placeholder key={`empty-${index}`}>Card {index + 1}</Placeholder>
         ))}
-      </SelectedCards>
+      </Chips>
 
-      <div>
-        <h4>Select Rank:</h4>
-        <CardGrid>
-          {ranks.map(rank => (
-            <Card
-              key={rank}
-              selected={selectedRank === rank}
-              onClick={() => handleRankClick(rank)}
-            >
-              {rank}
-            </Card>
-          ))}
-        </CardGrid>
-      </div>
+      <DeckGrid
+        selected={selectedCards}
+        blocked={blockedCards}
+        disabled={selectedCards.length >= maxCards}
+        onPick={pick}
+        label={title || 'Pick a card'}
+      />
 
-      <div>
-        <h4>Select Suit:</h4>
-        <SuitGrid>
-          {suits.map(suit => (
-            <SuitCard
-              key={suit}
-              suit={suit}
-              selected={selectedSuit === suit}
-              onClick={() => handleSuitClick(suit)}
-            >
-              {suit}
-            </SuitCard>
-          ))}
-        </SuitGrid>
-      </div>
-
-      {selectedRank && (
-        <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}>
-          <p>Selected Rank: <strong>{selectedRank}</strong></p>
-          <p>Now click a suit to add the card!</p>
-        </div>
-      )}
-
-      <p style={{ marginTop: '10px', fontSize: '14px', color: '#666' }}>
-        Selected: {selectedCards.length}/{maxCards}
-      </p>
+      <Count>Selected: {selectedCards.length}/{maxCards}</Count>
     </div>
   );
 };
 
-export default CardSelector; 
+export default CardSelector;

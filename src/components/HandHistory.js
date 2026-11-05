@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const HistoryContainer = styled.div`
-  background: #1a1a1a;
+  background: ${props => props.theme.cardBackground};
   border-radius: 12px;
   padding: 20px;
-  margin: 20px 0;
-  border: 1px solid #333;
+  margin: 0;
+  border: 1px solid ${props => props.theme.cardBorder};
 `;
 
 const HistoryHeader = styled.div`
@@ -17,13 +17,14 @@ const HistoryHeader = styled.div`
 `;
 
 const HistoryTitle = styled.h3`
-  color: #fff;
+  font-family: ${props => props.theme.serif};
+  color: ${props => props.theme.primary};
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.4rem;
 `;
 
 const ClearButton = styled.button`
-  background: #d32f2f;
+  background: #b5483a;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -32,7 +33,7 @@ const ClearButton = styled.button`
   font-size: 0.9em;
   
   &:hover {
-    background: #b71c1c;
+    background: #8f3a2f;
   }
 `;
 
@@ -42,29 +43,30 @@ const HistoryList = styled.div`
 `;
 
 const HistoryItem = styled.div`
-  background: #2a2a2a;
+  background: ${props => props.theme.buttonSecondary};
+  border: 1px solid ${props => props.theme.border};
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 10px;
-  border-left: 4px solid #4CAF50;
+  border-left: 4px solid #1b5e3a;
   cursor: pointer;
   transition: all 0.2s ease;
   
   &:hover {
-    background: #333;
+    background: ${props => props.theme.inputBackground};
     transform: translateX(5px);
   }
   
   &.fold {
-    border-left-color: #f44336;
+    border-left-color: #b5483a;
   }
   
   &.call {
-    border-left-color: #ff9800;
+    border-left-color: #c39a2e;
   }
   
   &.raise {
-    border-left-color: #4CAF50;
+    border-left-color: #1b5e3a;
   }
 `;
 
@@ -76,7 +78,7 @@ const HandInfo = styled.div`
 `;
 
 const HandCards = styled.div`
-  color: #fff;
+  color: ${props => props.theme.text};
   font-weight: bold;
   font-size: 1.1em;
 `;
@@ -89,41 +91,41 @@ const ActionBadge = styled.span`
   text-transform: uppercase;
   
   &.fold {
-    background: #f44336;
+    background: #b5483a;
     color: white;
   }
   
   &.call {
-    background: #ff9800;
-    color: white;
+    background: #c39a2e;
+    color: #1f2a22;
   }
   
   &.raise {
-    background: #4CAF50;
+    background: #1b5e3a;
     color: white;
   }
 `;
 
 const HandDetails = styled.div`
-  color: #ccc;
+  color: ${props => props.theme.text};
   font-size: 0.9em;
   line-height: 1.4;
 `;
 
 const EquityDisplay = styled.span`
-  color: #4CAF50;
+  color: #1b5e3a;
   font-weight: bold;
 `;
 
 const Timestamp = styled.div`
-  color: #666;
+  color: ${props => props.theme.textSecondary};
   font-size: 0.8em;
   margin-top: 8px;
 `;
 
 const EmptyState = styled.div`
   text-align: center;
-  color: #666;
+  color: ${props => props.theme.textSecondary};
   padding: 40px 20px;
   font-style: italic;
 `;
@@ -195,14 +197,14 @@ const HandHistory = ({ currentHand, onLoadHand }) => {
     return (
     <HistoryContainer>
       <HistoryHeader>
-        <HistoryTitle>📚 Hand History ({handHistory.length})</HistoryTitle>
+        <HistoryTitle>Hand History ({handHistory.length})</HistoryTitle>
         {handHistory.length > 0 && (
           <ClearButton onClick={clearHistory}>
             Clear All
           </ClearButton>
         )}
               </HistoryHeader>
-      <div style={{ color: '#ccc', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
+      <div style={{ color: '#5f675f', fontSize: '0.9em', marginBottom: '20px', lineHeight: '1.4' }}>
         Track your poker decisions and learn from your history. Each analyzed hand is automatically saved here, showing your cards, the action taken, and the reasoning behind it. Click on any hand to reload it for further analysis or review.
       </div>
 
@@ -238,7 +240,6 @@ const HandHistory = ({ currentHand, onLoadHand }) => {
                 </div>
                 <div>
                   <strong>Equity:</strong> <EquityDisplay>{hand.equity}%</EquityDisplay> | 
-                  <strong> Confidence:</strong> {hand.confidence}% | 
                   <strong> EV:</strong> ${hand.ev}
                 </div>
                 <div>

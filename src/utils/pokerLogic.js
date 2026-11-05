@@ -59,17 +59,17 @@ const GTO_RANGES = {
   'BTN': {
     'raise': ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AKs', 'AKo', 'AQs', 'AQo', 'AJs', 'AJo', 'ATs', 'ATo', 'A9s', 'A9o', 'A8s', 'A8o', 'A7s', 'A7o', 'A6s', 'A6o', 'A5s', 'A5o', 'A4s', 'A4o', 'A3s', 'A3o', 'A2s', 'A2o', 'KQs', 'KQo', 'KJs', 'KJo', 'KTs', 'KTo', 'K9s', 'K9o', 'K8s', 'K8o', 'K7s', 'K7o', 'K6s', 'K6o', 'K5s', 'K5o', 'K4s', 'K4o', 'K3s', 'K3o', 'K2s', 'K2o', 'QJs', 'QJo', 'QTs', 'QTo', 'Q9s', 'Q9o', 'Q8s', 'Q8o', 'Q7s', 'Q7o', 'Q6s', 'Q6o', 'Q5s', 'Q5o', 'JTs', 'JTo', 'J9s', 'J9o', 'J8s', 'J8o', 'J7s', 'J7o', 'J6s', 'J6o', 'T9s', 'T9o', 'T8s', 'T8o', 'T7s', 'T7o', 'T6s', 'T6o', '98s', '98o', '97s', '97o', '96s', '96o', '87s', '87o', '86s', '86o', '85s', '85o', '76s', '76o', '75s', '75o', '74s', '74o', '65s', '65o', '64s', '64o', '54s', '54o', '53s', '53o', '43s', '43o', '32s', '32o'],
     'call': ['Q4s', 'Q4o', 'Q3s', 'Q3o', 'Q2s', 'Q2o', 'J5s', 'J5o', 'J4s', 'J4o', 'J3s', 'J3o', 'J2s', 'J2o', 'T5s', 'T5o', 'T4s', 'T4o', 'T3s', 'T3o', 'T2s', 'T2o', '95s', '95o', '94s', '94o', '93s', '93o', '92s', '92o', '84s', '84o', '83s', '83o', '82s', '82o', '73s', '73o', '72s', '72o', '63s', '63o', '62s', '62o', '52s', '52o', '42s', '42o'],
-    'fold': ['Q2s', 'Q2o', 'J2s', 'J2o', 'T2s', 'T2o', '91s', '91o', '81s', '81o', '71s', '71o', '61s', '61o', '51s', '51o', '41s', '41o', '31s', '31o', '21s', '21o']
+    'fold': []
   },
   'SB': {
     'raise': ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AKs', 'AKo', 'AQs', 'AQo', 'AJs', 'ATs', 'A9s', 'A8s', 'A7s', 'A6s', 'A5s', 'A4s', 'A3s', 'A2s', 'KQs', 'KQo', 'KJs', 'KTs', 'K9s', 'K8s', 'K7s', 'K6s', 'K5s', 'K4s', 'K3s', 'K2s', 'QJs', 'QTs', 'Q9s', 'Q8s', 'Q7s', 'Q6s', 'Q5s', 'Q4s', 'JTs', 'J9s', 'J8s', 'J7s', 'J6s', 'J5s', 'T9s', 'T8s', 'T7s', 'T6s', 'T5s', '98s', '97s', '96s', '95s', '87s', '86s', '85s', '84s', '76s', '75s', '74s', '73s', '65s', '64s', '63s', '54s', '53s', '52s', '43s', '42s', '32s'],
-    'call': ['Q3s', 'Q2s', 'J4s', 'J3s', 'J2s', 'T4s', 'T3s', 'T2s', '94s', '93s', '92s', '83s', '82s', '72s', '62s', '52s', '42s'],
-    'fold': ['Q2s', 'J2s', 'T2s', '91s', '81s', '71s', '61s', '51s', '41s', '31s', '21s']
+    'call': ['Q3s', 'Q2s', 'J4s', 'J3s', 'J2s', 'T4s', 'T3s', 'T2s', '94s', '93s', '92s', '83s', '82s', '72s', '62s'],
+    'fold': []
   },
   'BB': {
     'raise': ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AKs', 'AKo', 'AQs', 'AQo', 'AJs', 'ATs', 'A9s', 'A8s', 'A7s', 'A6s', 'A5s', 'A4s', 'A3s', 'A2s', 'KQs', 'KQo', 'KJs', 'KTs', 'K9s', 'K8s', 'K7s', 'K6s', 'K5s', 'K4s', 'K3s', 'K2s', 'QJs', 'QTs', 'Q9s', 'Q8s', 'Q7s', 'Q6s', 'Q5s', 'Q4s', 'Q3s', 'JTs', 'J9s', 'J8s', 'J7s', 'J6s', 'J5s', 'J4s', 'T9s', 'T8s', 'T7s', 'T6s', 'T5s', 'T4s', '98s', '97s', '96s', '95s', '94s', '87s', '86s', '85s', '84s', '83s', '76s', '75s', '74s', '73s', '72s', '65s', '64s', '63s', '62s', '54s', '53s', '52s', '43s', '42s', '32s'],
-    'call': ['Q2s', 'J3s', 'J2s', 'T3s', 'T2s', '93s', '92s', '82s', '72s', '62s', '52s', '42s'],
-    'fold': ['J2s', 'T2s', '91s', '81s', '71s', '61s', '51s', '41s', '31s', '21s']
+    'call': ['Q2s', 'J3s', 'J2s', 'T3s', 'T2s', '93s', '92s', '82s'],
+    'fold': []
   }
 };
 
@@ -109,24 +109,35 @@ const handToNotation = (holeCards) => {
   return ranks[0] + ranks[1] + (isSuited ? 's' : 'o');
 };
 
-// Get GTO action for a hand and position
-const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlind, smallBlind = 1) => {
+// Hands that re-raise (3-bet) for value, and hands that are good enough to call a raise.
+const PREMIUM_HANDS = ['AA', 'KK', 'QQ', 'AKs', 'AKo'];
+const CALL_A_RAISE_HANDS = ['JJ', 'TT', '99', '88', 'AQs', 'AQo', 'AJs', 'ATs', 'KQs', 'KJs', 'QJs', 'JTs'];
+
+// What happened before you acted, worked out from the pot only when the caller did not say.
+const inferPreflopAction = (potSize, bigBlind, smallBlind) => {
+  const blindsOnly = smallBlind + bigBlind;
+  const limpPot = blindsOnly + bigBlind; // SB + BB + one limper
+  if (potSize <= blindsOnly + 1) return 'open';
+  if (potSize <= limpPot + 2) return 'limp';
+  return 'raise';
+};
+
+// Get GTO action for a hand and position.
+//   facing: 'open' (no action before you), 'limp' (someone limped) or 'raise' (someone raised).
+//   When omitted it is inferred from the pot, which is fragile, so callers should pass it.
+//   betSize is the raise you are facing when facing === 'raise'.
+const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlind, smallBlind = 1, facing = null) => {
   const handNotation = handToNotation(holeCards);
   const gtoPosition = POSITION_MAP[position] || 'MP';
   const ranges = GTO_RANGES[gtoPosition];
-  
-  // Determine the action context based on pot size and blinds
-  const blindsOnly = smallBlind + bigBlind;
-  const limpPot = blindsOnly + bigBlind; // SB + BB + BB (someone called)
-  
-  // More flexible opening detection - allow for small variations in pot size
-  const isOpening = potSize <= (blindsOnly + 1); // No action, just blinds (with small tolerance)
-  const isFacingLimp = potSize > (blindsOnly + 1) && potSize <= (limpPot + 2); // Someone limped
-  const isFacingRaise = potSize > (limpPot + 2); // Someone raised
-  
-  
+  const inPosition = position === 'button' || position === 'late';
+  let scenario = facing || inferPreflopAction(potSize, bigBlind, smallBlind);
+
+  // The big blind is never first to act: with no raise it can only check or raise.
+  if (position === 'big_blind' && scenario === 'open') scenario = 'limp';
+
   // Opening scenario (no action before you)
-  if (isOpening) {
+  if (scenario === 'open') {
     if (ranges.raise.includes(handNotation)) {
       return {
         action: 'raise',
@@ -135,7 +146,7 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
         reasoning: `GTO: ${handNotation} is in the opening raising range from ${gtoPosition} position.`
       };
     }
-    
+
     if (ranges.call.includes(handNotation)) {
       return {
         action: 'call',
@@ -143,16 +154,16 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
         reasoning: `GTO: ${handNotation} is in the opening calling range from ${gtoPosition} position.`
       };
     }
-    
+
     return {
       action: 'fold',
       confidence: 85,
       reasoning: `GTO: ${handNotation} is not in the opening range from ${gtoPosition} position.`
     };
   }
-  
+
   // Facing a limp (someone just called the big blind)
-  if (isFacingLimp) {
+  if (scenario === 'limp') {
     if (ranges.raise.includes(handNotation)) {
       return {
         action: 'raise',
@@ -161,7 +172,7 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
         reasoning: `GTO: ${handNotation} is strong enough to isolate the limper from ${gtoPosition} position.`
       };
     }
-    
+
     if (ranges.call.includes(handNotation)) {
       return {
         action: 'raise',
@@ -170,55 +181,73 @@ const getGTOAction = (holeCards, position, numPlayers, potSize, betSize, bigBlin
         reasoning: `GTO: ${handNotation} can isolate the limper from ${gtoPosition} position.`
       };
     }
-    
+
+    if (position === 'big_blind') {
+      return {
+        action: 'call',
+        confidence: 80,
+        reasoning: `GTO: ${handNotation} is not strong enough to raise, so check from the big blind.`
+      };
+    }
+
     return {
       action: 'fold',
       confidence: 80,
       reasoning: `GTO: ${handNotation} is too weak to isolate the limper from ${gtoPosition} position.`
     };
   }
-  
-  // Facing a raise (someone raised before you)
-  if (isFacingRaise) {
-    // Much tighter ranges when facing a raise
-    if (ranges.raise.includes(handNotation)) {
-      const potOdds = calculatePotOdds(potSize, betSize);
-      if (potOdds > 20) {
-        return {
-          action: 'call',
-          confidence: 75,
-          reasoning: `GTO: ${handNotation} is strong enough to call the raise with good pot odds (${potOdds.toFixed(1)}%).`
-        };
-      } else {
-        return {
-          action: 'fold',
-          confidence: 70,
-          reasoning: `GTO: ${handNotation} is strong but poor pot odds (${potOdds.toFixed(1)}%) make it a fold.`
-        };
-      }
+
+  // Facing a raise
+  const raiseSize = betSize > 0 ? betSize : bigBlind * 3; // assume a standard 3x open if none was entered
+  const sizeNote = betSize > 0 ? '' : ' (assuming a 3 big blind raise)';
+  const hugeRaise = raiseSize > bigBlind * 20;
+
+  if (PREMIUM_HANDS.includes(handNotation)) {
+    if (hugeRaise && !['AA', 'KK'].includes(handNotation)) {
+      return {
+        action: 'call',
+        confidence: 70,
+        reasoning: `GTO: ${handNotation} is strong, but a raise this big usually means AA or KK. Call rather than re-raise.`
+      };
     }
-    
+    return {
+      action: 'raise',
+      confidence: 88,
+      raiseAmount: Math.round(raiseSize * (inPosition ? 3 : 4)),
+      reasoning: `GTO: ${handNotation} is a premium hand. Re-raise (3-bet) for value${sizeNote}.`
+    };
+  }
+
+  if (hugeRaise) {
     return {
       action: 'fold',
-      confidence: 90,
-      reasoning: `GTO: ${handNotation} is not strong enough to call a raise from ${gtoPosition} position.`
+      confidence: 85,
+      reasoning: `GTO: ${handNotation} is not strong enough to call a raise this large${sizeNote}.`
     };
   }
-  
-  // Default fallback
-  const potOdds = calculatePotOdds(potSize, betSize);
-  if (ranges.raise.includes(handNotation) && (potOdds > 15 || betSize === 0)) {
+
+  // The big blind already has money in and a discount, so it defends wider against small raises.
+  if (position === 'big_blind' && raiseSize <= bigBlind * 3 &&
+      (ranges.raise.includes(handNotation) || ranges.call.includes(handNotation))) {
     return {
       action: 'call',
-      confidence: 75,
-      reasoning: `GTO: ${handNotation} is in the calling range with good pot odds (${potOdds.toFixed(1)}%).`
+      confidence: 70,
+      reasoning: `GTO: ${handNotation} is worth defending from the big blind against a small raise${sizeNote}.`
     };
   }
-  
+
+  if (CALL_A_RAISE_HANDS.includes(handNotation) && raiseSize <= bigBlind * 8) {
+    return {
+      action: 'call',
+      confidence: 72,
+      reasoning: `GTO: ${handNotation} is strong enough to call a raise${sizeNote}.`
+    };
+  }
+
   return {
     action: 'fold',
-    confidence: 85,
-    reasoning: `GTO: ${handNotation} is not strong enough for this action from ${gtoPosition} position.`
+    confidence: 88,
+    reasoning: `GTO: ${handNotation} is not strong enough to continue against a raise from ${gtoPosition} position${sizeNote}.`
   };
 };
 
@@ -497,5 +526,6 @@ export {
   analyzeGTORange,
   getGTOAdvice,
   getGTOAction,
+  GTO_RANGES,
   calculateImpliedOdds
 }; 

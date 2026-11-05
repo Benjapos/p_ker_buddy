@@ -1,282 +1,122 @@
 import React from 'react';
 import styled from 'styled-components';
-import CardSelector from './CardSelector';
+import { DeckGrid, Chip, Placeholder, RemoveButton, Count } from './CardSelector';
 
-const BoardSection = styled.div`
-  margin-bottom: 20px;
-`;
+// Five board slots (flop x3, turn, river) filled in order from one shared deck grid.
 
-const BoardTitle = styled.h4`
-  color: #1e3c72;
-  margin-bottom: 10px;
-  
-  @media (max-width: 768px) {
-    font-size: 18px;
-    margin-bottom: 8px;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 16px;
-    margin-bottom: 6px;
-  }
-`;
-
-const BoardCards = styled.div`
+const Slots = styled.div`
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  align-items: flex-end;
+  gap: 18px;
   flex-wrap: wrap;
-  align-items: center;
-  
-  @media (max-width: 768px) {
-    gap: 6px;
-    justify-content: center;
-  }
-  
-  @media (max-width: 480px) {
-    gap: 4px;
-  }
+  margin-bottom: 12px;
 `;
 
-const BoardCard = styled.div`
-  width: 50px;
-  height: 70px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
+const Group = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 16px;
-  background: white;
-  color: #333;
-  position: relative;
-  flex-shrink: 0;
-  
-  &:hover {
-    border-color: #007bff;
-  }
-  
-  @media (max-width: 768px) {
-    width: 45px;
-    height: 63px;
-    font-size: 14px;
-    border-radius: 8px;
-  }
-  
-  @media (max-width: 480px) {
-    width: 40px;
-    height: 56px;
-    font-size: 12px;
-    border-radius: 6px;
-  }
-`;
+  flex-direction: column;
+  gap: 4px;
 
-const RemoveButton = styled.button`
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: none;
-  background: #ff4444;
-  color: white;
-  font-size: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  @media (max-width: 768px) {
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
-    top: -6px;
-    right: -6px;
+  > span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: ${props => props.theme.textSecondary};
   }
-  
-  @media (max-width: 480px) {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-    top: -5px;
-    right: -5px;
+
+  > div {
+    display: flex;
+    gap: 8px;
   }
 `;
 
 const ClearButton = styled.button`
-  background: #ff9800;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  background: none;
+  border: 1.5px solid ${props => props.theme.error};
+  color: ${props => props.theme.error};
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-  margin-top: 10px;
-  
-  &:hover {
-    background: #f57c00;
-  }
-  
-  @media (max-width: 768px) {
-    padding: 6px 12px;
-    font-size: 13px;
-    margin-top: 8px;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 5px 10px;
-    font-size: 12px;
-    margin-top: 6px;
-  }
+  margin-left: auto;
+  align-self: center;
+
+  &:hover { background: ${props => props.theme.buttonSecondary}; }
+  &:focus-visible { outline: 3px solid ${props => props.theme.warning}; outline-offset: 2px; }
 `;
 
-const PreflopMessage = styled.div`
-  text-align: center;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  border: 2px dashed #dee2e6;
-  
-  @media (max-width: 768px) {
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-  
-  h4 {
-    color: #6c757d;
-    margin: 0 0 10px 0;
-    
-    @media (max-width: 768px) {
-      font-size: 16px;
-    }
-    
-    @media (max-width: 480px) {
-      font-size: 14px;
-    }
-  }
-  
-  p {
-    color: #6c757d;
-    margin: 0;
-    font-size: 14px;
-    
-    @media (max-width: 768px) {
-      font-size: 13px;
-    }
-    
-    @media (max-width: 480px) {
-      font-size: 12px;
-    }
-  }
-`;
+const isRed = card => card.endsWith('♥') || card.endsWith('♦');
 
-const BoardSelector = ({ flop, turn, river, onFlopChange, onTurnChange, onRiverChange, disabled = false }) => {
-  const clearFlop = () => onFlopChange([]);
-  const clearTurn = () => onTurnChange(null);
-  const clearRiver = () => onRiverChange(null);
+const BoardSelector = ({
+  flop = [],
+  turn = null,
+  river = null,
+  onFlopChange,
+  onTurnChange,
+  onRiverChange,
+  blockedCards = []
+}) => {
+  const board = [...flop, turn, river].filter(Boolean);
+  const full = flop.length === 3 && !!turn && !!river;
 
-  const removeFlopCard = (card) => {
-    onFlopChange(flop.filter(c => c !== card));
+  const pick = (card) => {
+    // Clicking a card that is already on the board removes it
+    if (flop.includes(card)) return onFlopChange(flop.filter(c => c !== card));
+    if (turn === card) return onTurnChange(null);
+    if (river === card) return onRiverChange(null);
+
+    if (flop.length < 3) onFlopChange([...flop, card]);
+    else if (!turn) onTurnChange(card);
+    else if (!river) onRiverChange(card);
   };
 
-  // Debug logging
+  const clearAll = () => {
+    onFlopChange([]);
+    onTurnChange(null);
+    onRiverChange(null);
+  };
+
+  const renderChip = (card, onRemove) => (
+    <Chip key={card} $red={isRed(card)}>
+      {card}
+      <RemoveButton type="button" aria-label={`Remove ${card}`} onClick={onRemove}>×</RemoveButton>
+    </Chip>
+  );
 
   return (
-    <div style={{ opacity: disabled ? 0.5 : 1, pointerEvents: disabled ? 'none' : 'auto' }}>
-      {disabled && (
-        <PreflopMessage>
-          <h4>🃏 Preflop Mode</h4>
-          <p>
-            Community cards are not available in preflop mode. Switch to Postflop to analyze with community cards.
-          </p>
-        </PreflopMessage>
-      )}
+    <div>
+      <Slots>
+        <Group>
+          <span>Flop</span>
+          <div>
+            {[0, 1, 2].map(i => flop[i]
+              ? renderChip(flop[i], () => onFlopChange(flop.filter(c => c !== flop[i])))
+              : <Placeholder key={`flop-${i}`}>Flop</Placeholder>)}
+          </div>
+        </Group>
+        <Group>
+          <span>Turn</span>
+          <div>{turn ? renderChip(turn, () => onTurnChange(null)) : <Placeholder>Turn</Placeholder>}</div>
+        </Group>
+        <Group>
+          <span>River</span>
+          <div>{river ? renderChip(river, () => onRiverChange(null)) : <Placeholder>River</Placeholder>}</div>
+        </Group>
+        {board.length > 0 && <ClearButton type="button" onClick={clearAll}>Clear board</ClearButton>}
+      </Slots>
 
+      <DeckGrid
+        selected={board}
+        blocked={blockedCards}
+        disabled={full}
+        onPick={pick}
+        label="Pick a community card"
+      />
 
-      
-      <BoardSection>
-        <BoardTitle>Flop (3 cards)</BoardTitle>
-        {flop.length < 3 && (
-          <CardSelector
-            selectedCards={flop}
-            onCardsChange={onFlopChange}
-            maxCards={3}
-            title=""
-          />
-        )}
-        
-        {/* Show flop cards when CardSelector is hidden */}
-        {flop.length === 3 && (
-          <BoardCards>
-            {flop.map((card, index) => (
-              <BoardCard key={`flop-${card}-${index}`} style={{ borderColor: '#4CAF50' }}>
-                {card}
-                <RemoveButton onClick={() => removeFlopCard(card)}>×</RemoveButton>
-              </BoardCard>
-            ))}
-          </BoardCards>
-        )}
-        
-        {flop.length > 0 && <ClearButton onClick={clearFlop}>Clear Flop</ClearButton>}
-      </BoardSection>
-
-      <BoardSection>
-        <BoardTitle>Turn (1 card)</BoardTitle>
-        {!turn && (
-          <CardSelector
-            selectedCards={[]}
-            onCardsChange={(cards) => onTurnChange(cards[0] || null)}
-            maxCards={1}
-            title=""
-          />
-        )}
-        
-        {/* Show turn card when selected */}
-        {turn && (
-          <BoardCards>
-            <BoardCard key="turn" style={{ borderColor: '#FF9800' }}>
-              {turn}
-              <RemoveButton onClick={clearTurn}>×</RemoveButton>
-            </BoardCard>
-          </BoardCards>
-        )}
-        
-        {turn && <ClearButton onClick={clearTurn}>Clear Turn</ClearButton>}
-      </BoardSection>
-
-      <BoardSection>
-        <BoardTitle>River (1 card)</BoardTitle>
-        {!river && (
-          <CardSelector
-            selectedCards={[]}
-            onCardsChange={(cards) => onRiverChange(cards[0] || null)}
-            maxCards={1}
-            title=""
-          />
-        )}
-        
-        {/* Show river card when selected */}
-        {river && (
-          <BoardCards>
-            <BoardCard key="river" style={{ borderColor: '#2196F3' }}>
-              {river}
-              <RemoveButton onClick={clearRiver}>×</RemoveButton>
-            </BoardCard>
-          </BoardCards>
-        )}
-        
-        {river && <ClearButton onClick={clearRiver}>Clear River</ClearButton>}
-      </BoardSection>
+      <Count>Board: {board.length}/5</Count>
     </div>
   );
 };
 
-export default BoardSelector; 
+export default BoardSelector;
