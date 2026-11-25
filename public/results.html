@@ -1918,7 +1918,10 @@
                 applyFilterAndDisplay();
                 $('lastLoaded').textContent = sheetUpdatedAt
                     ? 'Updated ' + sheetUpdatedAt.toLocaleString([], { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
-                    : '';
+                    : (() => {
+                        const games = buildGames(dropFutureGames(allResults), knownPlayers, sheetNewestFirst).filter(g => g.completed);
+                        return games.length ? 'Updated ' + formatShortDate(games[games.length - 1]) : '';
+                    })();
             } catch (error) {
                 showError(error.message || 'Could not load results.');
             }
