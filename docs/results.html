@@ -1684,8 +1684,14 @@
             if (!response.ok) {
                 throw new Error('Could not load the Google Sheet (HTTP ' + response.status + ').');
             }
+            // Last-Modified is only readable if the server exposes it to the browser; otherwise null.
+            const lm = response.headers.get('Last-Modified');
+            const lmDate = lm ? new Date(lm) : null;
+            sheetUpdatedAt = lmDate && !isNaN(lmDate) ? lmDate : null;
             return parseCSV(await response.text());
         }
+
+        let sheetUpdatedAt = null;
 
         // Populate year options in the time-window select (call once when allResults is set)
         function populateTimeWindowSelect() {
@@ -1910,8 +1916,9 @@
                 sheetNewestFirst = detectNewestFirst(allResults);
                 populateTimeWindowSelect();
                 applyFilterAndDisplay();
-                $('lastLoaded').textContent =
-                    'Updated from Google Sheets at ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                $('lastLoaded').textContent = sheetUpdatedAt
+                    ? 'Updated ' + sheetUpdatedAt.toLocaleString([], { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+                    : '';
             } catch (error) {
                 showError(error.message || 'Could not load results.');
             }
