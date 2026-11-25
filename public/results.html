@@ -790,7 +790,6 @@
                     <div class="year-picker">
                         <label for="timeWindowSelect">Year</label>
                         <select id="timeWindowSelect" class="time-window-select">
-                            <option value="last2years">Last 2 years (default)</option>
                             <!-- Year options filled by JS -->
                             <option value="alltime">All-time</option>
                         </select>
@@ -1305,15 +1304,6 @@
         // Filter results by time window; returns a new array (no mutation of the input)
         function filterResultsByTimeWindow(results, windowValue, now) {
             if (!windowValue || windowValue === 'alltime') return [...results];
-            if (windowValue === 'last2years') {
-                const cutoff = new Date(now || new Date());
-                cutoff.setMonth(cutoff.getMonth() - 24);
-                const cutoffKey = calendarKeyOf(cutoff);
-                return results.filter(r => {
-                    const c = parseCalendarDate(r.date);
-                    return c && c.key > cutoffKey;
-                });
-            }
             const year = parseInt(windowValue, 10);
             if (isNaN(year)) return [...results];
             return results.filter(r => {
@@ -1324,11 +1314,10 @@
 
         // Human-readable label for the current time window
         function getTimeWindowLabel(value) {
-            if (value === 'last2years') return 'Last 2 years';
             if (value === 'alltime') return 'All-time';
             const y = parseInt(value, 10);
             if (!isNaN(y)) return String(y);
-            return 'Last 2 years';
+            return 'All-time';
         }
 
         // Parse CSV text into an array of objects keyed by header. Handles quoted cells,
@@ -1566,6 +1555,22 @@
             return `${String(game.cal.d).padStart(2, '0')} ${MONTH_ABBR[game.cal.m - 1]} ${game.cal.y}`;
         }
 
+        const STREAK_HEADLINES = ['is on a roll', 'can\'t be stopped', 'is heating up'];
+        const STREAK_HEADLINES_PLURAL = ['are on a roll', 'can\'t be stopped', 'are heating up'];
+        const STREAK_QUIPS = [
+            'Someone check the sleeves.',
+            'Cards are running hot.',
+            'Is the deck marked?',
+            'Someone else deal for a change.',
+            'Someone check under Adrian\'s chair.'
+        ];
+        const NO_STREAK_HEADLINES = [
+            'The crown is changing hands',
+            'Wide open: nobody has a run going',
+            'Anyone\'s game right now'
+        ];
+        function pickRandom(list) { return list[Math.floor(Math.random() * list.length)]; }
+
         // Content for the three highlight cards.
         function computeHighlights(chrono, now) {
             const currentYear = (now || new Date()).getFullYear();
@@ -1586,15 +1591,22 @@
                 streaks.forEach(s => { if (s.length > longest) longest = s.length; });
                 const featured = longest >= 2 ? [...streaks.values()].filter(s => s.length === longest) : [];
                 if (!featured.length) {
-                    form = { headline: 'The crown is changing hands', detail: 'No active streak of two or more games.' };
+                    const recent = chrono.slice(-5);
+                    const distinct = new Set(recent.flatMap(g => [...g.winnerKeys])).size;
+                    form = {
+                        headline: pickRandom(NO_STREAK_HEADLINES),
+                        detail: recent.length >= 3
+                            ? `${plural(distinct, 'different winner', 'different winners')} in the last ${numberWord(recent.length).toLowerCase()} games.`
+                            : 'No active streak of two or more games.'
+                    };
                 } else {
                     // Every featured player's streak spans the same latest games, so the kinds are identical.
                     const kinds = featured[0].kinds;
                     const word = kinds.every(Boolean) ? 'shared wins' : kinds.every(k => !k) ? 'solo wins' : 'wins';
                     const names = featured.map(s => s.name);
                     form = {
-                        headline: `${joinNames(names)} ${names.length > 1 ? 'are' : 'is'} on a roll`,
-                        detail: `${numberWord(longest)} consecutive ${word}. Someone check the sleeves.`
+                        headline: `${joinNames(names)} ${pickRandom(names.length > 1 ? STREAK_HEADLINES_PLURAL : STREAK_HEADLINES)}`,
+                        detail: `${numberWord(longest)} consecutive ${word}. ${pickRandom(STREAK_QUIPS)}`
                     };
                 }
             }
@@ -1680,9 +1692,7 @@
             const select = $('timeWindowSelect');
             const years = getYearsInData(allResults);
             const allTimeOpt = select.querySelector('option[value="alltime"]');
-            const last2Opt = select.querySelector('option[value="last2years"]');
             select.innerHTML = '';
-            select.appendChild(last2Opt);
             years.forEach(y => {
                 const opt = document.createElement('option');
                 opt.value = String(y);
@@ -1690,7 +1700,7 @@
                 select.appendChild(opt);
             });
             select.appendChild(allTimeOpt);
-            select.value = 'last2years';
+            select.value = years.length ? String(years[0]) : 'alltime';  // default: newest year
         }
 
         // Apply the current time window and redraw every section from the same filtered games.
